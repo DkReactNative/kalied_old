@@ -1,0 +1,262 @@
+<header *ngIf="!global.isLogin">
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg">
+      <div class="navbar-brand">
+        <a class="navbar-brandin" href="javascript:;" [routerLink]="['home']">
+          <img src="assets/images/logo.svg" />
+        </a>
+      </div>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <!-- <li class="nav-item">
+                        <a class="nav-link active" href="javascript:;" [routerLink]="['login']" routerLinkActive="active">DASHBOARD </a>
+                    </li> -->
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              href="javascript:;"
+              [routerLink]="['client/find-freelancers/2']"
+              routerLinkActive="active"
+              >FIND FREELANCERS
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="javascript:;"
+              [routerLink]="['find-job']"
+              routerLinkActive="active"
+              >FIND WORK</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="javascript:;"
+              [routerLink]="['about-us']"
+              routerLinkActive="active"
+              >ABOUT US</a
+            >
+          </li>
+        </ul>
+        <a
+          href="javascript:;"
+          *ngIf="!global.isLogin"
+          [routerLink]="['login']"
+          class="btn btn-orange ml-5"
+          >Sign in</a
+        >
+        <a
+          href="javascript:;"
+          *ngIf="global.isLogin"
+          class="btn btn-orange ml-5"
+          >{{ global.user ? global.user.first_name : "USER" }}</a
+        >
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- after login header -->
+
+<div class="inner-nav-pg" *ngIf="global.isLogin">
+  <header>
+    <div class="container-fluid">
+      <nav class="navbar navbar-expand-lg">
+        <div class="navbar-brand">
+          <a class="navbar-brandin" href="javascript:;" [routerLink]="['home']">
+            <img src="assets/images/logo.svg" />
+          </a>
+        </div>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item" *ngIf="global.user.role == 3">
+              <a
+                class="nav-link active"
+                href="javascript:;"
+                [routerLink]="[
+                  global.user.role == 2
+                    ? 'client/dashboard'
+                    : global.user.role == 3
+                    ? 'freelancer/dashboard'
+                    : 'login'
+                ]"
+                routerLinkActive="active"
+                >DASHBOARD
+              </a>
+            </li>
+            <li class="nav-item" *ngIf="global.user">
+              <a
+                class="nav-link active"
+                href="javascript:;"
+                [routerLink]="[
+                  global.user.role == 2
+                    ? 'client/find-freelancers/2'
+                    : 'freelancer/my-projects'
+                ]"
+                routerLinkActive="active"
+                >{{
+                  global.user.role == 2 ? "Find Freelancers" : "My Projects"
+                }}
+              </a>
+            </li>
+            <li class="nav-item" *ngIf="global.user">
+              <a
+                class="nav-link"
+                href="javascript:;"
+                [routerLink]="[
+                  global.user.role == 2 ? 'project/create1' : 'find-job'
+                ]"
+                routerLinkActive="active"
+                >{{ global.user.role == 2 ? "Post Job" : "Job Listings" }}</a
+              >
+            </li>
+            <li class="nav-item" *ngIf="global.user">
+              <a
+                class="nav-link"
+                href="javascript:;"
+                [routerLink]="[
+                  global.user.role == 2
+                    ? 'client/my-projects'
+                    : 'freelancer/profile/5'
+                ]"
+                routerLinkActive="active"
+                >{{
+                  global.user.role == 2 ? "My Projects" : "Manage Portfolio"
+                }}</a
+              >
+            </li>
+          </ul>
+          <div class="noti-f">
+            <div class="btn-group pull-right top-head-dropdown">
+              <button
+                type="button"
+                class="btn btn-default dropdown-toggle"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+                style="background-color: black"
+              >
+                <i class="far fa-bell"></i
+                ><!-- <span class="caret"></span> -->
+              </button>
+              <div class="dropdown-menu dropdown-menu-right noti-msg">
+                <div class="noti-in">
+                  <ul class="loader-up">
+                    <li>
+                      <a href="javascript:;">
+                        A project that you submitted for, UI/UX designer, has
+                        been closed or has expired. Your
+                        <span> proposal </span> has been archived.
+                      </a>
+                      <button class="btn btn-close-noti">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </li>
+                    <li>
+                      <a href="javascript:;">
+                        A project that you submitted for, UI/UX designer, has
+                        been closed or has expired. Your
+                        <span> proposal </span> has been archived.
+                      </a>
+                      <button class="btn btn-close-noti">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </li>
+                    <li>
+                      <a href="javascript:;">
+                        A project that you submitted for, UI/UX designer, has
+                        been closed or has expired. Your
+                        <span> proposal </span> has been archived.
+                      </a>
+                      <button class="btn btn-close-noti">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </li>
+                    <li>
+                      <a href="javascript:;">
+                        A project that you submitted for, UI/UX designer, has
+                        been closed or has expired. Your
+                        <span> proposal </span> has been archived.
+                      </a>
+                      <button class="btn btn-close-noti">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </li>
+                    <li>
+                      <a href="javascript:;">
+                        A project that you submitted for, UI/UX designer, has
+                        been closed or has expired. Your
+                        <span> proposal </span> has been archived.
+                      </a>
+                      <button class="btn btn-close-noti">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </li>
+                  </ul>
+                  <div class="loader-topbar">
+                    <a href="javascript:;" [routerLink]="['notification']"
+                      >SEE ALL NOTIFICATIONS</a
+                    >
+                  </div>
+                </div>
+              </div>
+              <!-- </ul> -->
+            </div>
+          </div>
+          <div class="dropdown aw-user">
+            <button
+              class="btn"
+              type="button"
+              id="dropdownMenuButton"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <img
+                [src]="
+                  global.user.image
+                    ? global.user.image
+                    : 'assets/images/account.jpg'
+                "
+              />
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <a
+                class="dropdown-item"
+                href="javascript:;"
+                (click)="goToMyProfile()"
+                >My Profile</a
+              >
+              <a class="dropdown-item" (click)="logout()" href="javascript:;"
+                >Log out</a
+              >
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+</div>

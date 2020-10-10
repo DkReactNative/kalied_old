@@ -1,0 +1,140 @@
+<app-admin-header [user]="user" [globalSettings]="globalSettings"></app-admin-header>
+<app-admin-sidebar [user]="user" [globalSettings]="globalSettings"></app-admin-sidebar>
+
+<div class="content-wrapper">
+	<section class="content-header">
+		<h1>
+			{{pageTitle}} List
+		</h1>
+	</section>
+
+	<section class="content">
+		<!-- <div class="row">
+			<div class="col-xs-12">
+				<div class="box box-primary">
+					<div class="box-body">
+						<a class="btn btn-success" routerLink="/{{pageSlug}}/create" >
+							Create {{pageTitle}}
+						</a>
+					</div>
+				</div>
+			</div>
+		</div> -->
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box box-primary">
+					<div class="box-header">
+						<h4>Search</h4>
+					</div>
+					<div class="box-body">
+						<form #searchForm="ngForm" (ngSubmit)="getRecords(1)">
+							<div class="col-lg-3 col-md-3 col-xs-12">
+								<label>Search</label>
+								<input type="text" [(ngModel)]="searchData.keyword" #name="ngModel" name="keyword" id="name" placeholder="Enter keyword" class="form-control" minlength="1" maxlength="55">
+							</div>
+							 <div class="col-lg-3 col-md-3 col-xs-12">
+								<label>From </label>
+								<!-- <input type="text" [(ngModel)]="searchData.email"  #email="ngModel" name="email" id="email" placeholder="Enter Email" class="form-control" minlength="1"> -->
+								<input matInput [matDatepicker]="picker1" name="from" placeholder="Choose a date" [(ngModel)]="searchData.start_date" class="form-control" (click)="picker1.open()">
+								<mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+								<mat-datepicker #picker1></mat-datepicker>
+                            </div> 
+                            <div class="col-lg-3 col-md-3 col-xs-12">
+								<label>To </label>							
+								<input matInput [matDatepicker]="picker2" name="to" placeholder="Choose a date" [(ngModel)]="searchData.end_date" class="form-control" (click)="picker2.open()">
+								<mat-datepicker-toggle matSuffix [for]="picker2" style="margin-top: -20px;"></mat-datepicker-toggle>
+								<mat-datepicker #picker2></mat-datepicker >								
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-xs-12">
+								<label>Business type </label>
+								<select [(ngModel)]="searchData.businesstype" #type="ngModel" name="businesstype" required class="form-control">
+									<option value="">All</option>
+                                    <option value="1">Small Business</option>
+                                    <option value="2">Enterprise Business</option>                                    
+                                </select>
+							</div>
+							<div class="col-lg-3 col-md-6 col-xs-12" style="display: flex;flex-direction: row;margin-top: 10px">
+								<label>&nbsp;</label>
+								<button type="submit" class="btn btn-primary form-control" style="margin-right: 10px">Search</button>
+								<button type="button" class="btn btn-primary form-control" (click)="Reset()">Reset</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box box-primary">
+					<!-- /.box-header -->
+					<div class="box-body">
+						<table id="listind_table" class="table table-bordered table-hover datatable cell-border compact stripe hover">
+							<thead>
+								<tr>
+									<th>S.No</th>									
+									<th>First Name</th>
+									<th>Last Name</th>
+                                    <th>Email</th>
+									<th>Company</th>
+									<th>Business</th>
+									<th>Status</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let record of data.records;index as i;" class="table-resonsive">
+									<td>{{((page-1)*perPage)+i+1}}.</td>				
+									
+									<td>{{record.first_name?record.first_name: "N/A" }}</td>
+									
+									<td>{{record.last_name?record.last_name: "N/A" }}</td>				
+                                    <td>{{record.email}}</td>
+									<td>{{record.companyname}}</td>
+									<td>{{record.businesstype=='1'?'Small Business':'Enterprise Business'}}</td>
+									<td>
+										<button *ngIf="record.status===2" (click)="StatusUpdate(record._id,i,1)" type="button"
+											class="btn btn-danger">Inactive</button>
+										<button *ngIf="record.status===1" (click)="StatusUpdate(record._id,i,2)" type="button"
+											class="btn btn-info">Active</button>
+										<!-- <button *ngIf="record.approved===0" (click)="ApproveUser(record._id,i,1)" type="button"
+											class="btn btn-info">Approve</button> -->
+									</td>
+									<td> 
+										<a href="javascript:void(0)" class="btn btn-primary btn-style"
+											routerLink="/admin/client/edit/{{record._id}}">Edit</a>
+										&nbsp;
+										<a href="javascript:void(0)" class="btn btn-danger btn-style"
+											(click)="deleteRecord(record._id,i)">Delete</a>
+											&nbsp;
+										<a href="javascript:void(0)" class="btn btn-success btn-style"
+											*ngIf="record.approved===0" (click)="ApproveUser(record._id,i,1)" style="width: 80px">Approve</a>
+										&nbsp;
+										<a type="button" class="btn btn-info btn-style" routerLink="/admin/client/view/{{record._id}}">View</a>
+									</td>
+                			</tr>
+                <tr *ngIf="!data.records">
+                  <td colspan="100%">
+                    <h1 class="text-center">No {{pageTitle}} Found</h1>
+                  </td>
+                </tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="box-footer clearfix">
+						<ul class="pagination pagination-sm no-margin pull-right" *ngIf="totalPages > 1">
+							<li *ngIf="page > 1"><a href="javascript:;" (click)="getRecords(1)"><<</a></li>
+							<li *ngIf="page > 1"><a href="javascript:;" (click)="getRecords(page-1)">&laquo;</a></li>
+							<li *ngIf="pagination.length > perPage && page > 2"><a href="javascript:;">...</a></li>
+							<li *ngFor="let n of pagination;" [class.active]="n==page"><a *ngIf="n==page-1 || n==page || n==page+1" href="javascript:;" (click)="getRecords(n)" >{{n}}</a></li>
+							<li *ngIf="pagination.length > perPage && (page+1) < pagination.length"><a href="javascript:;">...</a></li>
+							<li *ngIf="page < totalPages"><a href="javascript:;" (click)="getRecords(page+1)">&raquo;</a></li>
+							<li *ngIf="page < totalPages"><a href="javascript:;" (click)="getRecords(pagination.length)">>></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</div>
+
+<app-admin-footer [globalSettings]="globalSettings"></app-admin-footer>

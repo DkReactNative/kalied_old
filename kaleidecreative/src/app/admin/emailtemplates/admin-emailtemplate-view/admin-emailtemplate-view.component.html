@@ -1,0 +1,53 @@
+<app-admin-header [user]="user" [globalSettings]="globalSettings"></app-admin-header>
+<app-admin-sidebar [user]="user" [globalSettings]="globalSettings"></app-admin-sidebar>
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      {{pageTitle}}
+      <small>View</small>
+    </h1>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box box-primary">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <table class="table">
+            <body>
+            <tr>
+              <td id="td-des">Title :</td>
+              <td id="td-data">{{ record.title }}</td>
+            </tr>
+            <tr>
+              <td id="td-des">Subject :</td>
+              <td id="td-data">{{ record.subject? record.subject:"NA"}}</td>
+            </tr>
+            <tr>
+              <td id="td-des">Content :</td>
+              <td id="td-data" [innerHTML]="record.content"></td>
+            </tr>
+            <tr>
+              <td id="td-des">Status :</td>
+              <td id="td-data">{{ (record.status == 1) ? 'Active' : 'Inactive' }}</td>
+            </tr>
+           </body>
+          </table>
+            <div class="row">
+              <div class="box-body text-center">
+                <a class="btn btn-primary" routerLink="/admin/emailtemplate">Back</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+
+
+<app-admin-footer [globalSettings]="globalSettings"></app-admin-footer>

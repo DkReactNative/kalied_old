@@ -1,0 +1,28 @@
+ <div class="inner-wraper inner-hmain-bg">
+          <div class="container">
+            <div class="profile-setting d-flex">
+             <app-profile-side-menu></app-profile-side-menu>
+              <div class="pro-set-right ml-auto">
+                <div class="pro-head-bar">
+                  <h4>Notification settings</h4>
+                </div>
+                <div class="pro-right-container">
+                  <div class="noti-satings">
+                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+                    </p>
+                    
+                    <!-- Default checked -->
+                    <div class="pdd-noti">
+                      <h4>Connect email notification</h4>
+                      <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="customSwitch1" checked [(ngModel)]="notification"
+                        [ngModelOptions]="{standalone: true}" (click)="updateProfile()">
+                        <label class="custom-control-label" for="customSwitch1"></label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+     </div>

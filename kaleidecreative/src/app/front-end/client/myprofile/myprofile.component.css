@@ -1,0 +1,23 @@
+.text-center-class {
+	isplay: flex;
+    justify-content: center; 
+    align-items: center;
+}
+/*#file-input {
+  cursor: pointer;
+  outline: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  filter: alpha(opacity=0); /* IE < 9 */
+ /* opacity: 0;
+}*/
+
+#input-label {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+}

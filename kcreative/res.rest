@@ -1,0 +1,8 @@
+
+Get http://localhost:8080/
+
+###
+
+POST http://localhost:8080/webservice/user/login
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundaryyzhqmmBK1eOQjTpb
+Form Data: page: 1 role: 2 keyword: date1: date2: businesstype: 

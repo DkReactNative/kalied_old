@@ -1,0 +1,258 @@
+<app-admin-header
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-header>
+<app-admin-sidebar
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-sidebar>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" style="min-height: 100% !important;">
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="nav-tabs-custom">
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a href="javascript:;" data-toggle="tab"> {{ pageTitle }}</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="active tab-pane" id="global">
+              <form
+                #newRecordForm="ngForm"
+                (ngSubmit)="
+                  !newRecordForm.invalid && newRecordSubmit(newRecordForm.value)
+                "
+                class="form-horizontal"
+              >
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label">Name :</label>
+                  <div class="col-sm-5">
+                    <input
+                      [(ngModel)]="newRecordByAdmin.name"
+                      #name="ngModel"
+                      name="name"
+                      minlength="3"
+                      maxlength="55"
+                      required
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter Name"
+                      class="form-control"
+                    />
+                    <div
+                      *ngIf="
+                        (name.invalid && (name.dirty || name.touched)) ||
+                        newRecordForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="name.hasError('required')"
+                        >Name is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="name.hasError('minlength')"
+                      >
+                        Name must be at least 3 characters long</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="name.hasError('maxlength')"
+                      >
+                        Name can not be max 55 characters long</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label">About :</label>
+                  <div class="col-sm-5">
+                    <input
+                      [(ngModel)]="newRecordByAdmin.about"
+                      #about="ngModel"
+                      name="about"
+                      minlength="3"
+                      maxlength="200"
+                      required
+                      type="text"
+                      class="form-control"
+                      placeholder="Enter about info"
+                      class="form-control"
+                    />
+                    <div
+                      *ngIf="
+                        (about.invalid && (about.dirty || about.touched)) ||
+                        newRecordForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="about.hasError('required')"
+                        >About is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="about.hasError('minlength')"
+                      >
+                        About must be at least 3 characters long</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="about.hasError('maxlength')"
+                      >
+                        About can not be max 200 characters long</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label"
+                    >Select Profession Type</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="radio"
+                      [(ngModel)]="newRecordByAdmin.profession"
+                      #profession="ngModel"
+                      [value]="1"
+                      name="profession"
+                      id="businesstype1"
+                      required
+                    /><label for="businesstype1">Editor</label>
+                    <input
+                      type="radio"
+                      [(ngModel)]="newRecordByAdmin.profession"
+                      #profession="ngModel"
+                      [value]="2"
+                      name="profession"
+                      id="businesstype2"
+                      required
+                    /><label for="businesstype2">Graphic Designer</label>
+                    <div
+                      *ngIf="
+                        (profession.invalid &&
+                          (profession.dirty || profession.touched)) ||
+                        newRecordForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="profession.hasError('required')"
+                        >Profession Type is required</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="image"
+                    >Image</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="file"
+                      placeholder="Enter Image"
+                      #fileInput
+                      name="image"
+                      id="image"
+                      accept=".png, .jpg, .jpeg"
+                      (change)="uploadFile($event)"
+                      class="form-control"
+                      value="{{ imageUrl }}"
+                    />
+                    <img
+                      id="imageUrl"
+                      class="img-responsive"
+                      src="{{ newRecordByAdmin.image }}"
+                      alt="profile picture"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="comment"
+                    >Creative Comment</label
+                  >
+                  <div class="col-sm-5">
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      placeholder="Description"
+                      [(ngModel)]="newRecordByAdmin.comment"
+                      name="comment"
+                      id="comment"
+                      #comment="ngModel"
+                      maxlength="2000"
+                      required
+                    ></textarea>
+                    <div
+                      *ngIf="
+                        (comment.invalid &&
+                          (comment.dirty || comment.touched)) ||
+                        newRecordForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="comment.hasError('required')"
+                      >
+                        Description is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="comment.hasError('maxlength')"
+                      >
+                        Description should not exceed 2000 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="copyright"></label>
+                  <div class="col-sm-2" style="display: flex;">
+                    <a
+                      class="btn btn-primary btn-block btn-flat"
+                      routerLink="/admin/creative-professionls"
+                      >Back</a
+                    >&nbsp;
+                    <a
+                      style="margin-top: 0px;"
+                      href="javascript:;"
+                      class="btn btn-primary btn-block btn-flat"
+                      (click)="
+                        !newRecordForm.invalid &&
+                          newRecordSubmit(newRecordForm.value)
+                      "
+                      >Update</a
+                    >
+                  </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-xs-4"> </div>                   
+                    <div class="col-xs-4">
+                      <button type="submit" class="btn btn-primary btn-block btn-flat">Update</button>
+                    </div>                    
+                    <div class="col-xs-4"> </div>
+                  </div> -->
+              </form>
+            </div>
+            <!-- /.tab-pane -->
+          </div>
+          <!-- /.tab-content -->
+        </div>
+        <!-- /.nav-tabs-custom -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>
+<app-admin-footer [globalSettings]="globalSettings"></app-admin-footer>

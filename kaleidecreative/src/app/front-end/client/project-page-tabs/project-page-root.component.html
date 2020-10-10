@@ -1,0 +1,62 @@
+<!-- inner-wraper -->
+<div class="inner-wraper inner-hmain-bg">
+  <div class="container">
+    <!-- Inner wraper -->
+    <div class="dash-main-pdd">
+      <h4 class="ject-4">{{ projectInfo?.title }}</h4>
+      <div class="project-btn">
+        <ul class="navbar-nav flex-column flex-sm-row">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="javascript:;"
+              [routerLink]="[
+                '/user/client/project/description/' + Btoa(this.projectId)
+              ]"
+              routerLinkActive="active"
+              ><i class="fas fa-clipboard-list"></i>Description</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="javascript:;"
+              [routerLink]="[
+                '/user/client/project/candidates/' + Btoa(this.projectId)
+              ]"
+              routerLinkActive="active"
+              ><i class="fas fa-user-friends"></i>Candidates</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="javascript:;"
+              [routerLink]="[
+                '/user/client/project/message/' + Btoa(this.projectId)
+              ]"
+              routerLinkActive="active"
+              ><i class="fas fa-comment-dots"></i>Message</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="javascript:;"
+              [routerLink]="[
+                '/user/client/project/payment/' + Btoa(this.projectId)
+              ]"
+              routerLinkActive="active"
+              ><i class="fas fa-money-check-alt"></i>Payment</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="createdashboard">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+    <!-- Inner wraper -->
+  </div>
+</div>
+<!-- inner-wraper -->

@@ -1,0 +1,137 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>:: KaleideCreative ::</title>
+    <!--responsive-meta-here-->
+    <meta name="viewport" content="minimum-scale=1.0, maximum-scale=1.0,width=device-width, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <!--responsive-meta-end-->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="assets/css/fontawesome-all.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/mdb.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/fontawesome-all.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/fontawesome.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="assets/css/style.css" rel="stylesheet"/>
+  </head>
+<body>
+  <div class="wraper">
+    <div class="process-form d-flex justify-content-center align-items-center">
+      <div class="process-form-in">
+        <div class="form-logo text-center">
+          <a href="javascript:;">
+            <img src="assets/images/logo.svg">
+          </a>
+        </div>
+        <div class="form-text text-center">
+          <h4>Setup your email and password</h4>
+        </div>
+        <div class="login-form">
+          <div class="form-group">
+            <input type="email" class="form-control" placeholder="Email Address">
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" placeholder="Password">
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" placeholder="Confirm Password">
+          </div>
+          <div class="radio-sec">
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+              <label class="custom-control-label" for="customRadioInline1">I am a Client</label>
+            </div>
+            <div class="custom-control custom-radio custom-control-inline">
+              <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+              <label class="custom-control-label" for="customRadioInline2">I am a Freelancer</label>
+            </div>
+          </div>
+          <div class="sigup-btt-sec">
+            <button class="btn btn-yellow">Back</button>
+            <button class="btn btn-orange">Signup</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+<script type="text/javascript" src="assets/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="assets/js/popper.min.js"></script>  
+<script type="text/javascript" src="assets/js/bootstrap.min.js"></script> 
+<script type="text/javascript" src="assets/js/owl.carousel.min.js"></script>  
+<script type="text/javascript">
+  $('.editors-owl,.graphics-owl,.camera-owl').owlCarousel({
+    loop:true,
+    margin:15,
+    nav:true,
+    dot:true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:1
+        },
+        1000:{
+            items:1
+        }
+    }
+  }),
+  
+  $('.team-slider').owlCarousel({
+    loop: true,
+    rewind: true,
+    nav:true,
+    center:true,
+    dot:true,
+    mouseDrag: false,
+    // startPosition: 3,
+    responsive:{
+        0:{
+            items:3
+        },
+        600:{
+            items:5
+        },
+        1000:{
+            items:7
+        }
+    }
+  })
+  .on('changed.owl.carousel', function(event) {
+    var current = event.item.index;
+    var p = $(event.target).find(".owl-item").eq(current).find(".team-review-hidden p").html();
+    $(".team-home .team-review p").text(p);
+  })
+  // .on('click', '.owl-item', function(event) {
+  //     var target = jQuery(this).index();
+  //     console.log(target)
+  //     $('.team-slider').trigger('to.owl.carousel', target);
+  // });
+  
+  $('.testimonials').owlCarousel({
+    loop:true,
+    margin:15,
+    nav:true,
+    dot:true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:1
+        },
+        1000:{
+            items:1
+        }
+    }
+  })
+
+  
+  // header sticky
+  $(window).scroll(function(){var body=$('body'),scroll=$(window).scrollTop();if(scroll>=5){body.addClass('fixed');}else{body.removeClass('fixed');}});
+      
+   </script>
+</html>
+

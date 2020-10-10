@@ -1,0 +1,190 @@
+<app-admin-header
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-header>
+<app-admin-sidebar
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-sidebar>
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      {{ pageTitle }}
+      <small>View</small>
+    </h1>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box box-primary">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <table class="table">
+              <body>
+                <h2>Project Description</h2>
+                <tr>
+                  <td id="td-des">Client Name :</td>
+                  <td id="td-data">
+                    {{ data.User.first_name | titlecase }}
+                    {{ data.User.last_name | titlecase }}
+                  </td>
+                </tr>
+                <tr *ngIf="data?.title">
+                  <td id="td-des">Project Title :</td>
+                  <td id="td-data">{{ data.title }}</td>
+                </tr>
+                <tr *ngIf="data.description">
+                  <td id="td-des">Project Description :</td>
+                  <td id="td-data">{{ data.description | titlecase }}</td>
+                </tr>
+                <tr *ngIf="data.style">
+                  <td id="td-des">Style:</td>
+                  <td id="td-data">{{ data.style ? data.style : "N/A" }}</td>
+                </tr>
+                <tr *ngIf="data.skill_data && data.skill_data.length > 0">
+                  <td id="td-des" style="margin: auto">Skills :</td>
+                  <td id="td-data">
+                    <p class="s" *ngFor="let skill of data.skill_data">
+                      {{ skill.name }}
+                    </p>
+                  </td>
+                </tr>
+
+                <tr *ngIf="data.background">
+                  <td id="td-des">Background :</td>
+                  <td id="td-data">{{ data.background | titlecase }}</td>
+                </tr>
+
+                <h2>Inspiration</h2>
+                <tr *ngIf="data.images && data.images.length > 0">
+                  <td id="td-des">Images:</td>
+                  <td id="td-data">
+                    <div *ngFor="let image of data.images">
+                      <img
+                        id="imageUrl"
+                        src="{{ global.uploadUrl }}project/{{ image }}"
+                        alt="picture"
+                      />
+                    </div>
+                  </td>
+                </tr>
+                <tr *ngIf="data.video">
+                  <td id="td-des">Video:</td>
+                  <td id="td-data row">
+                    <div class="row margin-bottom">
+                      <div class="col-sm-4" *ngFor="let vid of data.video">
+                        <span style="word-break: break-all"
+                          >Description:{{ vid.description }}</span
+                        >
+                        <br />
+                        <iframe
+                          [src]="getVimeoId(vid.url)"
+                          frameborder="0"
+                          width="200px"
+                          allowfullscreen
+                          title="project"
+                        ></iframe>
+                        <br />
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+                <h2>Freelancer Requirements</h2>
+                <tr *ngIf="data.freelancer_type">
+                  <td id="td-des">Freelancer Type :</td>
+                  <td id="td-data">
+                    {{
+                      data.freelancer_type == 2
+                        ? "Editor"
+                        : data.freelancer_type == 1
+                        ? "Graphic Designer"
+                        : "NA"
+                    }}
+                  </td>
+                </tr>
+                <tr *ngIf="data.project_type">
+                  <td id="td-des" style="margin: auto">Project Type :</td>
+                  <td id="td-data">
+                    {{
+                      projecttype[data.project_type]
+                        ? projecttype[data.project_type]
+                        : "N/A"
+                    }}
+                  </td>
+                </tr>
+
+                <tr *ngIf="data.industry_data && data.industry_data.length > 0">
+                  <td id="td-des" style="margin: auto">Industry Type :</td>
+                  <td id="td-data">
+                    <p class="s" *ngFor="let skill of data.industry_data">
+                      {{ skill.name }}
+                    </p>
+                  </td>
+                </tr>
+                <tr *ngIf="data.genere_data && data.genere_data.length > 0">
+                  <td id="td-des" style="margin: auto">General Type :</td>
+                  <td id="td-data">
+                    <p class="s" *ngFor="let skill of data.genere_data">
+                      {{ skill.name }}
+                    </p>
+                  </td>
+                </tr>
+                <tr
+                  *ngIf="
+                    data.city && data.state && data.country && data.zipcode
+                  "
+                >
+                  <td id="td-des">Address:</td>
+                  <td id="td-data">
+                    {{ data.city }} {{ data.state }} {{ data.country }}
+                    {{ data.zipcode }}
+                  </td>
+                </tr>
+                <h2>Schedule and Budget</h2>
+                <tr *ngIf="data.payment_type">
+                  <td id="td-des">Payment Type:</td>
+                  <td id="td-data">{{ data.payment_type }}</td>
+                </tr>
+                <tr *ngIf="data.fixed_budget && data.fixed_budget.length > 0">
+                  <td id="td-des">Fixed Budget :</td>
+                  <td id="td-data">
+                    <p>{{ data.fixed_budget ? data.fixed_budget : "N/A" }}</p>
+                  </td>
+                </tr>
+                <tr *ngIf="data.hourly_rate">
+                  <td id="td-des">Hourly Amount:</td>
+                  <td id="td-data">
+                    {{ data.hourly_rate ? data.hourly_rate : "N/A" }}
+                  </td>
+                </tr>
+                <tr *ngIf="data.start_date">
+                  <td id="td-des">Start Date:</td>
+                  <td id="td-data">
+                    {{ moments(data.start_date).format("MM/DD/YYYY") }}
+                  </td>
+                </tr>
+                <tr *ngIf="data.end_date">
+                  <td id="td-des">End Date:</td>
+                  <td id="td-data">
+                    {{ moments(data.end_date).format("MM/DD/YYYY") }}
+                  </td>
+                </tr>
+              </body>
+            </table>
+            <div class="row">
+              <div class="box-body text-center">
+                <a class="btn btn-primary" routerLink="/admin/project">Back</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+
+<app-admin-footer [globalSettings]="globalSettings"></app-admin-footer>

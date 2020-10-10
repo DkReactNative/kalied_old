@@ -1,0 +1,128 @@
+<div class="pro-set-left">
+  <div class="pro-photo-set">
+    <div class="pro-photo">
+      <figure>
+        <div>
+          <img
+            [src]="
+              global.user.image
+                ? global.user.image
+                : 'assets/images/account.jpg'
+            "
+            style="height: 95px; width: 95px; object-fit: cover"
+          />
+        </div>
+      </figure>
+    </div>
+    <h6>{{ global.user.first_name }} {{ global.user.last_name }}</h6>
+    <p>{{ global.user.email }}</p>
+  </div>
+  <div class="pro-menu">
+    <ul>
+      <li class="collapse-datail" style="display: block">
+        <a
+          href="javascript:;"
+          [ngClass]="active ? 'acc-tit collapsed active' : 'acc-tit'"
+          type="button"
+          [attr.data-toggle]="'collapse'"
+          data-target="#company-details-nv"
+          aria-expanded="false"
+          aria-controls="company-details-nv"
+          [routerLink]="['/user/freelancer/profile/1']"
+          ><i class="fas fa-user"></i>My Details
+          <div class="acc-tit-icon"><i class="fas fa-caret-down"></i></div>
+        </a>
+        <div
+          [ngClass]="active ? 'collapse show' : 'collapse'"
+          id="company-details-nv"
+        >
+          <div class="in_menu">
+            <ul>
+              <li>
+                <a
+                  href="javascript:;"
+                  [routerLink]="['/user/freelancer/profile/1']"
+                  routerLinkActive="active"
+                  class="fix-box"
+                  ><i class="far fa-dot-circle align-self"></i>My Details</a
+                >
+              </li>
+              <li>
+                <a
+                  href="javascript:;"
+                  [routerLink]="['/user/freelancer/profile/2']"
+                  routerLinkActive="active"
+                  class="fix-box"
+                  ><i class="far fa-dot-circle align-self"></i>Skills and
+                  Awards</a
+                >
+              </li>
+              <li>
+                <a
+                  href="javascript:;"
+                  [routerLink]="['/user/freelancer/profile/3']"
+                  routerLinkActive="active"
+                  class="fix-box"
+                  ><i class="far fa-dot-circle align-self"></i>Expertise Level &
+                  Pricing</a
+                >
+              </li>
+              <li>
+                <a
+                  href="javascript:;"
+                  [routerLink]="['/user/freelancer/profile/4']"
+                  routerLinkActive="active"
+                  class="fix-box"
+                  ><i class="far fa-dot-circle align-self"></i>Add
+                  Recommendations</a
+                >
+              </li>
+              <li>
+                <a
+                  href="javascript:;"
+                  [routerLink]="['/user/freelancer/profile/5']"
+                  routerLinkActive="active"
+                  class="fix-box"
+                  ><i class="far fa-dot-circle align-self"></i>Manage Portfolio
+                  Videos</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </li>
+      <li>
+        <a
+          href="javascript:;"
+          [routerLink]="['/user/freelancer/change-password']"
+          routerLinkActive="active"
+          class="fix-box"
+          ><i class="fas fa-lock align-self"></i>Change Password</a
+        >
+      </li>
+      <li>
+        <a
+          href="javascript:;"
+          [routerLink]="['/user/freelancer/notification-setting']"
+          routerLinkActive="active"
+          class="fix-box"
+          ><i class="fas fa-bell align-self"></i>Notification Settings</a
+        >
+      </li>
+      <li>
+        <a
+          href="javascript:;"
+          [routerLink]="['/user/freelancer/payment-setting']"
+          routerLinkActive="active"
+          class="fix-box"
+          ><i class="fas fa-credit-card align-self"></i>Payment Settings</a
+        >
+      </li>
+      <li>
+        <a href="javascript:;" (click)="logout()"
+          ><i class="fas fa-sign-out"></i>Logout
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,151 @@
+<app-admin-header
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-header>
+<app-admin-sidebar
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-sidebar>
+
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      {{ pageTitle }}
+      <small>Edit</small>
+    </h1>
+  </section>
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box box-primary">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <form
+              #newRecordForm="ngForm"
+              (ngSubmit)="
+                !newRecordForm.invalid && newRecordSubmit(newRecordForm.value)
+              "
+            >
+              <div class="form-group has-feedback">
+                <label>Title :</label>
+                <input
+                  [(ngModel)]="newRecordByAdmin.title"
+                  #title="ngModel"
+                  name="title"
+                  minlength="3"
+                  maxlength="55"
+                  required
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Title"
+                />
+                <div
+                  *ngIf="
+                    (title.invalid && (title.dirty || title.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="title.hasError('required')"
+                    >Title is required</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="title.hasError('minlength')"
+                  >
+                    Title must be at least 3 characters long</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="title.hasError('maxlength')"
+                  >
+                    Title can not be max 55 characters long</span
+                  >
+                </div>
+              </div>
+              <div class="form-group has-feedback">
+                <label>Subject :</label>
+                <input
+                  [(ngModel)]="newRecordByAdmin.subject"
+                  #subject="ngModel"
+                  name="subject"
+                  minlength="3"
+                  maxlength="55"
+                  required
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Subject"
+                />
+                <div
+                  *ngIf="
+                    (subject.invalid && (subject.dirty || subject.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="subject.hasError('required')"
+                    >Subject is required</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="subject.hasError('minlength')"
+                  >
+                    Subject must be at least 3 characters long</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="subject.hasError('maxlength')"
+                  >
+                    Subject can not be max 55 characters long</span
+                  >
+                </div>
+              </div>
+              <div class="form-group has-feedback">
+                <label>Content :</label>
+                <!-- <textarea [(ngModel)]="newRecordByAdmin.content" #content="ngModel" name="content" required type="text" class="form-control" placeholder="Enter Content"></textarea> -->
+                <angular-editor
+                  [placeholder]="'Enter Content'"
+                  [config]="editorConfig"
+                  [(ngModel)]="newRecordByAdmin.content"
+                  #content="ngModel"
+                  name="content"
+                  minlength="3"
+                  required
+                ></angular-editor>
+                <div
+                  *ngIf="
+                    (content.invalid && (content.dirty || content.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="content.hasError('required')"
+                    >Content is required</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="content.hasError('minlength')"
+                  >
+                    Content must be at least 3 characters long</span
+                  >
+                </div>
+              </div>
+              <div class="form-group">
+                <a class="btn btn-primary" routerLink="/admin/emailtemplate"
+                  >Back</a
+                >&nbsp;
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-admin-footer [globalSettings]="globalSettings"></app-admin-footer>

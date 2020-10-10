@@ -1,0 +1,456 @@
+<div class="inner-wraper inner-create-bg">
+  <div class="container">
+    <div class="create-title">
+      <h4>Setup Your Profile</h4>
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
+      </p>
+    </div>
+    <div class="create-pdd90">
+      <div class="createdashboard">
+        <div class="row">
+          <app-profile-setup-side-menu
+            class="col-md-3"
+          ></app-profile-setup-side-menu>
+          <div class="col-md-9">
+            <div class="setup_pro">
+              <div class="review-box">
+                <h4>Portfolio</h4>
+              </div>
+              <div class="pro-right-container bacim_pdd30">
+                <div class="mg_portfolio">
+                  <div class="Portfolio_view">
+                    <ul class="select-operat d-flex">
+                      <li
+                        *ngFor="let portfolio of portfolios; let i = index"
+                        id="{{ portfolio._id }}"
+                      >
+                        <a href="javascript:;">
+                          <div class="operat-content">
+                            <figure
+                              data-toggle="modal"
+                              data-target="#video-module"
+                              (click)="selectedPortfolio = portfolio"
+                              id="open-video-player-model"
+                            >
+                              <img src="{{ portfolio.thumb_image }}" />
+                            </figure>
+                            <div class="d-flex">
+                              <button
+                                class="btn btn-fil-color edit-btn"
+                                (click)="fillForm(portfolio)"
+                              >
+                                <input type="file" id="file" />
+                                <label for="file2" style="top: -40px;"
+                                  ><i class="fas fa-edit"></i
+                                ></label>
+                              </button>
+                              <button
+                                class="btn btn-fil-color closeing-btn"
+                                (click)="removePortfolio(portfolio._id)"
+                              >
+                                <i class="fas fa-times"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </a>
+                      </li>
+                    </ul>
+                    <div id="scroll-up"></div>
+                  </div>
+                </div>
+                <form
+                  class="form-horizontal"
+                  role="form"
+                  [formGroup]="formData"
+                  (ngSubmit)="addVideo(formData.value)"
+                >
+                  <div class="basic_line">
+                    <div class="form-group">
+                      <label>Add Vimeo link</label>
+                      <input
+                        type="text"
+                        id="videoInput"
+                        name=""
+                        class="form-control"
+                        placeholder="Enter your vimeo video url"
+                        formControlName="videoUrl"
+                      />
+                      <span
+                        class="glyphicon glyphicon-envelope form-control-feedback"
+                      ></span>
+                      <div
+                        *ngIf="
+                          formData.controls['videoUrl'].invalid &&
+                          (formData.controls['videoUrl'].dirty ||
+                            formData.controls['videoUrl'].touched ||
+                            formSubmitAttempt)
+                        "
+                      >
+                        <span
+                          class="error text-danger"
+                          *ngIf="formData.controls.videoUrl.errors?.required"
+                          >This field is required</span
+                        >
+                        <span
+                          class="error text-danger"
+                          *ngIf="formData.controls.videoUrl.errors?.pattern"
+                          >Please enter a valid vimeo video URL.
+                        </span>
+                        <span
+                          class="error text-danger"
+                          *ngIf="
+                            !formData.controls.videoUrl.errors?.pattern &&
+                            formData.controls.videoUrl.errors?.url
+                          "
+                          >Please enter a valid URL.
+                        </span>
+                      </div>
+                      <span
+                        class="error text-danger"
+                        *ngIf="
+                          !formData.controls.videoUrl.errors && !validVimeo
+                        "
+                        >Video File does not exist.
+                      </span>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Add Project Name</label>
+                      <input
+                        type="text"
+                        id="videoInput"
+                        name=""
+                        class="form-control"
+                        placeholder="Enter project name"
+                        formControlName="projectName"
+                      />
+                      <span
+                        class="glyphicon glyphicon-envelope form-control-feedback"
+                      ></span>
+                      <div
+                        *ngIf="
+                          formData.controls['projectName'].invalid &&
+                          (formData.controls['projectName'].dirty ||
+                            formData.controls['projectName'].touched ||
+                            formSubmitAttempt)
+                        "
+                      >
+                        <span
+                          class="error text-danger"
+                          *ngIf="formData.controls.projectName.errors?.required"
+                          >This field is required</span
+                        >
+                        <span
+                          class="error text-danger"
+                          *ngIf="
+                            formData.controls.projectName.errors?.rangeLength
+                          "
+                          >Please enter a value between 3 and 55 characters
+                          long.
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label>Add Client Name</label>
+                      <input
+                        type="text"
+                        id="videoInput"
+                        name=""
+                        class="form-control"
+                        placeholder="Enter client name"
+                        formControlName="clientName"
+                      />
+                      <span
+                        class="glyphicon glyphicon-envelope form-control-feedback"
+                      ></span>
+                      <div
+                        *ngIf="
+                          formData.controls['clientName'].invalid &&
+                          (formData.controls['clientName'].dirty ||
+                            formData.controls['clientName'].touched ||
+                            formSubmitAttempt)
+                        "
+                      >
+                        <span
+                          class="error text-danger"
+                          *ngIf="formData.controls.clientName.errors?.required"
+                          >This field is required</span
+                        >
+                        <span
+                          class="error text-danger"
+                          *ngIf="
+                            formData.controls.clientName.errors?.rangeLength
+                          "
+                          >Please enter a value between 3 and 55 characters
+                          long.
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="form-group" id="scroll">
+                      <label>Add tags (max.10) </label>
+                      <div class="editor-tag" (click)="focusTagInput()">
+                        <span class="tag-item" *ngFor="let tag of tags">
+                          {{ tag }}
+                          <span class="remove-tag" (click)="removeTag(tag)"
+                            >×</span
+                          >
+                        </span>
+                        <input
+                          *ngIf="tags.length < 10"
+                          type="text"
+                          name=""
+                          placeholder="Write some tags. press space bar to add tag. "
+                          formControlName="tag"
+                          #tagInput
+                          type="text"
+                          class="input-tag"
+                          (keyup)="onKeyUp($event)"
+                          maxlength="21"
+                        />
+                      </div>
+                      <span
+                        class="glyphicon glyphicon-envelope form-control-feedback"
+                      ></span>
+                      <div
+                        *ngIf="
+                          formData.controls['tag'].invalid &&
+                          (formData.controls['tag'].dirty ||
+                            formData.controls['tag'].touched ||
+                            formSubmitAttempt)
+                        "
+                      >
+                        <span
+                          class="error text-danger"
+                          *ngIf="formData.controls['tag'].errors.required"
+                          >This field is required</span
+                        >
+                        <span
+                          class="error text-danger"
+                          *ngIf="formData.controls.tag.errors?.rangeLength"
+                          >Please enter a value between 1 and 20 characters
+                          long.
+                        </span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Project Type</label>
+                      <select
+                        class="form-control"
+                        (change)="changeOption($event, 'projectType')"
+                        formControlName="projectType"
+                      >
+                        <option value="" disabled>Select Project Type</option>
+                        <option
+                          *ngFor="let option of projectType"
+                          value="{{ option.value }}"
+                          >{{ option.name }}</option
+                        >
+                      </select>
+                      <span
+                        class="glyphicon glyphicon-envelope form-control-feedback"
+                      ></span>
+                      <div
+                        *ngIf="
+                          formData.controls['projectType'].invalid &&
+                          (formData.controls['projectType'].dirty ||
+                            formData.controls['projectType'].touched ||
+                            formSubmitAttempt)
+                        "
+                      >
+                        <span
+                          class="error text-danger"
+                          *ngIf="
+                            formData.controls['projectType'].errors.required
+                          "
+                          >This field is required</span
+                        >
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Genre</label>
+                      <div class="box-filters-input">
+                        <div class="dropdown filters-input-primary">
+                          <button
+                            class="btn btn-primary dropdown-toggle btn-width"
+                            type="button"
+                            data-toggle="dropdown"
+                          >
+                            Genre <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li>
+                              <div class="more-filter-item with-carrot">
+                                <div class="content-title">
+                                  Select Genre Type
+                                </div>
+                                <div class="checkbox-list">
+                                  <!-- Default unchecked -->
+                                  <div *ngIf="genereType.length == 0">
+                                    Genre type not found
+                                  </div>
+                                  <div
+                                    class="custom-control custom-checkbox"
+                                    *ngFor="
+                                      let option of genereType;
+                                      let i = index
+                                    "
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      class="custom-control-input"
+                                      [value]="option.value"
+                                      (change)="
+                                        onCheckboxChange($event, 'genere')
+                                      "
+                                      [checked]="
+                                        getCheckedStatus(
+                                          option.value,
+                                          getGenereType.value
+                                        )
+                                      "
+                                      id="genere{{ i }}"
+                                    />
+                                    <label
+                                      class="custom-control-label"
+                                      for="genere{{ i }}"
+                                      >{{ option.name }}</label
+                                    >
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Industry</label>
+                      <div class="box-filters-input">
+                        <div class="dropdown filters-input-primary">
+                          <button
+                            class="btn btn-primary dropdown-toggle btn-width"
+                            type="button"
+                            data-toggle="dropdown"
+                          >
+                            Industry <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li>
+                              <div class="more-filter-item with-carrot">
+                                <div class="content-title">
+                                  Select Industry Type
+                                </div>
+                                <div class="checkbox-list">
+                                  <div *ngIf="industryType.length == 0">
+                                    Industry type not found
+                                  </div>
+                                  <!-- Default unchecked -->
+                                  <div
+                                    class="custom-control custom-checkbox"
+                                    *ngFor="
+                                      let option of industryType;
+                                      let i = index
+                                    "
+                                  >
+                                    <input
+                                      type="checkbox"
+                                      class="custom-control-input"
+                                      [value]="option.value"
+                                      (change)="
+                                        onCheckboxChange($event, 'industry')
+                                      "
+                                      [checked]="
+                                        getCheckedStatus(
+                                          option.value,
+                                          getIndustryType.value
+                                        )
+                                      "
+                                      id="industry{{ i }}"
+                                    />
+                                    <label
+                                      class="custom-control-label"
+                                      for="industry{{ i }}"
+                                      >{{ option.name }}
+                                    </label>
+                                  </div>
+                                </div>
+                              </div>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="text-right d-flex justify-content-between align-items-center"
+                    >
+                      <button
+                        type="button"
+                        href="javascript:;"
+                        class="btn btn-gry"
+                        [routerLink]="['/user/freelancer/set-up/4']"
+                      >
+                        Back
+                      </button>
+                      <button type="submit" class="btn btn-yellow">
+                        Add Video
+                      </button>
+                      <!-- <input [hidden]="true" type="file" id="file-input" name="image[]" multiple accept=".png, .jpg, .jpeg" style="opacity :0" value=""> -->
+                    </div>
+                  </div>
+                </form>
+                <div type="button" class="up_bttn">
+                  <button class="btn btn-green" (click)="onClickSubmit()">
+                    Submit Complete Profile
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal video module-->
+<div
+  class="modal fade modal-comman"
+  id="video-module"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+  data-backdrop="static"
+  data-keyboard="false"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content profile_pdd">
+      <div class="modal-header">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          id="video-module-close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="yt_video">
+          <iframe
+            id="v1"
+            allowfullscreen=""
+            frameborder="0"
+            [src]="getVimeoId(selectedPortfolio?.video_url)"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal video module-->

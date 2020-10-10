@@ -1,0 +1,260 @@
+<div class="inner-wraper">
+  <div class="about-banner">
+    <div class="container-fluid d-flex">
+      <div class="ab-banner-content ml-auto">
+        <h1>{{ pageData.title ? pageData.title : "Contact Us" }}</h1>
+        <p style="white-space: break-spaces;">
+          {{ pageData.title_descrition ? pageData.title_descrition : " " }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!--Contact-form -->
+  <div class="cont-info">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 d-flex align-items-center">
+          <figure><img src="assets/images/phone-send.png" /></figure>
+        </div>
+        <div class="col-md-6">
+          <div class="contact-fill">
+            <h4>Send Us a Message</h4>
+            <form
+              #loginForm="ngForm"
+              (ngSubmit)="!loginForm.invalid && submit(loginForm)"
+            >
+              <div class="form-group">
+                <label for="exampleInputEmail1">Full Name</label>
+                <input
+                  [(ngModel)]="form.fullname"
+                  #fullname="ngModel"
+                  placeholder="Enter fullname"
+                  name="fullname"
+                  required
+                  minlength="1"
+                  maxlength="55"
+                  type="text"
+                  class="form-control"
+                  placeholder=""
+                />
+                <div
+                  *ngIf="
+                    (fullname.invalid &&
+                      (fullname.dirty || fullname.touched)) ||
+                    loginForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="fullname.hasError('required')"
+                  >
+                    Full name is required</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="fullname.hasError('minlength')"
+                  >
+                    Full name should not be atleast 1 characters long</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="fullname.hasError('maxlength')"
+                  >
+                    Full name should not exceed 55 characters</span
+                  >
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Email</label>
+                <input
+                  [(ngModel)]="form.email_is"
+                  #email_is="ngModel"
+                  placeholder="Enter email"
+                  name="email_is"
+                  required
+                  email="true"
+                  minlength="1"
+                  maxlength="55"
+                  type="text"
+                  class="form-control"
+                  placeholder=""
+                />
+                <div
+                  *ngIf="
+                    (email_is.invalid &&
+                      (email_is.dirty || email_is.touched)) ||
+                    loginForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="email_is.hasError('required')"
+                    >Email is required</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="email_is.hasError('email')"
+                    >Email format is not correct</span
+                  >
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">Subject</label>
+                <input
+                  [(ngModel)]="form.subject"
+                  #subject="ngModel"
+                  placeholder="Enter subject"
+                  name="subject"
+                  required
+                  minlength="1"
+                  maxlength="55"
+                  type="name"
+                  class="form-control"
+                  placeholder=""
+                />
+                <div
+                  *ngIf="
+                    (subject.invalid && (subject.dirty || subject.touched)) ||
+                    loginForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="subject.hasError('required')"
+                  >
+                    Subject is required</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="subject.hasError('minlength')"
+                  >
+                    Subject should not be atleast 1 characters long</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="subject.hasError('maxlength')"
+                  >
+                    Subject should not exceed 55 characters</span
+                  >
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="exampleInputEmail1">How we can help?</label>
+                <textarea
+                  placeholder="Enter your query"
+                  [(ngModel)]="form.query"
+                  name="query"
+                  id="query"
+                  #query="ngModel"
+                  maxlength="500"
+                  required
+                  minlength="5"
+                  class="form-control"
+                ></textarea>
+                <div
+                  *ngIf="
+                    (query.invalid && (query.dirty || query.touched)) ||
+                    loginForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="query.hasError('required')"
+                  >
+                    Query is required</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="query.hasError('maxlength')"
+                  >
+                    Query should not exceed 500 characters</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="query.hasError('minlength')"
+                  >
+                    Query should not be atleast 5 characters long</span
+                  >
+                </div>
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-orange">
+                  Send message
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Contact-form -->
+
+  <!--Get In Touch Us -->
+  <div class="get-touch">
+    <div class="container">
+      <div class="touch-us">
+        <h4>Get In Touch Us</h4>
+        <p>{{ pageData.get_in_touch ? pageData.get_in_touch : " " }}</p>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="get-touch-in">
+            <figure><img src="assets/images/ic7.png" /></figure>
+            <h4>Support</h4>
+            <p style="white-space: break-spaces;">
+              {{ pageData.support ? pageData.support.descrition : " " }}
+            </p>
+            <ng-container
+              *ngIf="pageData && pageData.support && pageData.support.email"
+            >
+              <a
+                href="javascript:;"
+                *ngFor="let email of pageData.support.email"
+                >{{ email }}</a
+              >
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="get-touch-in">
+            <figure><img src="assets/images/ic8.png" /></figure>
+            <h4>Customer Support</h4>
+            <p style="white-space: break-spaces;">
+              {{ pageData.customer ? pageData.customer.descrition : " " }}
+            </p>
+            <ng-container
+              *ngIf="pageData && pageData.customer && pageData.customer.phone"
+            >
+              <a
+                href="javascript:;"
+                *ngFor="let phone of pageData.customer.phone"
+                >{{ phone }}</a
+              >
+            </ng-container>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="get-touch-in">
+            <figure><img src="assets/images/ic9.png" /></figure>
+            <h4>Address</h4>
+            <p style="white-space: break-spaces;">
+              {{ pageData.address ? pageData.address.descrition : " " }}
+            </p>
+            <ng-container
+              *ngIf="pageData && pageData.address && pageData.address.address"
+            >
+              <a
+                href="javascript:;"
+                *ngFor="let address of pageData.address.address"
+                >{{ address }}</a
+              >
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Get In Touch Us -->
+</div>

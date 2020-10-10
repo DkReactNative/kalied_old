@@ -1,0 +1,6 @@
+<div class="wraper">
+  <app-header *ngIf="!global.hideNavBars"></app-header>
+  <router-outlet></router-outlet>
+  <ngx-ui-loader></ngx-ui-loader>
+  <app-footer *ngIf="!global.hideNavBars"></app-footer>
+</div>

@@ -1,0 +1,329 @@
+<app-admin-header
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-header>
+<app-admin-sidebar
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-sidebar>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" style="min-height: 100% !important;">
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="nav-tabs-custom">
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a href="javascript:;" data-toggle="tab"> {{ pageTitle }}</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="active tab-pane" id="global">
+              <form
+                class="form-horizontal"
+                role="form"
+                [formGroup]="formData"
+                (ngSubmit)="onClickSubmit(formData.value)"
+              >
+                <div class="form-group has-feedback" style="display: table;">
+                  <div
+                    class="operat-content col-md-3"
+                    *ngFor="let image of imagesToShow; let i = index"
+                  >
+                    <figure><img src="{{ image }}" /></figure>
+                    <div class="d-flex">
+                      <!-- <button class="btn btn-fil-color edit-btn">
+                                              <input type="file" id="file">
+                                              <label for="file"><i class="fas fa-edit"></i></label>
+                                            </button> -->
+                      <button
+                        class="btn btn-fil-color closeing-btn"
+                        (click)="removeImage(i)"
+                        style="color: blue;"
+                      >
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group has-feedback" style="display: table;">
+                  <div [hidden]="!validVimeo" l style="margin-left: 20px;">
+                    <style>
+                      .embed-container {
+                        position: relative;
+                        height: 0;
+                        overflow: hidden;
+                        max-width: 100%;
+                        height: auto;
+                      }
+                      .embed-container iframe,
+                      .embed-container object,
+                      .embed-container embed {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                      }
+                    </style>
+                    <div id="vimeoId" class="embed-container"></div>
+                  </div>
+                  <div class="form-group has-feedback" style="display: table;">
+                    <div [hidden]="!loader" id="loader"></div>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label">Add Vimeo link :</label>
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      id="videoInput"
+                      name=""
+                      class="form-control"
+                      placeholder="Enter your vimeo video url"
+                      formControlName="videoUrl"
+                    />
+                    <div
+                      *ngIf="
+                        formData.controls['videoUrl'].invalid &&
+                        (formData.controls['videoUrl'].dirty ||
+                          formData.controls['videoUrl'].touched ||
+                          formSubmitAttempt)
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="formData.controls.videoUrl.errors?.required"
+                        >This field is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="formData.controls.videoUrl.errors?.pattern"
+                        >Please enter a valid vimeo video URL.
+                      </span>
+                      <span
+                        class="error text-danger"
+                        *ngIf="
+                          !formData.controls.videoUrl.errors?.pattern &&
+                          formData.controls.videoUrl.errors?.url
+                        "
+                        >Please enter a valid URL.
+                      </span>
+                    </div>
+                    <span
+                      class="error text-danger"
+                      *ngIf="!formData.controls.videoUrl.errors && !validVimeo"
+                      >Video File does not exist.
+                    </span>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-sm-2 control-label"
+                    >Add tags (max.10) :</label
+                  >
+                  <div class="col-sm-5">
+                    <div class="editor-tag" (click)="focusTagInput()">
+                      <span class="tag-item" *ngFor="let tag of tags">
+                        {{ tag }}
+                        <span class="remove-tag" (click)="removeTag(tag)"
+                          >×</span
+                        >
+                      </span>
+                      <input
+                        *ngIf="tags.length < 10"
+                        type="text"
+                        name=""
+                        placeholder="Write some tags. press space bar to add tag. "
+                        formControlName="tag"
+                        #tagInput
+                        type="text"
+                        class="input-tag"
+                        (keyup)="onKeyUp($event)"
+                        maxlength="21"
+                      />
+                    </div>
+                    <div
+                      *ngIf="
+                        formData.controls['tag'].invalid &&
+                        (formData.controls['tag'].dirty ||
+                          formData.controls['tag'].touched ||
+                          formSubmitAttempt)
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="formData.controls['tag'].errors.required"
+                        >This field is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="formData.controls.tag.errors?.rangeLength"
+                        >Please enter a value between 1 and 20 characters long.
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label">Project Type :</label>
+                  <div class="col-sm-5">
+                    <select
+                      class="form-control"
+                      (change)="changeOption($event, 'projectType')"
+                      formControlName="projectType"
+                    >
+                      <option value="" disabled>Select Project Type</option>
+                      <option value="1">Small scale</option>
+                      <option value="2">Government</option>
+                      <option value="3">Manufacturing</option>
+                      <option value="4">Management </option>
+                      <option value="5">Research </option>
+                    </select>
+                    <div
+                      *ngIf="
+                        formData.controls['projectType'].invalid &&
+                        (formData.controls['projectType'].dirty ||
+                          formData.controls['projectType'].touched ||
+                          formSubmitAttempt)
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="formData.controls['projectType'].errors.required"
+                        >This field is required</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label">Industry :</label>
+                  <div class="col-sm-5">
+                    <select
+                      class="form-control"
+                      (change)="changeOption($event, 'industry')"
+                      formControlName="industry"
+                    >
+                      <option value="" disabled>Select Industry Type</option>
+                      <option value="1">IT</option>
+                      <option value="2">AUTO MOBILE</option>
+                      <option value="3">Medicine</option>
+                      <option value="4">Sports</option>
+                      <option value="5">Music</option>
+                    </select>
+
+                    <div
+                      *ngIf="
+                        formData.controls['industry'].invalid &&
+                        (formData.controls['industry'].dirty ||
+                          formData.controls['industry'].touched ||
+                          formSubmitAttempt)
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="formData.controls['industry'].errors.required"
+                        >This field is required</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label">Genre :</label>
+                  <div class="col-sm-5">
+                    <select
+                      class="form-control"
+                      (change)="changeOption($event, 'genere')"
+                      formControlName="genere"
+                    >
+                      <option value="" disabled>Select Genre Type</option>
+                      <option value="1">Poetry</option>
+                      <option value="2">Drama</option>
+                      <option value="3">Prose</option>
+                      <option value="4">Nonfiction</option>
+                      <option value="5">Media</option>
+                    </select>
+
+                    <div
+                      *ngIf="
+                        formData.controls['genere'].invalid &&
+                        (formData.controls['genere'].dirty ||
+                          formData.controls['genere'].touched ||
+                          formSubmitAttempt)
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="formData.controls['genere'].errors.required"
+                        >This field is required</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="copyright"></label>
+                  <div class="col-sm-2" style="display: flex;">
+                    <a
+                      style="margin-top: 0px;"
+                      href="javascript:;"
+                      class="btn btn-primary btn-block btn-flat"
+                      (click)="triggerFile()"
+                      >Add Image</a
+                    >
+                    <input
+                      [hidden]="true"
+                      type="file"
+                      id="file-input"
+                      name="image[]"
+                      multiple
+                      accept=".png, .jpg, .jpeg"
+                      (change)="uploadFile($event)"
+                      style="opacity: 0;"
+                      value=""
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="copyright"></label>
+                  <div class="col-sm-2" style="display: flex;">
+                    <a
+                      class="btn btn-primary btn-block btn-flat"
+                      routerLink="/admin/portfolio"
+                      >Back</a
+                    >&nbsp;
+                    <a
+                      type="submit"
+                      style="margin-top: 0px;"
+                      href="javascript:;"
+                      class="btn btn-primary btn-block btn-flat"
+                      (click)="onClickSubmit(formData.value)"
+                      >Update</a
+                    >
+                  </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-xs-4"> </div>                   
+                    <div class="col-xs-4">
+                      <button type="submit" class="btn btn-primary btn-block btn-flat">Update</button>
+                    </div>                    
+                    <div class="col-xs-4"> </div>
+                  </div> -->
+              </form>
+            </div>
+            <!-- /.tab-pane -->
+          </div>
+          <!-- /.tab-content -->
+        </div>
+        <!-- /.nav-tabs-custom -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>
+<app-admin-footer [globalSettings]="globalSettings"></app-admin-footer>

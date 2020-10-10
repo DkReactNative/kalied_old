@@ -1,0 +1,31 @@
+#td-data{
+	width: 80%;
+    font-size: medium;
+    font-weight: 500;
+}
+
+#td-des{
+	font-weight: bold;
+	width: 300px;
+    font-size: medium;
+}
+img{
+	width: 220px;height: 220px;border-radius: 50%;float: left; margin-left: 10px;margin-top: 10px
+}
+
+.tags {
+
+	display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+td > p {
+	border: 1px black solid;
+    border-radius: 10px;
+    padding: 5px;
+    font-size: medium;
+    float: left;
+    margin: 0px 0px 10px 10px;
+}

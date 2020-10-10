@@ -1,0 +1,47 @@
+<div class="process-form d-flex justify-content-center align-items-center">
+    <div class="process-form-in" style="width:auto;display: flex;
+    flex-direction: column;">
+        <div class="form-logo text-center">
+            <a href="javascript:;" (click)="goToHome()">
+                <img src="assets/images/logo.svg">
+            </a>
+        </div>
+        <div class="form-text text-center">
+            <h4>Verify Otp</h4>
+        </div>
+        <div class="login-form">
+
+            <div class="row">
+                <div class="form-group">
+                    <input style="text-align:center" type="text" class="form-control" id="exampleInputPassword1" placeholder="" [(ngModel)]="input[0]" maxlength="1" (keyup)="onKeyUpEvent($event, 1)" (focus)="onFocusEvent(1)" (keypress)="keypress($event)" #input1 />
+                </div>
+                <div class="form-group">
+                    <input style="text-align:center" type="text" class="form-control" id="exampleInputPassword1" placeholder="" [(ngModel)]="input[1]" maxlength="1" (keyup)="onKeyUpEvent($event, 2)" (focus)="onFocusEvent(2)" (keypress)="keypress($event)" #input2 />
+                </div>
+                <div class="form-group">
+                    <input style="text-align:center" type="text" class="form-control" id="exampleInputPassword1" placeholder="" [(ngModel)]="input[2]" maxlength="1" (keyup)="onKeyUpEvent($event, 3)" (focus)="onFocusEvent(3)" (keypress)="keypress($event)" #input3 />
+                </div>
+                <div class="form-group">
+                    <input style="text-align:center" type="text" class="form-control" id="exampleInputPassword1" placeholder="" [(ngModel)]="input[3]" maxlength="1" (keyup)="onKeyUpEvent($event, 4)" (focus)="onFocusEvent(4)" (keypress)="keypress($event)" #input4 />
+                </div>
+            </div>
+            
+        </div>
+        <a style="color: white; align-self: center;font-size: 20px" (click)="resendOtp()"><u style="cursor: pointer;">Resend</u></a>
+
+
+        <!-- <div class="remember-forgot d-flex">
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                        <label class="custom-control-label" for="defaultUnchecked">Remember me</label>
+                    </div>
+                    <a href="javascript:;" [routerLink]="['/user/forgot-password']" class="ml-auto">Forgot password?</a>
+                </div>  <button class="btn btn-orange w-100">Let’s Go</button> 
+                -->
+
+        <div class="text-center signup-text">
+            <!-- <p>Don’t receive otp? <a href="javascript:;"> Resend</a></p> -->
+        </div>
+
+    </div>
+</div>

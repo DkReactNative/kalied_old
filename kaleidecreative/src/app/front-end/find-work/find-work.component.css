@@ -1,0 +1,12 @@
+.no-project {
+  color: white;
+  font-size: 18px;
+  text-align: center;
+}
+p {
+  white-space: pre-line;
+}
+.create-info ul {
+  max-height: 300px;
+  overflow: auto;
+}

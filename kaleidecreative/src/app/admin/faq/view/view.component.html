@@ -1,0 +1,45 @@
+<app-admin-header [user]="user" [globalSettings]="globalSettings"></app-admin-header>
+<app-admin-sidebar [user]="user" [globalSettings]="globalSettings"></app-admin-sidebar>
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      {{pageTitle}}
+      <small>View</small>
+    </h1>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box box-primary">
+          <!-- /.box-header -->
+          <div class="box-body">
+       <table class="table">
+            <body>
+            <tr>
+              <td id="td-des">Question :</td>
+              <td id="td-data">{{ record.question }}</td>
+            </tr>
+            <tr>
+              <td id="td-des">Answer :</td>
+              <td id="td-data"><div [innerHTML]="record.answer"></div></td>
+            </tr>
+           </body>
+         </table>
+            <div class="row">
+              <div class="box-body text-center">
+                <a class="btn btn-primary" routerLink="/admin/faq">Back</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+
+
+<app-admin-footer [globalSettings]="globalSettings"></app-admin-footer>

@@ -1,0 +1,21 @@
+p {
+  white-space: pre-line;
+}
+.create-info ul {
+  max-height: 300px;
+  overflow: auto;
+}
+
+.qoutation-amount {
+  font-size: 14px;
+  font-weight: 500;
+  margin-left: 6px;
+  color: #f5921b;
+  text-decoration: none;
+}
+.qoutation-status {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;
+}

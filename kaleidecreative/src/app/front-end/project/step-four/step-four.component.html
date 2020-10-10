@@ -1,0 +1,308 @@
+<!-- inner-wraper -->
+<div class="inner-wraper inner-create-bg">
+  <div class="container">
+    <div class="create-title">
+      <h4>{{ isProjectForEdit ? "Edit Project" : "Create Project" }}</h4>
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
+      </p>
+    </div>
+    <div class="create-pdd90">
+      <div class="createdashboard">
+        <div class="row">
+          <div class="col-md-3" *ngIf="!isProjectForEdit">
+            <app-project-side-bar
+              [projectId]="projectId ? Btoa(projectId) : ''"
+            ></app-project-side-bar>
+          </div>
+          <div
+            class="DashboardContent"
+            [ngClass]="!isProjectForEdit ? 'col-md-9' : 'col-md-12'"
+          >
+            <div class="RightContent">
+              <h4 class="prefa-texts">Budget</h4>
+              <form
+                role="form"
+                [formGroup]="formData"
+                (ngSubmit)="onClickSubmit(formData.value)"
+              >
+                <div class="cont-line-pdd">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Payment Type</label>
+                    <select
+                      type="Select"
+                      class="form-control"
+                      formControlName="paymentType"
+                      (change)="changeOption($event, 'paymentType')"
+                    >
+                      <option value="" disabled>Select Payment Type</option>
+                      <option value="1">Fixed budget</option>
+                      <option value="2">Hourly payment</option>
+                    </select>
+                    <span
+                      class="glyphicon glyphicon-envelope form-control-feedback"
+                    ></span>
+                    <div
+                      *ngIf="
+                        formData.controls['paymentType'].invalid &&
+                        (formData.controls['paymentType'].dirty ||
+                          formData.controls['paymentType'].touched ||
+                          formSubmitAttempt)
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="formData.controls['paymentType'].errors.required"
+                        >This field is required</span
+                      >
+                    </div>
+                  </div>
+                  <div class="form-group" [hidden]="paymentType != 1">
+                    <label for="exampleInputEmail1">Fixed amount</label>
+                    <ng5-slider
+                      formControlName="fixedPrice"
+                      [options]="options"
+                      (userChangeEnd)="userChangeEnd($event)"
+                    ></ng5-slider>
+                  </div>
+                  <div class="form-group" *ngIf="paymentType == 2">
+                    <label for="exampleInputEmail1">Hourly amount($)</label>
+                    <input
+                      type="name"
+                      readonly
+                      name=""
+                      class="form-control"
+                      formControlName="hourlyRate"
+                      placeholder=""
+                    />
+                    <span
+                      class="glyphicon glyphicon-envelope form-control-feedback"
+                    ></span>
+                    <div
+                      *ngIf="
+                        formData.controls['hourlyRate'].invalid &&
+                        (formData.controls['hourlyRate'].dirty ||
+                          formData.controls['hourlyRate'].touched ||
+                          formSubmitAttempt)
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="formData.controls['hourlyRate'].errors.required"
+                        >This field is required
+                      </span>
+                      <span
+                        class="error text-danger"
+                        *ngIf="formData.controls.hourlyRate.errors?.pattern"
+                        >Please enter a valid price
+                      </span>
+                      <span
+                        class="error text-danger"
+                        *ngIf="
+                          formData.controls.hourlyRate.errors?.min &&
+                          !formData.controls.hourlyRate.errors?.pattern
+                        "
+                        >Price should be greater than or equal 0.01
+                      </span>
+                      <span
+                        class="error text-danger"
+                        *ngIf="
+                          formData.controls.hourlyRate.errors?.maxlength &&
+                          !formData.controls.hourlyRate.errors?.pattern
+                        "
+                        >Price should not more than 10 number long
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row Preferred-box">
+                  <h4 class="prefa-texts">Schedule</h4>
+                  <div class="locat-pdd">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Start date</label>
+                        <div class="sche-in">
+                          <!-- <input
+                            type="date"
+                            id="startDateLabel"
+                            name=""
+                            class="form-control datetimepicker"
+                            onkeydown="return false"
+                            formControlName="startDate"
+                            placeholder="dd/mm/yyyy"
+                            pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)"
+                          />
+                          <i
+                            id="startDate"
+                            class="fas fa-calendar-alt"
+                            style="pointer-events: none"
+                          ></i> -->
+                          <input
+                            matInput
+                            [matDatepicker]="picker1"
+                            readonly
+                            name="from"
+                            placeholder="dd/mm/yyyy"
+                            formControlName="startDate"
+                            class="form-control"
+                            (click)="picker1.open()"
+                          />
+
+                          <i
+                            id="startDate"
+                            class="fas fa-calendar-alt"
+                            style="pointer-events: none"
+                          ></i>
+
+                          <mat-datepicker-toggle
+                            [hidden]="true"
+                            matSuffix
+                            [for]="picker1"
+                            class="fas fa-calendar-alt"
+                            style="pointer-events: none"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker #picker1></mat-datepicker>
+                          <span
+                            style="pointer-events: none"
+                            class="glyphicon glyphicon-envelope form-control-feedback"
+                          ></span>
+                          <div
+                            *ngIf="
+                              formData.controls.startDate.invalid &&
+                              (formData.controls.startDate.dirty ||
+                                formData.controls.startDate.touched ||
+                                formSubmitAttempt)
+                            "
+                          >
+                            <span
+                              class="error text-danger"
+                              *ngIf="
+                                formData.controls.startDate.errors.required
+                              "
+                              >This field is required</span
+                            >
+                          </div>
+                          <span
+                            class="error text-danger"
+                            *ngIf="
+                              !(
+                                formData.controls['startDate'].errors &&
+                                formData.controls['startDate'].errors.required
+                              ) &&
+                              formData.errors &&
+                              formData.errors != null &&
+                              formData.errors.dateLessCurrentDate
+                            "
+                            >Date must be in the future</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">End date</label>
+                        <div class="sche-in">
+                          <!-- <input
+                            type="date"
+                            id="endDate"
+                            name=""
+                            class="form-control datetimepicker"
+                            formControlName="endDate"
+                            onkeydown="return false"
+                            placeholder="dd/mm/yyyy"
+                            pattern="(^(((0[1-9]|1[0-9]|2[0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)"
+                          />
+                          <i
+                            id="endDateLabel"
+                            class="fas fa-calendar-alt"
+                            style="pointer-events: none"
+                          ></i> -->
+                          <input
+                            matInput
+                            [matDatepicker]="picker2"
+                            name="from"
+                            placeholder="dd/mm/yyyy"
+                            formControlName="endDate"
+                            class="form-control"
+                            (click)="picker2.open()"
+                          />
+
+                          <i
+                            id="endDate"
+                            class="fas fa-calendar-alt"
+                            style="pointer-events: none"
+                          ></i>
+
+                          <mat-datepicker-toggle
+                            [hidden]="true"
+                            matSuffix
+                            [for]="picker2"
+                            class="fas fa-calendar-alt"
+                            style="pointer-events: none"
+                          ></mat-datepicker-toggle>
+                          <mat-datepicker #picker2></mat-datepicker>
+                          <span
+                            style="pointer-events: none"
+                            class="glyphicon glyphicon-envelope form-control-feedback"
+                          ></span>
+                          <div
+                            *ngIf="
+                              formData.controls.endDate.invalid &&
+                              (formData.controls.endDate.dirty ||
+                                formData.controls.endDate.touched ||
+                                formSubmitAttempt)
+                            "
+                          >
+                            <span
+                              class="error text-danger"
+                              *ngIf="formData.controls.endDate.errors.required"
+                              >This field is required</span
+                            >
+                          </div>
+                          <span
+                            class="error text-danger"
+                            *ngIf="
+                              !(
+                                formData.controls['endDate'].errors &&
+                                formData.controls['endDate'].errors.required
+                              ) &&
+                              formData.errors &&
+                              formData.errors != null &&
+                              formData.errors.dateNotGreaterThan
+                            "
+                            >End date should be greater than start date</span
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <button
+                    href="javascript:;"
+                    class="btn btn-gry"
+                    type="button"
+                    [routerLink]="['/user/project/create3/' + Btoa(projectId)]"
+                    *ngIf="!isProjectForEdit"
+                  >
+                    Back
+                  </button>
+                  <button
+                    href="javascript:;"
+                    class="btn btn-orange"
+                    [ngClass]="isProjectForEdit ? 'text-right' : ''"
+                    type="submit"
+                  >
+                    {{ isProjectForEdit ? "Update" : "Next" }}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- inner-wraper -->
+</div>

@@ -1,0 +1,217 @@
+<!-- inner-wraper -->
+<div class="inner-wraper inner-create-bg">
+  <div class="container">
+    <div class="create-title">
+      <h4>{{ isProjectForEdit ? "Edit Project" : "Create Project" }}</h4>
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
+      </p>
+    </div>
+    <div class="create-pdd90">
+      <div class="createdashboard">
+        <div class="row">
+          <div class="col-md-3" *ngIf="!isProjectForEdit">
+            <app-project-side-bar
+              [projectId]="projectId ? Btoa(projectId) : ''"
+            ></app-project-side-bar>
+          </div>
+          <div
+            class="DashboardContent"
+            [ngClass]="!isProjectForEdit ? 'col-md-9' : 'col-md-12'"
+          >
+            <div class="RightContent">
+              <form
+                role="form"
+                [formGroup]="formData"
+                (ngSubmit)="onClickSubmit(formData.value)"
+              >
+                <div class="inspir-sec">
+                  <p>
+                    Do you have any images, sketches or document that might be
+                    helpful?
+                  </p>
+                  <div class="file-btpdd">
+                    <button class="btn btn-fil-color" type="button">
+                      <input
+                        type="file"
+                        id="file"
+                        name="image[]"
+                        multiple
+                        accept=".png, .jpg, .jpeg, .pdf"
+                        (change)="uploadFile($event)"
+                      />
+
+                      <label for="file">choose file</label>
+                    </button>
+                  </div>
+                  <div class="project-ass">
+                    <p>Add images that serve as inspiration for your Project</p>
+                    <div class="project-ins flex-wrap">
+                      <div
+                        class="ject-in flex-wrap-inner"
+                        *ngFor="let file of uploadedImage; let i = index"
+                      >
+                        <figure *ngIf="file.image">
+                          <img
+                            src="{{
+                              file.status
+                                ? imagePdfUrl + file.image
+                                : file.image
+                            }}"
+                          />
+                        </figure>
+
+                        <pdf-viewer
+                          *ngIf="file.pdf"
+                          [src]="
+                            file.status ? imagePdfUrl + file.pdf : file.pdf
+                          "
+                          [render-text]="true"
+                          [original-size]="false"
+                          [show-all]="false"
+                          [fit-to-page]="true"
+                        ></pdf-viewer>
+                        <a href="javascript:;" (click)="deleteFile(file, i)"
+                          ><i class="fas fa-times"></i
+                        ></a>
+                      </div>
+                    </div>
+                  </div>
+                  <ng-container formArrayName="video">
+                    <div
+                      *ngFor="
+                        let item of Video.controls;
+                        let pointIndex = index
+                      "
+                      [formGroupName]="pointIndex"
+                    >
+                      <div class="form-group">
+                        <label for="exampleInputEmail1"
+                          >Enter your vimeo video URL</label
+                        >
+                        <input
+                          type="name"
+                          name=""
+                          formControlName="url"
+                          class="form-control"
+                          placeholder=""
+                        />
+                        <span
+                          class="glyphicon glyphicon-envelope form-control-feedback"
+                        ></span>
+                        <div
+                          *ngIf="
+                            item &&
+                            item.get('url').invalid &&
+                            (item.get('url').dirty ||
+                              item.get('url').touched ||
+                              formSubmitAttempt)
+                          "
+                        >
+                          <span
+                            class="error text-danger"
+                            *ngIf="item.get('url').errors?.required"
+                            >This field is required</span
+                          >
+                          <span
+                            class="error text-danger"
+                            *ngIf="item.get('url').errors?.pattern"
+                            >Please enter a valid vimeo video URL.
+                          </span>
+                          <span
+                            class="error text-danger"
+                            *ngIf="
+                              !item.get('url').errors?.pattern &&
+                              item.get('url').errors?.url
+                            "
+                            >Please enter a valid URL.
+                          </span>
+
+                          <span
+                            class="error text-danger"
+                            *ngIf="item.get('url').errors?.rangeLength"
+                            >Please enter a value between 3 and 200 characters
+                            long.
+                          </span>
+                        </div>
+                        <span
+                          class="error text-danger"
+                          *ngIf="!item.get('url').errors && !validVimeo"
+                          >Video File does not exist.
+                        </span>
+                      </div>
+
+                      <div class="form-group">
+                        <label for="exampleInputPassword1"
+                          >Enter your video description</label
+                        >
+                        <textarea
+                          name=""
+                          class="form-control"
+                          formControlName="description"
+                        ></textarea>
+                        <a
+                          href="javascript:;"
+                          (click)="deleteVideo(pointIndex)"
+                          class="close-icon"
+                          ><i class="fas fa-times"></i
+                        ></a>
+                        <span
+                          class="glyphicon glyphicon-envelope form-control-feedback"
+                        ></span>
+                        <div
+                          *ngIf="
+                            item.get('description').invalid &&
+                            (item.get('description').dirty ||
+                              item.get('description').touched ||
+                              formSubmitAttempt)
+                          "
+                        >
+                          <span
+                            class="error text-danger"
+                            *ngIf="item.get('description').errors?.required"
+                            >This field is required</span
+                          >
+                          <span
+                            class="error text-danger"
+                            *ngIf="item.get('description').errors?.rangeLength"
+                            >Please enter a value between 3 and 1000 characters
+                            long.
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                  <div class="add-new">
+                    <a href="javascript:;" (click)="addVideo()">Add new URL</a>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <button
+                    href="javascript:;"
+                    type="button"
+                    class="btn btn-gry"
+                    *ngIf="!isProjectForEdit"
+                    [routerLink]="['/user/project/create1/' + Btoa(projectId)]"
+                  >
+                    Back
+                  </button>
+                  <button
+                    href="javascript:;"
+                    type="submit"
+                    [ngClass]="isProjectForEdit ? 'text-right' : ''"
+                    class="btn btn-orange"
+                  >
+                    {{ isProjectForEdit ? "Update" : "Next" }}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- inner-wraper -->
+</div>

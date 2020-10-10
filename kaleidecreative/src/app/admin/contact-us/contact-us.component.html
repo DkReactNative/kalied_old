@@ -1,0 +1,550 @@
+<app-admin-header
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-header>
+<app-admin-sidebar
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-sidebar>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" style="min-height: 100% !important;">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Contact Us
+    </h1>
+    <ol class="breadcrumb">
+      <li>
+        <a routerLink="/admin"><i class="fa fa-dashboard"></i> Dashboard</a>
+      </li>
+      <li class="active">Contact Us page Managment</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="nav-tabs-custom">
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a href="javascript:;" data-toggle="tab">Contact Us</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="active tab-pane" id="global">
+              <form
+                class="form-horizontal"
+                #aboutUsUpdateFormData="ngForm"
+                (ngSubmit)="
+                  !aboutUsUpdateFormData.invalid &&
+                    update_about_us(aboutUsUpdateFormData.value)
+                "
+              >
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="title"
+                    >Title</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Title"
+                      [(ngModel)]="aboutUsUpdateForm.title"
+                      name="title"
+                      id="title"
+                      #title="ngModel"
+                      required
+                      minlength="3"
+                      maxlength="55"
+                    />
+                    <div
+                      *ngIf="
+                        (title.invalid && (title.dirty || title.touched)) ||
+                        aboutUsUpdateFormData.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="title.hasError('required')"
+                      >
+                        Title is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="title.hasError('minlength')"
+                      >
+                        Title should not be atleast 3 characters long</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="title.hasError('maxlength')"
+                      >
+                        Title should not exceed 55 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="title_descrition"
+                    >Title description</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Description"
+                      [(ngModel)]="aboutUsUpdateForm.title_descrition"
+                      name="title_descrition"
+                      id="title_descrition"
+                      #title_descrition="ngModel"
+                      required
+                      minlength="3"
+                      maxlength="300"
+                    />
+                    <div
+                      *ngIf="
+                        (title_descrition.invalid &&
+                          (title_descrition.dirty ||
+                            title_descrition.touched)) ||
+                        aboutUsUpdateFormData.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="title_descrition.hasError('required')"
+                      >
+                        Title is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="title_descrition.hasError('minlength')"
+                      >
+                        Title should not be atleast 3 characters long</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="title_descrition.hasError('maxlength')"
+                      >
+                        Title should not exceed 300 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="get_in_touch"
+                    >Get In Touch Text</label
+                  >
+                  <div class="col-sm-5">
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      placeholder="Description"
+                      [(ngModel)]="aboutUsUpdateForm.get_in_touch"
+                      name="get_in_touch"
+                      id="get_in_touch"
+                      #get_in_touch="ngModel"
+                      maxlength="2000"
+                      required
+                    ></textarea>
+                    <div
+                      *ngIf="
+                        (get_in_touch.invalid &&
+                          (get_in_touch.dirty || get_in_touch.touched)) ||
+                        aboutUsUpdateFormData.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="get_in_touch.hasError('required')"
+                      >
+                        Description is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="get_in_touch.hasError('maxlength')"
+                      >
+                        Description should not exceed 2000 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="support"
+                    >Support description text</label
+                  >
+                  <div class="col-sm-5">
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      placeholder="Description"
+                      [(ngModel)]="aboutUsUpdateForm.support.descrition"
+                      name="support"
+                      id="support"
+                      #support="ngModel"
+                      maxlength="2000"
+                      required
+                    ></textarea>
+                    <div
+                      *ngIf="
+                        (support.invalid &&
+                          (support.dirty || support.touched)) ||
+                        aboutUsUpdateFormData.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="support.hasError('required')"
+                      >
+                        Description is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="support.hasError('maxlength')"
+                      >
+                        Description should not exceed 2000 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: row;
+                      width: 57%;
+                      justify-content: space-between;
+                      padding-left: 18%;
+                    "
+                  >
+                    <h4>Support</h4>
+                    <button
+                      type="button"
+                      class="btn btn-primary mb-2"
+                      (click)="addMore('support', 'email')"
+                    >
+                      Add more
+                    </button>
+                  </div>
+                  <label class="col-sm-2 control-label" for="support"
+                    >Email :</label
+                  >
+                  <div style="display: flex; flex-direction: column;">
+                    <div
+                      class="col-sm-5"
+                      style="
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        margin-bottom: 5px;
+                      "
+                      *ngFor="
+                        let email of aboutUsUpdateForm.support.email;
+                        let i = index;
+                        trackBy: trackByIndex
+                      "
+                    >
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter email"
+                        name="title{{ i }}"
+                        [(ngModel)]="aboutUsUpdateForm.support.email[i]"
+                        #email="ngModel"
+                      />
+                      <div
+                        *ngIf="
+                          (email.invalid && (email.dirty || email.touched)) ||
+                          aboutUsUpdateFormData.submitted
+                        "
+                      >
+                        <span
+                          class="error text-danger"
+                          *ngIf="email.hasError('required')"
+                          >Email is required</span
+                        >
+                        <span
+                          class="error text-danger"
+                          *ngIf="email.hasError('email')"
+                          >Email format is not correct</span
+                        >
+                      </div>
+                      <button
+                        *ngIf="i != 0"
+                        style="margin-left: 10px;"
+                        type="button"
+                        class="btn btn-danger btn-sm"
+                        (click)="remove(i, 'support', 'email')"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="support"
+                    >Cutomer support description text</label
+                  >
+                  <div class="col-sm-5">
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      placeholder="Description"
+                      [(ngModel)]="aboutUsUpdateForm.customer.descrition"
+                      name="customer"
+                      id="customer"
+                      #customer="ngModel"
+                      maxlength="2000"
+                      required
+                    ></textarea>
+                    <div
+                      *ngIf="
+                        (customer.invalid &&
+                          (customer.dirty || customer.touched)) ||
+                        aboutUsUpdateFormData.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="customer.hasError('required')"
+                      >
+                        Description is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="customer.hasError('maxlength')"
+                      >
+                        Description should not exceed 2000 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: row;
+                      width: 57%;
+                      justify-content: space-between;
+                      padding-left: 18%;
+                    "
+                  >
+                    <h4>Cutomer Support</h4>
+                    <button
+                      type="button"
+                      class="btn btn-primary mb-2"
+                      (click)="addMore('customer', 'phone')"
+                    >
+                      Add more
+                    </button>
+                  </div>
+                  <label class="col-sm-2 control-label" for="support"
+                    >Phone :</label
+                  >
+                  <div style="display: flex; flex-direction: column;">
+                    <div
+                      class="col-sm-5"
+                      style="
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        margin-bottom: 5px;
+                      "
+                      *ngFor="
+                        let email of aboutUsUpdateForm.customer.phone;
+                        let i = index;
+                        trackBy: trackByIndex
+                      "
+                    >
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter phone"
+                        name="phone{{ i }}"
+                        [(ngModel)]="aboutUsUpdateForm.customer.phone[i]"
+                        #phone="ngModel"
+                      />
+                      <div
+                        *ngIf="
+                          (phone.invalid && (phone.dirty || phone.touched)) ||
+                          aboutUsUpdateFormData.submitted
+                        "
+                      >
+                        <span
+                          class="error text-danger"
+                          *ngIf="phone.hasError('required')"
+                          >phone is required</span
+                        >
+                        <span
+                          class="error text-danger"
+                          *ngIf="phone.hasError('phone')"
+                          >phone format is not correct</span
+                        >
+                      </div>
+                      <button
+                        *ngIf="i != 0"
+                        style="margin-left: 10px;"
+                        type="button"
+                        class="btn btn-danger btn-sm"
+                        (click)="remove(i, 'customer', 'phone')"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="support"
+                    >Address description text</label
+                  >
+                  <div class="col-sm-5">
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      placeholder="Description"
+                      [(ngModel)]="aboutUsUpdateForm.address.descrition"
+                      name="address"
+                      id="address"
+                      #address="ngModel"
+                      maxlength="2000"
+                      required
+                    ></textarea>
+                    <div
+                      *ngIf="
+                        (address.invalid &&
+                          (address.dirty || address.touched)) ||
+                        aboutUsUpdateFormData.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="address.hasError('required')"
+                      >
+                        Description is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="address.hasError('maxlength')"
+                      >
+                        Description should not exceed 2000 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: row;
+                      width: 57%;
+                      justify-content: space-between;
+                      padding-left: 18%;
+                    "
+                  >
+                    <h4>Address</h4>
+                    <button
+                      type="button"
+                      class="btn btn-primary mb-2"
+                      (click)="addMore('address', 'address')"
+                    >
+                      Add more
+                    </button>
+                  </div>
+                  <label class="col-sm-2 control-label" for="support"
+                    >Addresses</label
+                  >
+                  <div style="display: flex; flex-direction: column;">
+                    <div
+                      class="col-sm-5"
+                      style="
+                        display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        margin-bottom: 5px;
+                      "
+                      *ngFor="
+                        let email of aboutUsUpdateForm.address.address;
+                        let i = index;
+                        trackBy: trackByIndex
+                      "
+                    >
+                      <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Enter address"
+                        name="phone{{ i }}"
+                        [(ngModel)]="aboutUsUpdateForm.address.address[i]"
+                        #address="ngModel"
+                      />
+                      <div
+                        *ngIf="
+                          (address.invalid &&
+                            (address.dirty || address.touched)) ||
+                          aboutUsUpdateFormData.submitted
+                        "
+                      >
+                        <span
+                          class="error text-danger"
+                          *ngIf="address.hasError('required')"
+                          >address is required</span
+                        >
+                        <span
+                          class="error text-danger"
+                          *ngIf="address.hasError('email')"
+                          >address format is not correct</span
+                        >
+                      </div>
+                      <button
+                        *ngIf="i != 0"
+                        style="margin-left: 10px;"
+                        type="button"
+                        class="btn btn-danger btn-sm"
+                        (click)="remove(i, 'address', 'address')"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="copyright"></label>
+                  <div class="col-sm-5">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-block btn-flat"
+                    >
+                      Update
+                    </button>
+                  </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-xs-4"> </div>                   
+                    <div class="col-xs-4">
+                      <button type="submit" class="btn btn-primary btn-block btn-flat">Update</button>
+                    </div>                    
+                    <div class="col-xs-4"> </div>
+                  </div> -->
+              </form>
+            </div>
+            <!-- /.tab-pane -->
+          </div>
+          <!-- /.tab-content -->
+        </div>
+        <!-- /.nav-tabs-custom -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>
+<app-admin-footer [globalSettings]="globalSettings"></app-admin-footer>

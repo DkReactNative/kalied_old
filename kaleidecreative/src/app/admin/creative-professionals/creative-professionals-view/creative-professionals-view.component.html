@@ -1,0 +1,57 @@
+<app-admin-header [user]="user" [globalSettings]="globalSettings"></app-admin-header>
+<app-admin-sidebar [user]="user" [globalSettings]="globalSettings"></app-admin-sidebar>
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      {{pageTitle}}
+      <small>View</small>
+    </h1>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box box-primary">
+          <!-- /.box-header -->
+          <div class="box-body">
+       <table class="table">
+            <body>
+            <tr>
+              <td id="td-des">Name :</td>
+              <td id="td-data">{{ record.name }}</td>
+            </tr>
+            <tr>
+              <td id="td-des">Profession :</td>
+              <td id="td-data">{{record.profession == 1?'Editor':record.profession == 2?"Graphic Designer":"NA"}}</td>
+            </tr>
+            <tr>
+              <td id="td-des">About :</td>
+              <td id="td-data">{{record.about}}</td>
+            </tr>
+            <tr>
+              <td id="td-des">Image :</td>
+              <td id="td-data"><img  id='imageUrl' class="img-responsive" src="{{record.image}}" alt="profile picture" style="width: 220px;height: 220px;border-radius: 50%"></td>
+            </tr>
+             <tr>
+              <td id="td-des">Creative Comment :</td>
+              <td id="td-data">{{record.comment}}</td>
+            </tr>
+           </body>
+         </table>
+            <div class="row">
+              <div class="box-body text-center">
+                <a class="btn btn-primary" routerLink="/admin/portfolio">Back</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+
+
+<app-admin-footer [globalSettings]="globalSettings"></app-admin-footer>

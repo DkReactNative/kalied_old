@@ -1,0 +1,12 @@
+.display-flex {
+  display: flex;
+  flex-direction: column;
+}
+
+.align-self-end {
+  align-self: flex-end;
+  /* margin-top: 24%; */
+}
+p {
+  white-space: pre-line !important;
+}

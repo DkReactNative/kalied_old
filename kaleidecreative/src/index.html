@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <base href="/" />
+    <!-- <base href="https://devnode.devtechnosys.tech/kaleidecreative/" /> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+      name="viewport"
+    />
+    <!-- Google Font -->
+
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"
+    />
+
+    <title>KaleideCreative</title>
+
+    <!-- front-end style -->
+    <!--responsive-meta-here-->
+    <meta
+      name="viewport"
+      content="minimum-scale=1.0, maximum-scale=1.0,width=device-width, user-scalable=no"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <!--responsive-meta-end-->
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link
+      type="text/html"
+      rel="stylesheet"
+      href="assets/css/fontawesome-all.min.css"
+      rel="stylesheet"
+    />
+    <!-- <link rel="stylesheet" href="assets/css/mdb.min.css" rel="stylesheet" /> -->
+    <link
+      rel="stylesheet"
+      href="assets/css/owl.carousel.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="assets/css/fontawesome-all.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/fontawesome.css" rel="stylesheet" />
+    <script>
+      (function (a, s, y, n, c, h, i, d, e) {
+        s.className += " " + y;
+        h.start = 1 * new Date();
+        h.end = i = function () {
+          s.className = s.className.replace(RegExp(" ?" + y), "");
+        };
+        (a[n] = a[n] || []).hide = h;
+        setTimeout(function () {
+          i();
+          h.end = null;
+        }, c);
+        h.timeout = c;
+      })(window, document.documentElement, "async-hide", "dataLayer", 4000, {
+        XXXXXXX: true,
+      });
+    </script>
+  </head>
+
+  <body>
+    <app-root></app-root>
+  </body>
+
+  <script src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
+  <script type="text/javascript" src="assets/js/jquery-3.3.1.min.js"></script>
+  <script type="text/javascript" src="assets/js/popper.min.js"></script>
+  <script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="assets/js/owl.carousel.min.js"></script>
+  <script type="text/javascript" src="assets/js/popper.min.js"></script>
+
+  <!-- css & js file according to admin or front-end user -->
+  <script>
+    var url = window.location.href;
+    console.log(url);
+    if (url.includes("admin")) {
+      var jsfile = $(
+        "<script type='text/javascript' src='assets/js/adminScript.js'>"
+      );
+      $("body").append(jsfile);
+    } else {
+      var jsfile = $(
+        "<script type='text/javascript' src='assets/js/frontScript.js'>"
+      );
+      $("body").append(jsfile);
+    }
+  </script>
+  <script>
+    // header sticky
+    $(window).scroll(function () {
+      var body = $("body"),
+        scroll = $(window).scrollTop();
+      if (scroll >= 5) {
+        body.addClass("fixed");
+      } else {
+        body.removeClass("fixed");
+      }
+    });
+  </script>
+  <noscript>
+    <h4
+      style="
+        font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light',
+          'Helvetica Neue', Helvetica;
+      "
+    >
+      Sorry, JavaScript needs to be enabled in order to run this application.
+    </h4>
+  </noscript>
+
+  <!-- "./src/assets/admin/dist/css/developer.css", -->
+</html>

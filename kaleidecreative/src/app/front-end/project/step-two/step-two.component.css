@@ -1,0 +1,25 @@
+.close-icon {
+  position: relative;
+  margin-bottom: -30px;
+  top: -130px;
+  right: 21px;
+  background: #f79622;
+  color: #fff;
+  width: 31px;
+  min-width: 31px;
+  height: 31px;
+  border-radius: 50%;
+  box-shadow: 1.5px 2.598px 9px 0px rgb(0, 0, 0);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+}
+.flex-wrap-inner {
+  margin-bottom: 10px;
+}

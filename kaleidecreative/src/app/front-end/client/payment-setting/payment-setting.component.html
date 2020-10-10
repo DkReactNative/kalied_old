@@ -1,0 +1,322 @@
+<div class="inner-wraper inner-hmain-bg">
+  <div class="container">
+    <div class="profile-setting d-flex">
+      <app-profile-side-menu></app-profile-side-menu>
+      <div class="pro-set-right ml-auto">
+        <div class="review-box">
+          <h4>Payment settings</h4>
+          <div class="review-btt">
+            <button
+              class="btn btn-yellow"
+              data-toggle="modal"
+              data-target="#add-card-new"
+            >
+              Add New card
+            </button>
+          </div>
+        </div>
+        <div class="pro-right-container row payac-pdd">
+          <div class="col-md-6" *ngFor="let card of cards">
+            <div class="default_pdd">
+              <div class="pay-line-bg">
+                <div
+                  class="d-flex"
+                  (click)="
+                    makePayment(card.payment_reference, card.customer_id)
+                  "
+                >
+                  <!-- visa, mastercard, amex, discover, maestro, jcb, or cup -->
+                  <figure>
+                    <img
+                      *ngIf="card.type === 'mastercard'"
+                      src="assets/images/mastercard.png"
+                    />
+                  </figure>
+                  <figure>
+                    <img
+                      *ngIf="card.type === 'visa'"
+                      src="assets/images/visa.png"
+                    />
+                  </figure>
+                  <figcaption>
+                    <h1>
+                      {{ card.number ? card.number : "N/A" }}
+                    </h1>
+                    <h6>
+                      {{
+                        card.first_name
+                          ? card.first_name + " " + card.last_name
+                          : "N/A"
+                      }}
+                    </h6>
+                  </figcaption>
+                </div>
+                <div class="card-edit">
+                  <div class="bticons_pay">
+                    <button class="btn btn-fil-color edit-btn">
+                      <input type="file" id="file" />
+                      <label for="file"><i class="far fa-edit"></i></label>
+                    </button>
+                    <button class="btn btn-fil-color closeing-btn">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                  <button
+                    *ngIf="card.is_default == false"
+                    [attr.data-id]="card._id"
+                    (click)="makeDefault(card._id)"
+                    class="btn btn-green"
+                  >
+                    Set as default
+                  </button>
+                </div>
+              </div>
+              <img
+                *ngIf="card.is_default === true"
+                class="default_in"
+                src="assets/images/default.png"
+              />
+            </div>
+          </div>
+
+          <!-- Reference Card of paypal grid view -->
+          <div class="col-lg-12">
+            <div class="col-md-6" *ngFor="let card of referenceCard">
+              <div class="default_pdd">
+                <div class="pay-line-bg">
+                  <div class="d-flex">
+                    <figure>
+                      <img src="assets/images/paypal.png" />
+                    </figure>
+                    <figcaption>
+                      <h1>Authorized as:</h1>
+                      <h6>
+                        {{ card.email ? card.email : "N/A" }}
+                      </h6>
+                    </figcaption>
+                  </div>
+                  <div class="card-edit">
+                    <div class="bticons_pay">
+                      <button class="btn btn-fil-color edit-btn">
+                        <input type="file" id="file" />
+                        <label for="file"><i class="far fa-edit"></i></label>
+                      </button>
+                      <button class="btn btn-fil-color closeing-btn">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                    <button
+                      *ngIf="card.is_default == false"
+                      [attr.data-id]="card._id"
+                      (click)="makeDefault(card._id)"
+                      class="btn btn-green"
+                    >
+                      Set as default
+                    </button>
+                  </div>
+                </div>
+                <img
+                  *ngIf="card.is_default === true"
+                  class="default_in"
+                  src="assets/images/default.png"
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6" *ngIf="cards && cards.length == 0">
+            <h5 class="text-warning">No records found.</h5>
+          </div>
+          <div class="col-md-12 pal-pdd">
+            <h4 class="prefa-texts">Add Paypal account</h4>
+            <!-- <button class="btn btn-skyb">
+              Pay with <i class="fab fa-paypal"></i> pay pal
+            </button> -->
+            <!-- <div id="paypal-button-container"></div> -->
+            <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div
+  class="modal fade modal-comman"
+  id="add-card-new"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add New Card</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+          id="closeButton"
+          (click)="closeModal()"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="add-card-pdd">
+          <form
+            [formGroup]="formData"
+            (ngSubmit)="onClickSubmit(formData.value)"
+          >
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Card Type</label>
+                  <select
+                    class="form-control"
+                    id="cardtype"
+                    formControlName="cardType"
+                  >
+                    <option value="mastercard">Master</option>
+                    <option value="visa">VISA</option>
+                  </select>
+                  <div
+                    *ngIf="
+                      formData.controls['cardType'].invalid &&
+                      (formData.controls['cardType'].dirty ||
+                        formData.controls['cardType'].touched ||
+                        this.formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      *ngIf="formData.controls['cardType'].errors.required"
+                      style="color: red"
+                    >
+                      Card type is required. !!
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Card Holder Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    value=""
+                    id="cardholdername"
+                    formControlName="cardHolderName"
+                  />
+                  <div
+                    *ngIf="
+                      formData.controls['cardHolderName'].invalid &&
+                      (formData.controls['cardHolderName'].dirty ||
+                        formData.controls['cardHolderName'].touched ||
+                        this.formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      *ngIf="
+                        formData.controls['cardHolderName'].errors.required
+                      "
+                      style="color: red"
+                    >
+                      Card holder name is required. !!
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Card Number</label>
+                  <input
+                    type="text"
+                    name=""
+                    class="form-control"
+                    value=""
+                    id="cardnumber"
+                    formControlName="cardNumber"
+                  />
+                  <div
+                    *ngIf="
+                      formData.controls['cardNumber'].invalid &&
+                      (formData.controls['cardNumber'].dirty ||
+                        formData.controls['cardNumber'].touched ||
+                        this.formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      *ngIf="formData.controls['cardNumber'].errors.required"
+                      style="color: red"
+                    >
+                      Card number is required. !!
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Expires On</label>
+                  <input
+                    type="month"
+                    name=""
+                    class="form-control"
+                    value="{{ date }}"
+                    id="expiry"
+                    formControlName="expiredOn"
+                  />
+                  <div
+                    *ngIf="
+                      formData.controls['expiredOn'].invalid &&
+                      (formData.controls['expiredOn'].dirty ||
+                        formData.controls['expiredOn'].touched ||
+                        this.formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      *ngIf="formData.controls['expiredOn'].errors.required"
+                      style="color: red"
+                    >
+                      Expiry date is required. !!
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>CVV</label>
+                  <input
+                    type="CVV"
+                    name=""
+                    class="form-control"
+                    placeholder="Enter CVV"
+                    id="cardCvv"
+                    formControlName="cvv"
+                  />
+                  <div
+                    *ngIf="
+                      formData.controls['cvv'].invalid &&
+                      (formData.controls['cvv'].dirty ||
+                        formData.controls['cvv'].touched ||
+                        this.formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      style="color: red"
+                      *ngIf="formData.controls['cvv'].errors.required"
+                    >
+                      CVV is required. !!
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-orange">Add Card</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

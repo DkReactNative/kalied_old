@@ -1,0 +1,207 @@
+<!-- inner-wraper -->
+<div class="inner-wraper inner-hmain-bg">
+  <div class="container">
+    <!-- Inner wraper -->
+    <div class="dash-main-pdd">
+      <h4 class="ject-4">Graphic Designer cum Video Editor</h4>
+      <div class="project-btn">
+        <ul class="navbar-nav flex-column flex-sm-row">
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="javascript:;"
+              [ngClass]="
+                window.location.href.includes('description') ? 'active' : ''
+              "
+              [routerLink]="[
+                '/user/freelancer/project/' +
+                  Btoa(this.projectId) +
+                  '/description/' +
+                  Btoa(this.projectId)
+              ]"
+              routerLinkActive="active"
+              ><i class="fas fa-clipboard-list"></i>Description</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="javascript:;"
+              [ngClass]="
+                window.location.href.includes('message') ? 'active' : ''
+              "
+              [routerLink]="[
+                '/user/freelancer/project/' +
+                  Btoa(this.projectId) +
+                  '/message/' +
+                  Btoa(this.projectId)
+              ]"
+              routerLinkActive="active"
+              ><i class="fas fa-comment-dots"></i>Message</a
+            >
+          </li>
+          <li class="nav-item">
+            <a
+              class="nav-link"
+              href="javascript:;"
+              [ngClass]="
+                window.location.href.includes('payment') ? 'active' : ''
+              "
+              [routerLink]="[
+                '/user/freelancer/project/' +
+                  Btoa(this.projectId) +
+                  '/payment/' +
+                  Btoa(this.projectId)
+              ]"
+              routerLinkActive="active"
+              ><i class="fas fa-money-check-alt"></i>Payment</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="createdashboard">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+    <!-- Inner wraper -->
+  </div>
+</div>
+<!-- inner-wraper -->
+
+<!-- Modal Cancel a project -->
+<div
+  class="modal fade modal-comman"
+  id="cancel-project"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Cancel a project</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="add-card-pdd">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="v-editor view_line">
+                <div class="editor-sec">
+                  <h4>Graphic Designer cum Video Editor</h4>
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                  </p>
+                </div>
+                <button class="btn btn-blue">View Project</button>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Reason Type</label>
+                <select class="form-control">
+                  <option>Choose reason</option>
+                  <option>Choose reason</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12 reson_hi">
+              <div class="form-group">
+                <label>Explain the reason</label>
+                <textarea
+                  type="text"
+                  name=""
+                  class="form-control"
+                  placeholder="Choose reason"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="ct-linebt">
+            <button class="btn btn-orange">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Cancel a project -->
+<!-- Modal Refund request -->
+<div
+  class="modal fade modal-comman"
+  id="refund-request"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Refund request</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="add-card-pdd">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="v-editor view_line">
+                <div class="editor-sec">
+                  <h4>Graphic Designer cum Video Editor</h4>
+                  <p>
+                    Lorem Ipsum is simply dummy text of the printing and
+                    typesetting industry. Lorem Ipsum has been the industry's
+                  </p>
+                </div>
+                <button class="btn btn-blue">View Project</button>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Reason Type</label>
+                <select class="form-control">
+                  <option>Choose reason</option>
+                  <option>Choose reason</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-12 reson_hi">
+              <div class="form-group">
+                <label>Explain the reason</label>
+                <textarea
+                  type="text"
+                  name=""
+                  class="form-control"
+                  placeholder="Choose reason"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="ct-linebt">
+            <button class="btn btn-orange">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal Refund request -->
+<!-- Modal Refund request -->
+
+<!-- Modal Refund request -->

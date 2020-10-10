@@ -1,0 +1,69 @@
+<app-admin-header [user]="user" [globalSettings]="globalSettings"></app-admin-header>
+<app-admin-sidebar [user]="user" [globalSettings]="globalSettings"></app-admin-sidebar>
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      {{pageTitle}}
+      <small>View</small>
+    </h1>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box box-primary">
+          <!-- /.box-header -->
+          <div class="box-body">
+       <table class="table">
+            <body *ngIf="record">
+            <tr>
+              <td id="td-des">First Name :</td>
+              <td id="td-data">{{ record.first_name }}</td>
+            </tr>
+             <tr>
+              <td id="td-des">Last Name :</td>
+              <td id="td-data">{{ record.last_name }}</td>
+            </tr>
+            <tr>
+              <td id="td-des">Freelancer Type :</td>
+              <td id="td-data">{{record.freelancer_type == 2?'Editor':record.freelancer_type == 1?"Graphic Designer":"NA"}}</td>
+            </tr>
+            <tr>
+              <td id="td-des">Project Type :</td>
+              <td id="td-data">{{filterName(1,record.project_type)}}</td>
+            </tr>
+            <tr>
+              <td id="td-des">Industry Type :</td>
+              <td id="td-data">{{filterName(2,record.industry)}}</td>
+            </tr>
+            <tr>
+              <td id="td-des">Genere Type :</td>
+              <td id="td-data">{{filterName(3,record.genre)}}</td>
+            </tr>
+             <tr>
+              <td id="td-des" style="margin:auto">Tags :</td>
+              <td id="td-data" *ngIf="record.tags"><p *ngFor="let tag of record.tags">{{tag}}</p></td>
+            </tr>
+            <tr>
+              <td id="td-des" style="margin:auto">Images :</td>
+              <td id="td-data" *ngIf="record.images"><img  id='imageUrl' class="img-responsive"  *ngFor="let image of record.images" src="{{image}}" alt="profile picture"></td>
+            </tr>
+           </body>
+         </table>
+            <div class="row">
+              <div class="box-body text-center">
+                <a class="btn btn-primary" routerLink="/admin/portfolio">Back</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+
+
+<app-admin-footer [globalSettings]="globalSettings"></app-admin-footer>

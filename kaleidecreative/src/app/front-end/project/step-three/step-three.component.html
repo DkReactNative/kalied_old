@@ -1,0 +1,368 @@
+<!-- inner-wraper -->
+<div class="inner-wraper inner-create-bg">
+  <div class="container">
+    <div class="create-title">
+      <h4>{{ isProjectForEdit ? "Edit Project" : "Create Project" }}</h4>
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
+      </p>
+    </div>
+    <div class="create-pdd90">
+      <div class="createdashboard">
+        <div class="row">
+          <div class="col-md-3" *ngIf="!isProjectForEdit">
+            <app-project-side-bar
+              [projectId]="projectId ? Btoa(projectId) : ''"
+            ></app-project-side-bar>
+          </div>
+          <div
+            class="DashboardContent"
+            [ngClass]="!isProjectForEdit ? 'col-md-9' : 'col-md-12'"
+          >
+            <div class="RightContent">
+              <form
+                role="form"
+                [formGroup]="formData"
+                (ngSubmit)="submitForm(formData.value)"
+              >
+                <div class="cont-line-pdd">
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Freelancer type</label>
+                    <select
+                      class="form-control"
+                      (change)="changeOption($event, 'freelancerType')"
+                      formControlName="freelancerType"
+                    >
+                      <option value="" disabled>Freelancer type</option>
+                      <option value="1">Graphic designer</option>
+                      <option value="2">Editor</option>
+                    </select>
+                    <span
+                      class="glyphicon glyphicon-envelope form-control-feedback"
+                    ></span>
+                    <div
+                      *ngIf="
+                        formData.controls['freelancerType'].invalid &&
+                        (formData.controls['freelancerType'].dirty ||
+                          formData.controls['freelancerType'].touched ||
+                          formSubmitAttempt)
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="
+                          formData.controls['freelancerType'].errors.required
+                        "
+                        >This field is required</span
+                      >
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Project type</label>
+                    <select
+                      type="Select"
+                      class="form-control"
+                      (change)="changeOption($event, 'projectType')"
+                      formControlName="projectType"
+                    >
+                      <option value="" disabled>Select Project Type</option>
+                      <option
+                        *ngFor="let option of projectType"
+                        [value]="option.value"
+                      >
+                        {{ option.name }}
+                      </option>
+                    </select>
+                    <span
+                      class="glyphicon glyphicon-envelope form-control-feedback"
+                    ></span>
+                    <div
+                      *ngIf="
+                        formData.controls['projectType'].invalid &&
+                        (formData.controls['projectType'].dirty ||
+                          formData.controls['projectType'].touched ||
+                          formSubmitAttempt)
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="formData.controls['projectType'].errors.required"
+                        >This field is required</span
+                      >
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Genre</label>
+                    <div class="box-filters-input">
+                      <div class="dropdown filters-input-primary">
+                        <button
+                          class="btn btn-primary dropdown-toggle btn-width"
+                          type="button"
+                          data-toggle="dropdown"
+                        >
+                          Genre <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li>
+                            <div class="more-filter-item with-carrot">
+                              <div class="content-title">Select Genre Type</div>
+                              <div class="checkbox-list">
+                                <!-- Default unchecked -->
+                                <div *ngIf="genereType.length == 0">
+                                  Genre type not found
+                                </div>
+                                <div
+                                  class="custom-control custom-checkbox"
+                                  *ngFor="
+                                    let option of genereType;
+                                    let i = index
+                                  "
+                                >
+                                  <input
+                                    type="checkbox"
+                                    class="custom-control-input"
+                                    [value]="option.value"
+                                    (change)="
+                                      onCheckboxChange($event, 'genere')
+                                    "
+                                    [checked]="
+                                      getCheckedStatus(
+                                        option.value,
+                                        getGenereType.value
+                                      )
+                                    "
+                                    id="genere{{ i }}"
+                                  />
+                                  <label
+                                    class="custom-control-label"
+                                    for="genere{{ i }}"
+                                    >{{ option.name }}</label
+                                  >
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="exampleInputEmail1">Industry</label>
+                    <div class="box-filters-input">
+                      <div class="dropdown filters-input-primary">
+                        <button
+                          class="btn btn-primary dropdown-toggle btn-width"
+                          type="button"
+                          data-toggle="dropdown"
+                        >
+                          Industry <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li>
+                            <div class="more-filter-item with-carrot">
+                              <div class="content-title">
+                                Select Industry Type
+                              </div>
+                              <div class="checkbox-list">
+                                <div *ngIf="industryType.length == 0">
+                                  Industry type not found
+                                </div>
+                                <!-- Default unchecked -->
+                                <div
+                                  class="custom-control custom-checkbox"
+                                  *ngFor="
+                                    let option of industryType;
+                                    let i = index
+                                  "
+                                >
+                                  <input
+                                    type="checkbox"
+                                    class="custom-control-input"
+                                    [value]="option.value"
+                                    (change)="
+                                      onCheckboxChange($event, 'industry')
+                                    "
+                                    [checked]="
+                                      getCheckedStatus(
+                                        option.value,
+                                        getIndustryType.value
+                                      )
+                                    "
+                                    id="industry{{ i }}"
+                                  />
+                                  <label
+                                    class="custom-control-label"
+                                    for="industry{{ i }}"
+                                    >{{ option.name }}
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row Preferred-box">
+                  <h4 class="prefa-texts">Preferred Location</h4>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Address</label>
+                      <input
+                        type="name"
+                        name="address1"
+                        #search
+                        class="form-control"
+                        formControlName="address"
+                        placeholder="Type your address here..."
+                      />
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="exampleInputEmail1">Country</label>
+                      <input
+                        type="name"
+                        name=""
+                        class="form-control"
+                        formControlName="country"
+                        placeholder="Country name"
+                        disabled
+                      />
+                      <span
+                        class="glyphicon glyphicon-envelope form-control-feedback"
+                      ></span>
+                      <div
+                        *ngIf="
+                          formData.controls['country'].invalid &&
+                          (formData.controls['country'].dirty ||
+                            formData.controls['country'].touched ||
+                            formSubmitAttempt)
+                        "
+                      >
+                        <span
+                          class="error text-danger"
+                          *ngIf="formData.controls['country'].errors.required"
+                          >Country name is required</span
+                        >
+                        <span
+                          class="error text-danger"
+                          *ngIf="formData.controls.country.errors?.rangeLength"
+                          >Please enter a name between 1 and 55 characters long.
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="locat-pdd">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">City</label>
+                        <input
+                          type="name"
+                          name="address1"
+                          formControlName="city"
+                          class="form-control"
+                          placeholder="Type you city name"
+                        />
+                        <span
+                          class="glyphicon glyphicon-envelope form-control-feedback"
+                        ></span>
+                        <div
+                          *ngIf="
+                            formData.controls['city'].invalid &&
+                            (formData.controls['city'].dirty ||
+                              formData.controls['city'].touched ||
+                              formSubmitAttempt)
+                          "
+                        >
+                          <span
+                            class="error text-danger"
+                            *ngIf="formData.controls['city'].errors.required"
+                            >City name is required</span
+                          >
+                          <span
+                            class="error text-danger"
+                            *ngIf="formData.controls.city.errors?.rangeLength"
+                            >Please enter a name between 1 and 100 characters
+                            long.
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="exampleInputEmail1">Zip code</label>
+                        <input
+                          type="name"
+                          name=""
+                          formControlName="zipCode"
+                          class="form-control"
+                          placeholder="Zip Code"
+                        />
+                        <span
+                          class="glyphicon glyphicon-envelope form-control-feedback"
+                        ></span>
+                        <div
+                          *ngIf="
+                            formData.controls['zipCode'].invalid &&
+                            (formData.controls['zipCode'].dirty ||
+                              formData.controls['zipCode'].touched ||
+                              formSubmitAttempt)
+                          "
+                        >
+                          <span
+                            class="error text-danger"
+                            *ngIf="formData.controls['zipCode'].errors.required"
+                            >Zip Code is required</span
+                          >
+                          <span
+                            class="error text-danger"
+                            *ngIf="
+                              formData.controls.zipCode.errors?.rangeLength
+                            "
+                            >Please enter a code between 4 and 10 characters
+                            long.
+                          </span>
+                          <span
+                            class="error text-danger"
+                            *ngIf="
+                              !formData.controls.zipCode.errors?.rangeLength &&
+                              formData.controls.zipCode.errors?.pattern
+                            "
+                            >Please enter a valid code
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-between">
+                  <button
+                    href="javascript:;"
+                    class="btn btn-gry"
+                    type="button"
+                    [routerLink]="['/user/project/create2/' + Btoa(projectId)]"
+                    *ngIf="!isProjectForEdit"
+                  >
+                    Back
+                  </button>
+                  <button
+                    href="javascript:;"
+                    type="submit"
+                    [ngClass]="isProjectForEdit ? 'text-right' : ''"
+                    class="btn btn-orange"
+                  >
+                    {{ isProjectForEdit ? "Update" : "Next" }}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- inner-wraper -->
+</div>

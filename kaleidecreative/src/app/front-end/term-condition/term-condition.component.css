@@ -1,0 +1,16 @@
+.terms-in h4 {
+    font-size: 20px important;
+    font-weight: 600 important;
+    margin-bottom: 0px important;
+    color: #f5911b important;
+    padding-bottom: 20px important;
+}
+
+.terms-in p {
+    font-size: 14px important;
+    font-weight: 400 important;
+    margin-bottom: 0px important;
+    color: #fff important;
+    padding-bottom: 20px important;
+    text-align: justify important;
+}

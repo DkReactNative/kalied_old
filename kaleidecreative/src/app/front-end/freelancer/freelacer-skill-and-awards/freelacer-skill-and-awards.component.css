@@ -1,0 +1,38 @@
+.newcss-li {
+    width: 100%
+}
+
+
+/*.i-icon {
+
+	margin-left: 90%
+
+}*/
+
+.diver_bg2 {
+    max-width: 50%
+}
+
+.drop-down-text {
+    color: rgb(170, 170, 170);
+}
+
+.pro-head-bar {
+    padding-left: 0px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+}
+
+.RightContent {
+    margin-top: 15px;
+}
+
+.new-css {
+    display: flex;
+    flex-direction: column;
+}
+
+.align-self {
+    align-self: flex-end;
+    margin-top: 24%;
+}

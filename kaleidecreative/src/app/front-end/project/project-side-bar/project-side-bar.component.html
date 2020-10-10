@@ -1,0 +1,66 @@
+<div class="SidemenuBox">
+  <nav class="nav-sidebar sidetextbox">
+    <ul class="nav">
+      <li>
+        <a
+          href="javascript:;"
+          [routerLink]="[
+            projectId
+              ? '/user/project/create1/' + (projectId ? projectId : '')
+              : '/user/project/create1/'
+          ]"
+          [ngClass]="checkActiveRoute('create1')"
+          >Project Description</a
+        >
+      </li>
+      <li>
+        <a
+          href="javascript:;"
+          [routerLink]="[
+            projectId
+              ? '/user/project/create2/' + (projectId ? projectId : '')
+              : '/user/project/create1/'
+          ]"
+          [ngClass]="checkActiveRoute('create2')"
+          >Inspiration</a
+        >
+      </li>
+      <li>
+        <a
+          href="javascript:;"
+          [routerLink]="[
+            projectId
+              ? '/user/project/create3/' + (projectId ? projectId : '')
+              : '/user/project/create1/'
+          ]"
+          [ngClass]="checkActiveRoute('create3')"
+          >Freelancer Requirements</a
+        >
+      </li>
+      <li>
+        <a
+          href="javascript:;"
+          [routerLink]="[
+            projectId
+              ? '/user/project/create4/' + (projectId ? projectId : '')
+              : '/user/project/create1/'
+          ]"
+          [ngClass]="checkActiveRoute('create4')"
+          >Schedule and Budget</a
+        >
+      </li>
+      <li>
+        <a
+          href="javascript:;"
+          [routerLink]="[
+            projectId
+              ? '/user/project/create5/' + (projectId ? projectId : '')
+              : '/user/project/create1/'
+          ]"
+          [ngClass]="checkActiveRoute('create5')"
+          >Review Project</a
+        >
+      </li>
+    </ul>
+  </nav>
+</div>

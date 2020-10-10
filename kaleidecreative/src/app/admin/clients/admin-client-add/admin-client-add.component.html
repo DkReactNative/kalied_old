@@ -1,0 +1,327 @@
+<app-admin-header
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-header>
+<app-admin-sidebar
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-sidebar>
+
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      {{ pageTitle }}
+      <small>Create</small>
+    </h1>
+  </section>
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box box-primary">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <form
+              #newRecordForm="ngForm"
+              (ngSubmit)="
+                !newRecordForm.invalid && newRecordSubmit(newRecordForm.value)
+              "
+            >
+              <div class="form-group has-feedback">
+                <label>Name :</label>
+                <input
+                  [(ngModel)]="newRecordByAdmin.name"
+                  #name="ngModel"
+                  name="name"
+                  required
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Name"
+                />
+                <div
+                  *ngIf="
+                    (name.invalid && (name.dirty || name.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="name.hasError('required')"
+                    >Name is required</span
+                  >
+                </div>
+              </div>
+              <div class="form-group has-feedback">
+                <label>Company/Enterprise Name :</label>
+                <input
+                  [(ngModel)]="newRecordByAdmin.companyname"
+                  #companyname="ngModel"
+                  name="companyname"
+                  required
+                  type="text"
+                  class="form-control"
+                  placeholder="Company/Enterprise Name"
+                />
+                <div
+                  *ngIf="
+                    (companyname.invalid &&
+                      (companyname.dirty || companyname.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="companyname.hasError('required')"
+                    >Company/Enterprise Name is required</span
+                  >
+                </div>
+              </div>
+              <div class="form-group has-feedback">
+                <label>Appear as :</label>
+                <input
+                  [(ngModel)]="newRecordByAdmin.appearas"
+                  #appearas="ngModel"
+                  name="appearas"
+                  required
+                  type="text"
+                  class="form-control"
+                  placeholder="Appear as"
+                />
+                <!-- <div *ngIf="appearas.invalid && (appearas.dirty || appearas.touched) || newRecordForm.submitted">
+                                  <span class="error text-danger" *ngIf="appearas.hasError('required')">Appear as is required</span>
+                                </div> -->
+              </div>
+              <div class="form-group has-feedback">
+                <label>Email :</label>
+                <input
+                  [(ngModel)]="newRecordByAdmin.email"
+                  #email="ngModel"
+                  name="email"
+                  required
+                  email="true"
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Email"
+                  autocomplete="false"
+                />
+                <div
+                  *ngIf="
+                    (email.invalid && (email.dirty || email.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="email.hasError('required')"
+                    >Email is required</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="email.hasError('email')"
+                    >Email format is not correct</span
+                  >
+                </div>
+              </div>
+
+              <div class="form-group has-feedback">
+                <label>Phone no. :</label>
+                <input
+                  [(ngModel)]="newRecordByAdmin.phoneno"
+                  #phoneno="ngModel"
+                  name="phoneno"
+                  required
+                  type="text"
+                  pattern="[0-9]*"
+                  class="form-control"
+                  placeholder="Phone no"
+                />
+                <div
+                  *ngIf="
+                    (phoneno.invalid && (phoneno.dirty || phoneno.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="phoneno.hasError('required')"
+                    >Phone no is required</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="phoneno.hasError('pattern')"
+                    >Number Only</span
+                  >
+                </div>
+              </div>
+
+              <div class="form-group has-feedback">
+                <label>Password :</label>
+                <input
+                  type="password"
+                  [(ngModel)]="newRecordByAdmin.password"
+                  #password="ngModel"
+                  name="password"
+                  required
+                  minlength="6"
+                  class="form-control"
+                  id="exampleInputEmail1"
+                  placeholder="Enter password"
+                />
+                <div
+                  *ngIf="
+                    (password.invalid &&
+                      (password.dirty || password.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="password.hasError('required')"
+                    >Password is required</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="password.hasError('minlength')"
+                    >Password must be 6 char strong</span
+                  >
+                </div>
+              </div>
+              <div class="form-group has-feedback">
+                <label>Confirm Password :</label>
+                <input
+                  type="password"
+                  [(ngModel)]="newRecordByAdmin.confirm_password"
+                  #confirm_password="ngModel"
+                  name="confirm_password"
+                  required
+                  class="form-control"
+                  id="exampleInputPassword1"
+                  placeholder="Re-enter Password"
+                />
+                <div
+                  *ngIf="
+                    (confirm_password.invalid &&
+                      (confirm_password.dirty || confirm_password.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="confirm_password.hasError('required')"
+                    >Confirm Password is required</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="confirm_password.hasError('minlength')"
+                    >Confirm Password should be at least 6 characters long</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="
+                      !confirm_password.hasError('required') &&
+                      !confirm_password.hasError('minlength') &&
+                      newRecordForm.value.password !==
+                        newRecordForm.value.confirm_password
+                    "
+                    >Passwords don't match.</span
+                  >
+                </div>
+              </div>
+              <div class="form-group has-feedback">
+                <label>Select Business Type</label>
+                <input
+                  type="radio"
+                  [(ngModel)]="newRecordByAdmin.businesstype"
+                  #businesstype="ngModel"
+                  value="1"
+                  name="businesstype"
+                  id="businesstype1"
+                  required
+                /><label for="businesstype1">Small Business</label>
+                <input
+                  type="radio"
+                  [(ngModel)]="newRecordByAdmin.businesstype"
+                  #businesstype="ngModel"
+                  value="2"
+                  name="businesstype"
+                  id="businesstype2"
+                  required
+                /><label for="businesstype2">Enterprise Client</label>
+                <div
+                  *ngIf="
+                    (businesstype.invalid &&
+                      (businesstype.dirty || businesstype.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="businesstype.hasError('required')"
+                    >Business Type is required</span
+                  >
+                </div>
+              </div>
+              <div class="form-group has-feedback">
+                <label>Business Summary </label>
+                <input
+                  [(ngModel)]="newRecordByAdmin.business_summary"
+                  #business_summary="ngModel"
+                  name="business_summary"
+                  required
+                  type="text"
+                  class="form-control"
+                  placeholder="Business Summary"
+                />
+                <div
+                  *ngIf="
+                    (business_summary.invalid &&
+                      (business_summary.dirty || business_summary.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="business_summary.hasError('required')"
+                    >Business Summary is required</span
+                  >
+                </div>
+              </div>
+              <div class="form-group has-feedback">
+                <label>Address </label>
+                <input
+                  [(ngModel)]="newRecordByAdmin.address"
+                  #address="ngModel"
+                  name="address"
+                  required
+                  type="text"
+                  class="form-control"
+                  placeholder="Address"
+                />
+                <div
+                  *ngIf="
+                    (address.invalid && (address.dirty || address.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="address.hasError('required')"
+                    >Address is required</span
+                  >
+                </div>
+              </div>
+              <div class="form-group">
+                <a class="btn btn-primary" routerLink="/admin/{{ pageSlug }}"
+                  >Back</a
+                >&nbsp;
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-admin-footer [globalSettings]="globalSettings"></app-admin-footer>

@@ -1,0 +1,7 @@
+p {
+  white-space: pre-line;
+}
+.create-info ul {
+  max-height: 300px;
+  overflow: auto;
+}

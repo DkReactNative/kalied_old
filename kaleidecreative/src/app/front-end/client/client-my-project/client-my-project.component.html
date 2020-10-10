@@ -1,0 +1,167 @@
+<!-- inner-wraper -->
+<div class="inner-wraper inner-hmain-bg">
+  <div class="container creat_pdd">
+    <!-- my - project -->
+    <div class="project-title">
+      <h4>My Projects</h4>
+      <button class="btn btn-orange" [routerLink]="['/user/project/create1']">
+        Create New Project
+      </button>
+    </div>
+    <div class="">
+      <div class="pro-filter-sec">
+        <div class="filter-sec">
+          <h5>Categories Filter</h5>
+          <div class="filter-list">
+            <div class="custom-control custom-checkbox">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="check-fl1"
+                [value]="[1, 2, 3, 4, 5, 6, 7]"
+                (change)="onClickAll($event)"
+                [checked]="formData.length == 7"
+              />
+              <label class="custom-control-label" for="check-fl1">All</label>
+            </div>
+            <ng-container
+              *ngFor="let filter of projectstatus | keyvalue; let i = index"
+            >
+              <div
+                class="custom-control custom-checkbox"
+                *ngIf="filter.key != 0 && filter.key != 3 && filter.key != 4"
+              >
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  [value]="filter.key"
+                  (change)="onCheckboxChange($event)"
+                  [checked]="checkStatus(filter.key)"
+                  id="{{ i }}"
+                />
+                <label class="custom-control-label" for="{{ i }}">{{
+                  filter.value
+                }}</label>
+              </div>
+              <div
+                class="custom-control custom-checkbox"
+                *ngIf="filter.key == 3"
+              >
+                <input
+                  type="checkbox"
+                  [value]="[3, 4]"
+                  (change)="onCheckboxChange($event, true)"
+                  class="custom-control-input"
+                  [checked]="checkStatus(filter.key, true)"
+                  id="{{ i }}"
+                />
+                <label class="custom-control-label" for="{{ i }}">{{
+                  filter.value
+                }}</label>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+        <div class="cum-list">
+          <ng-container
+            *ngIf="
+              records.records && records.records.length > 0;
+              else elseBlock
+            "
+          >
+            <div class="row cum-box" *ngFor="let project of records.records">
+              <div class="col-md-8 cum-edit">
+                <div class="d-flex">
+                  <h6>{{ project.title }}</h6>
+                  <button class="btn btn-accept">
+                    {{ projectstatus[project.status] }}
+                  </button>
+                </div>
+                <p>
+                  {{
+                    project.description
+                      ? project.description.length > 220
+                        ? project.description.slice(0, 220) + "..."
+                        : project.description
+                      : "NA"
+                  }}
+                </p>
+                <span
+                  >Created on
+                  {{ project.created | dateFormat: "MMM D YYYY" }}</span
+                >
+              </div>
+              <div class="col-md-4">
+                <div class="select-list">
+                  <button
+                    class="btn btn-blue"
+                    [routerLink]="[
+                      '/user/client/project/description/' + Btoa(project._id)
+                    ]"
+                  >
+                    View Project
+                  </button>
+
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-view-menu dropdown-toggle"
+                      type="button"
+                      id="dropdownMenuButton"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      <i class="fas fa-ellipsis-v"></i>
+                    </button>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <a
+                        class="dropdown-item"
+                        href="javascript:;"
+                        [routerLink]="[
+                          '/user/client/project/description/' +
+                            Btoa(project._id)
+                        ]"
+                        >View Project</a
+                      >
+                      <a
+                        class="dropdown-item"
+                        href="javascript:;"
+                        [routerLink]="[
+                          '/user/project/create1/' +
+                            (project._id ? Btoa(project._id) : '')
+                        ]"
+                        >Edit Project</a
+                      >
+                      <a class="dropdown-item" href="javascript:;"
+                        >Remove Project</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #elseBlock>
+            <h3 class="no-project">
+              Sorry, we could not find any matching projects
+            </h3>
+          </ng-template>
+
+          <!-- ------pagination-lists------ -->
+
+          <pagination-component
+            [totalRecords]="totalPages"
+            [activePage]="currentPage"
+            (onPageChange)="filterList($event)"
+          ></pagination-component>
+          <!-- ------pagination-lists------ -->
+        </div>
+      </div>
+    </div>
+    <!-- my - project -->
+  </div>
+</div>
+<!-- inner-wraper -->

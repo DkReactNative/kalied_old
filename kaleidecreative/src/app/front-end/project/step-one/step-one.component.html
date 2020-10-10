@@ -1,0 +1,221 @@
+<!-- inner-wraper -->
+<div class="inner-wraper inner-create-bg">
+  <div class="container">
+    <div class="create-title">
+      <h4>{{ isProjectForEdit ? "Edit Project" : "Create Project" }}</h4>
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
+      </p>
+    </div>
+    <div class="create-pdd90">
+      <div class="createdashboard">
+        <div class="row">
+          <div class="col-md-3" *ngIf="!isProjectForEdit">
+            <app-project-side-bar
+              [projectId]="projectId ? Btoa(projectId) : ''"
+            ></app-project-side-bar>
+          </div>
+          <div
+            class="DashboardContent"
+            [ngClass]="!isProjectForEdit ? 'col-md-9' : 'col-md-12'"
+          >
+            <div class="RightContent">
+              <form
+                role="form"
+                [formGroup]="formData"
+                (ngSubmit)="update(formData.value)"
+              >
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Project title</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="exampleInputEmail1"
+                    formControlName="title"
+                    aria-describedby="emailHelp"
+                    placeholder=""
+                  />
+                  <span
+                    class="glyphicon glyphicon-envelope form-control-feedback"
+                  ></span>
+                  <div
+                    *ngIf="
+                      formData.controls['title'].invalid &&
+                      (formData.controls['title'].dirty ||
+                        formData.controls['title'].touched ||
+                        formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls.title.errors?.required"
+                      >This field is required</span
+                    >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls.title.errors?.rangeLength"
+                      >Please enter a value between 3 and 55 characters long.
+                    </span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Project Description</label>
+                  <textarea
+                    name=""
+                    class="form-control"
+                    formControlName="description"
+                  ></textarea>
+                  <span
+                    class="glyphicon glyphicon-envelope form-control-feedback"
+                  ></span>
+                  <div
+                    *ngIf="
+                      formData.controls['description'].invalid &&
+                      (formData.controls['description'].dirty ||
+                        formData.controls['description'].touched ||
+                        formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls.description.errors?.required"
+                      >This field is required</span
+                    >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls.description.errors?.rangeLength"
+                      >Please enter a value between 3 and 1000 characters long.
+                    </span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Style</label>
+                  <textarea
+                    name=""
+                    class="form-control"
+                    formControlName="style"
+                  ></textarea>
+                  <span
+                    class="glyphicon glyphicon-envelope form-control-feedback"
+                  ></span>
+                  <div
+                    *ngIf="
+                      formData.controls['style'].invalid &&
+                      (formData.controls['style'].dirty ||
+                        formData.controls['style'].touched ||
+                        formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls.style.errors?.required"
+                      >This field is required</span
+                    >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls.style.errors?.rangeLength"
+                      >Please enter a value between 3 and 1000 characters long.
+                    </span>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="exampleInputPassword1">Skills</label>
+                  <mat-form-field class="example-chip-list">
+                    <mat-chip-list #chipList aria-label="Fruit selection">
+                      <mat-chip
+                        *ngFor="let skill of skills"
+                        [selectable]="selectable"
+                        [removable]="removable"
+                        (removed)="remove(skill.value)"
+                      >
+                        {{ skill.name }}
+                        <mat-icon matChipRemove *ngIf="removable"
+                          >cancel</mat-icon
+                        >
+                      </mat-chip>
+                      <input
+                        class="input-class"
+                        id="mat-input"
+                        #fruitInput
+                        formControlName="skill"
+                        [matAutocomplete]="auto"
+                        [matChipInputFor]="chipList"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        (matChipInputTokenEnd)="add($event)"
+                      />
+                    </mat-chip-list>
+                    <mat-autocomplete
+                      #auto="matAutocomplete"
+                      (optionSelected)="selected($event)"
+                    >
+                      <mat-option
+                        *ngFor="let fruit of filteredSkills | async"
+                        [ngClass]="active(fruit) ? 'active' : ''"
+                        [value]="fruit"
+                      >
+                        {{ fruit.name }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                  <span
+                    class="glyphicon glyphicon-envelope form-control-feedback"
+                  ></span>
+                  <div
+                    *ngIf="
+                      formData.controls['skill'].touched || formSubmitAttempt
+                    "
+                  >
+                    <span class="error text-danger" *ngIf="skills.length == 0"
+                      >Select atleast one skill</span
+                    >
+                  </div>
+                </div>
+                <div class="form-group back-pdd">
+                  <label for="exampleInputPassword1">Background</label>
+                  <textarea
+                    name=""
+                    class="form-control"
+                    formControlName="background"
+                  ></textarea>
+                  <span
+                    class="glyphicon glyphicon-envelope form-control-feedback"
+                  ></span>
+                  <div
+                    *ngIf="
+                      formData.controls['background'].invalid &&
+                      (formData.controls['background'].dirty ||
+                        formData.controls['background'].touched ||
+                        formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls.background.errors?.required"
+                      >This field is required</span
+                    >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls.background.errors?.rangeLength"
+                      >Please enter a value between 3 and 1000 characters long.
+                    </span>
+                  </div>
+                </div>
+                <div class="text-right">
+                  <button
+                    href="javascript:;"
+                    class="btn btn-orange"
+                    type="submit"
+                  >
+                    {{ isProjectForEdit ? "Update" : "Next" }}
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- inner-wraper -->
+</div>

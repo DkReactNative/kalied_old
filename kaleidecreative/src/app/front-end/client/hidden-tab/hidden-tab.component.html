@@ -1,0 +1,442 @@
+<!-- inner-wraper -->
+<div class="inner-wraper inner-create-bg">
+  <div class="container">
+    <p id="copy-click" (click)="copyToClipboard('dharmendra')"></p>
+    <div class="head-title">
+      <h2>Discover <b>Creative Professionals</b></h2>
+      <h3>
+        Choose from thousands of creative workers, ready to work on-set,
+        in-house, or remotely.
+      </h3>
+      <p>
+        Too many great choices?
+        <a href="javascript:;">Let us search for you!</a>
+      </p>
+    </div>
+    <div class="discover_pdd">
+      <div class="tabs-button d-flex">
+        <div class="tabs-in">
+          <a
+            href="javascript:;"
+            routerLink="/user/client/find-freelancers/2"
+            routerLinkActive="active"
+            ><img src="assets/images/find1.png" /><span>Editors</span></a
+          >
+          <a
+            href="javascript:;"
+            routerLink="/user/client/find-freelancers/1"
+            routerLinkActive="active"
+            ><img src="assets/images/find2.png" /><span
+              >Graphic artists</span
+            ></a
+          >
+        </div>
+        <div class="tabs-in ml-auto">
+          <a
+            href="javascript:;"
+            routerLink="/user/client/favourite-folder"
+            routerLinkActive="active"
+            ><img src="assets/images/find3.png" /><span>Favorites</span></a
+          >
+          <a
+            href="javascript:;"
+            routerLink="/user/client/hidden-tabs"
+            routerLinkActive="active"
+            ><img src="assets/images/find4.png" /><span>Hidden</span></a
+          >
+        </div>
+      </div>
+      <div class="box-border-gredit-line">
+        <div class="box-border-gredit freel_pdd0">
+          <div class="box-filters operat_pdd">
+            <div class="search-box">
+              <input
+                type="text"
+                style="color: white"
+                class="form-control"
+                name="keyword"
+                placeholder="Search for keywords..."
+                [(ngModel)]="keyword"
+              />
+              <i
+                class="fas fa-search"
+                style="cursor: pointer"
+                (click)="getFolderTabs(1)"
+              ></i>
+            </div>
+          </div>
+          <!-- .....right 1-sec... -->
+          <div
+            class="about-me row"
+            style="cursor: pointer"
+            *ngFor="let user of userList.records"
+            (click)="OpenModal(template1, user, null, 'model-dialog2')"
+          >
+            <div class="col-md-8">
+              <div class="Starz-box">
+                <div class="Starz-in">
+                  <figure>
+                    <img
+                      src="{{
+                        user.image
+                          ? userList.profile_image_path + user.image
+                          : 'assets/images/user-editor.png'
+                      }}"
+                    />
+                  </figure>
+                  <h3 style="max-width: 200px; word-wrap: break-word">
+                    {{ modifiyName(user.first_name, user.last_name) }}
+                  </h3>
+                  <h6 style="max-width: 200px; word-wrap: break-word">
+                    {{ modifyAddressName(user.city, user.state) }}
+                  </h6>
+                  <button
+                    class="btn btn-video"
+                    (click)="OpenModal(template4, user)"
+                    id="open-video-player-model"
+                  >
+                    <span><i class="fas fa-play"></i></span>Profile Video
+                  </button>
+                </div>
+                <figcaption>
+                  <h5>About Me</h5>
+                  <p style="max-width: 400px; word-wrap: break-word">
+                    {{
+                      user.aboutme
+                        ? user.aboutme.length > 420
+                          ? user.aboutme.slice(0, 420) + "..."
+                          : user.aboutme
+                        : "NA"
+                    }}
+                  </p>
+                  <div class="clients-pdd">
+                    <h5>Previous Clients</h5>
+                    <h6>
+                      {{
+                        user.pastClient && user.pastClient.length > 0
+                          ? tranformPatClient(user.pastClient)
+                          : "NA"
+                      }}
+                    </h6>
+                  </div>
+                </figcaption>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <div class="Starz-box2">
+                <div class="starz-bx">
+                  <button
+                    id="model-open-copy{{ user._id }}"
+                    class="btn btn-fil-color closeing-btn"
+                    (click)="
+                      OpenModal(template1, user, null, 'model-dialog2');
+                      $event.stopPropagation()
+                    "
+                  >
+                    <i class="fas fa-id-badge"></i>
+                  </button>
+                  <button
+                    class="btn btn-fil-color closeing-btn"
+                    (click)="
+                      unHideFreelancer(user.freelancer_id);
+                      $event.stopPropagation()
+                    "
+                  >
+                    <i class="fa fa-eye"></i>
+                  </button>
+                </div>
+
+                <div class="Portfolio-slide">
+                  <h5 *ngIf="user.portfolios && user.portfolios.length > 0">
+                    Portfolio
+                  </h5>
+                  <div
+                    class="Portfolio-slider-carousel owl-carousel owl-theme"
+                    *ngIf="user.portfolios"
+                  >
+                    <div class="item" *ngFor="let portfolio of user.portfolios">
+                      <img src="{{ portfolio.thumb_image }}" />
+                    </div>
+                    <!-- <div
+                      class="item"
+                      *ngIf="!user.portfolios && user.portfolios.length == 0"
+                      style="color: white;"
+                    >
+                      Portfolio Not Found
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="about-notes"
+              style="min-width: 300px"
+              *ngIf="
+                user.freelancer_note &&
+                user.freelancer_note[0] &&
+                user.freelancer_note[0].note
+              "
+            >
+              <h5>Notes</h5>
+              <p>
+                {{
+                  user.freelancer_note[0].note
+                    ? user.freelancer_note[0].note
+                    : "NA"
+                }}
+              </p>
+            </div>
+            <div
+              class="about-notes"
+              style="min-width: 300px"
+              *ngIf="user.favourite_list && user.favourite_list.note"
+            >
+              <h5>Notes</h5>
+              <p>
+                {{ user.favourite_list.note ? user.favourite_list.note : "NA" }}
+              </p>
+            </div>
+          </div>
+          <!-- .....right 1-sec... -->
+
+          <div
+            class="about-me row"
+            *ngIf="userList && userList.records && userList.records.length == 0"
+            style="color: white"
+          >
+            No data found!
+          </div>
+
+          <!-- ------pagination-lists------ -->
+          <div class="pagination-lists" *ngIf="userList.totalCount >= 1">
+            <nav aria-label="Page navigation example">
+              <ul class="pagination pagination-circle pg-blue">
+                <li
+                  class="page-item"
+                  (click)="
+                    userList.currentPage > 1 &&
+                      getFolderTabs(userList.currentPage - 1)
+                  "
+                >
+                  <a class="page-link" aria-label="Previous">
+                    <span aria-hidden="true"
+                      ><i class="fas fa-chevron-left"></i
+                    ></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+                <li
+                  class="page-item"
+                  *ngFor="let page of pageArray; let i = index"
+                  [ngClass]="page == userList.currentPage ? 'active' : ''"
+                  (click)="page != userList.currentPage && getFolderTabs(page)"
+                >
+                  <a class="page-link">{{ page }}</a>
+                </li>
+                <li
+                  class="page-item"
+                  (click)="
+                    userList.currentPage < userList.totalPages &&
+                      getFolderTabs(userList.currentPage + 1)
+                  "
+                >
+                  <a class="page-link" aria-label="Next">
+                    <span aria-hidden="true"
+                      ><i class="fas fa-chevron-right"></i
+                    ></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <!-- ------pagination-lists------ -->
+          <!-- -----Editors found”---- -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- inner-wraper -->
+
+<!-- Modal view profile  -->
+<ng-template #template1>
+  <div class="modal-header">
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      id="profile-video-close"
+      aria-label="Close"
+      (click)="profileModalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <profile-component-freelancer
+    class="modal-body"
+    *ngIf="selectedUser"
+    [modalService]="modalService"
+    [page]="'hiddent-tab'"
+    [selectedUser]="selectedUser"
+    [originalSelectedUser]="originalSelectedUser"
+    [projectType]="projectType"
+    [industryType]="industryType"
+    [genereType]="genereType"
+    [primarySkill]="primarySkill"
+    [secondarySkill]="secondarySkill"
+    [graphicSpecialties]="graphicSpecialties"
+    [editingStyle]="editingStyle"
+    [awards]="awards"
+    (closeModal)="modalRef.hide()"
+    (openAddNoteModel)="openAddNoteModel()"
+    (unHideFreelancer)="unHideFreelancer(selectedUser.freelancer_id)"
+    (OpenModal3)="OpenModal(template3, null)"
+    (OpenModal4)="OpenModal(template4, null)"
+    (OpenModal5)="OpenModal(template5, null, $event.portfolio)"
+    (copyLink)="copyLink()"
+    (changePortFoliFilter1)="changePortFoliFilter($event, 'projectType')"
+    (changePortFoliFilter2)="changePortFoliFilter($event, 'industryType')"
+    (changePortFoliFilter3)="changePortFoliFilter($event, 'genereType')"
+  ></profile-component-freelancer>
+</ng-template>
+
+<!-- Modal view profile -->
+
+<!-- Modal add note -->
+<ng-template #template3>
+  <div class="modal-content profile_pdd">
+    <div class="modal-header">
+      <button
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Close"
+        id="add-note-close"
+        (click)="modalRef.hide()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="create-text">
+        <div class="create-box">
+          <h6>
+            Add note about<span>
+              {{
+                (selectedUser.first_name ? selectedUser.first_name : "") +
+                  " " +
+                  (selectedUser.last_name ? selectedUser.last_name : "")
+              }}</span
+            >
+          </h6>
+        </div>
+        <form
+          class="form-horizontal"
+          #aboutUsUpdateFormData3="ngForm"
+          (ngSubmit)="
+            !aboutUsUpdateFormData3.invalid &&
+              addNoteToFavourite(aboutUsUpdateFormData3.value)
+          "
+        >
+          <div class="form-group">
+            <textarea
+              class="form-control textarea-big"
+              [(ngModel)]="formBody.freelancer_note"
+              name="title_descrition"
+              id="title_descrition2"
+              #title_descrition2="ngModel"
+              maxlength="500"
+              minlength="3"
+              required
+            ></textarea>
+            <div
+              *ngIf="
+                (title_descrition2.invalid &&
+                  (title_descrition2.dirty || title_descrition2.touched)) ||
+                aboutUsUpdateFormData3.submitted
+              "
+            >
+              <span
+                class="error text-danger"
+                *ngIf="title_descrition2.hasError('required')"
+              >
+                Note is required</span
+              >
+              <span
+                class="error text-danger"
+                *ngIf="title_descrition2.hasError('maxlength')"
+              >
+                Note should not exceed 1000 characters</span
+              >
+              <span
+                class="error text-danger"
+                *ngIf="title_descrition2.hasError('minlength')"
+              >
+                Note should be more than 3 characters long</span
+              >
+            </div>
+          </div>
+          <div class="ct-linebt">
+            <button class="btn btn-orange" type="submit">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- Modal add to favorites -->
+
+<!-- Modal video module-->
+<ng-template #template4>
+  <div class="modal-header">
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      id="video-module-close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="yt_video">
+      <iframe
+        id="v1"
+        allowfullscreen=""
+        frameborder="0"
+        src="https://player.vimeo.com/video/56282283"
+      ></iframe>
+    </div>
+  </div>
+</ng-template>
+<!-- Modal video module-->
+
+<ng-template #template5>
+  <div class="modal-header">
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      id="video-module-close2"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="yt_video">
+      <iframe
+        id="v2"
+        allowfullscreen=""
+        frameborder="0"
+        [src]="selectedPortfolio"
+      ></iframe>
+    </div>
+  </div>
+</ng-template>
+<!-- Modal video module-->

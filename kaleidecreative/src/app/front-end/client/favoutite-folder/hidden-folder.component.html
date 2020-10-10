@@ -1,0 +1,51 @@
+<!-- inner-wraper -->
+<div class="inner-wraper inner-create-bg">
+    <div class="container">
+
+        <div class="head-title">
+           <h2>Discover <b>Creative Professionals</b></h2>
+           <h3>Choose from thousands of creative workers, ready to work on-set, in-house, or remotely.</h3>
+           <p>Too many great choices? <a href="javascript:;">Let us search for you!</a></p>
+        </div>
+      <div class="discover_pdd">
+        <div class="tabs-button d-flex">
+          <div class="tabs-in">
+            <a href="javascript:;" routerLink="/user/client/find-freelancers/2" routerLinkActive="active" ><img src="assets/images/find1.png"><span>Editors</span></a>
+            <a href="javascript:;" routerLink="/user/client/find-freelancers/1" routerLinkActive="active"><img src="assets/images/find2.png"><span>Graphic artists</span></a>
+          </div>
+          <div class="tabs-in ml-auto">
+            <a href="javascript:;" routerLink="/user/client/favourite-folder" routerLinkActive="active"><img src="assets/images/find3.png"><span>Favorites</span></a>
+            <a href="javascript:;" routerLink="/user/client/hidden-tabs" routerLinkActive="active"><img src="assets/images/find4.png"><span>Hidden</span></a>
+          </div>
+        </div>
+        <div class="box-border-gredit-line">
+          <div class="box-border-gredit freel_pdd0">
+            <div class="box-filters operat_pdd fav_operat">
+               <h6>Favorites</h6>
+               <p>Save and organize your favorites freelancers here</p>
+              <div class="search-box">
+                <input type="text" style="color:white" class="form-control" name="keyword" placeholder="Search for keywords..." [(ngModel)]="keyword">
+                <i class="fas fa-search" style="cursor: pointer;" (click)="getFolderTabs()"></i>
+              </div>
+            </div>
+
+              <ul class="select-operat d-flex">
+               <li class="active" *ngFor = "let list of folderList" (click)="navigate(list)">
+                <a href="javascript:;">
+                  <div class="operat-content">
+                      <figure><img src="{{ list.image ? list.image :'assets/images/operator1.png' }}"></figure>
+                      <figcaption>
+                        {{list.name}}
+                      </figcaption>
+                  </div>
+                </a>
+               </li>
+              </ul>
+              <div class="item" *ngIf="folderList.length == 0" style="color: white;">List Not Found</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+ </div>
+ <!-- inner-wraper -->

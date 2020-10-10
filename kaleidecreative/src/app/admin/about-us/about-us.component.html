@@ -1,0 +1,297 @@
+<app-admin-header
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-header>
+<app-admin-sidebar
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-sidebar>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" style="min-height: 100% !important;">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      About Us
+    </h1>
+    <ol class="breadcrumb">
+      <li>
+        <a routerLink="/admin"><i class="fa fa-dashboard"></i> Dashboard</a>
+      </li>
+      <li class="active">About Us page Managment</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="nav-tabs-custom">
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a href="javascript:;" data-toggle="tab">About Us</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="active tab-pane" id="global">
+              <form
+                class="form-horizontal"
+                #aboutUsUpdateFormData="ngForm"
+                (ngSubmit)="
+                  !aboutUsUpdateFormData.invalid &&
+                    update_about_us(aboutUsUpdateFormData.value)
+                "
+              >
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="title"
+                    >Title</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Title"
+                      [(ngModel)]="aboutUsUpdateForm.title"
+                      name="title"
+                      id="title"
+                      #title="ngModel"
+                      required
+                      minlength="3"
+                      maxlength="55"
+                    />
+                    <div
+                      *ngIf="
+                        (title.invalid && (title.dirty || title.touched)) ||
+                        aboutUsUpdateFormData.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="title.hasError('required')"
+                      >
+                        Title is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="title.hasError('minlength')"
+                      >
+                        Title should not be atleast 3 characters long</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="title.hasError('maxlength')"
+                      >
+                        Title should not exceed 55 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="title_descrition"
+                    >Title Description</label
+                  >
+                  <div class="col-sm-5">
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      placeholder="Title Description"
+                      [(ngModel)]="aboutUsUpdateForm.title_descrition"
+                      name="title_descrition"
+                      id="title_descrition"
+                      #title_descrition="ngModel"
+                      maxlength="500"
+                      required
+                    ></textarea>
+                    <div
+                      *ngIf="
+                        (title_descrition.invalid &&
+                          (title_descrition.dirty ||
+                            title_descrition.touched)) ||
+                        aboutUsUpdateFormData.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="title_descrition.hasError('required')"
+                      >
+                        Description is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="title_descrition.hasError('maxlength')"
+                      >
+                        Description should not exceed 500 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="image"
+                    >Left side Image</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="file"
+                      placeholder="Enter Image"
+                      #fileInput
+                      name="image"
+                      id="image"
+                      accept=".png, .jpg, .jpeg"
+                      (change)="uploadFile($event, 'leftimage')"
+                      class="form-control"
+                      value="{{ image.leftimage }}"
+                    />
+                    <img
+                      id="leftimage"
+                      class="img-responsive"
+                      src="{{
+                        aboutUsUpdateForm.leftimage
+                          ? aboutUsUpdateForm.leftimage
+                          : 'assets/images/take-shoot-2.png'
+                      }}"
+                      alt="Left side picture"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="image"
+                    >Right side Image</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="file"
+                      placeholder="Enter Image"
+                      #fileInput
+                      name="image"
+                      id="image"
+                      accept=".png, .jpg, .jpeg"
+                      (change)="uploadFile($event, 'rightimage')"
+                      class="form-control"
+                      value="{{ image.rightimage }}"
+                    />
+                    <img
+                      id="rightimage"
+                      class="img-responsive"
+                      src="{{
+                        aboutUsUpdateForm.rightimage
+                          ? aboutUsUpdateForm.rightimage
+                          : 'assets/images/take-shoot-1.png'
+                      }}"
+                      alt="Right side picture"
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="description1"
+                    >Center Description</label
+                  >
+                  <div class="col-sm-5">
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      placeholder="Description"
+                      [(ngModel)]="aboutUsUpdateForm.description1"
+                      name="description1"
+                      id="description1"
+                      #description1="ngModel"
+                      maxlength="2000"
+                      required
+                    ></textarea>
+                    <div
+                      *ngIf="
+                        (description1.invalid &&
+                          (description1.dirty || description1.touched)) ||
+                        aboutUsUpdateFormData.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="description1.hasError('required')"
+                      >
+                        Description is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="description1.hasError('maxlength')"
+                      >
+                        Description should not exceed 2000 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="description2"
+                    >Buttom Description</label
+                  >
+                  <div class="col-sm-5">
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      placeholder="Description"
+                      [(ngModel)]="aboutUsUpdateForm.description2"
+                      name="description2"
+                      id="description2"
+                      #description2="ngModel"
+                      maxlength="2000"
+                      required
+                    ></textarea>
+                    <div
+                      *ngIf="
+                        (description2.invalid &&
+                          (description2.dirty || description2.touched)) ||
+                        aboutUsUpdateFormData.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="description2.hasError('required')"
+                      >
+                        Description is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="description2.hasError('maxlength')"
+                      >
+                        Description should not exceed 2000 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="copyright"></label>
+                  <div class="col-sm-5">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-block btn-flat"
+                    >
+                      Update
+                    </button>
+                  </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-xs-4"> </div>                   
+                    <div class="col-xs-4">
+                      <button type="submit" class="btn btn-primary btn-block btn-flat">Update</button>
+                    </div>                    
+                    <div class="col-xs-4"> </div>
+                  </div> -->
+              </form>
+            </div>
+            <!-- /.tab-pane -->
+          </div>
+          <!-- /.tab-content -->
+        </div>
+        <!-- /.nav-tabs-custom -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>
+<app-admin-footer [globalSettings]="globalSettings"></app-admin-footer>

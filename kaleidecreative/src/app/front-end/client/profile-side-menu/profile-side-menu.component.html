@@ -1,0 +1,65 @@
+<div class="pro-set-left">
+  <div class="pro-photo-set">
+    <div class="pro-photo">
+      <figure>
+        <div>
+          <img
+            [src]="
+              global.user.image
+                ? global.user.image
+                : 'assets/images/account.jpg'
+            "
+            style="height: 95px; width: 95px; object-fit: cover"
+          />
+        </div>
+      </figure>
+    </div>
+    <h6>{{ global.user.first_name }} {{ global.user.last_name }}</h6>
+    <p>{{ global.user.email }}</p>
+  </div>
+  <div class="pro-menu">
+    <ul>
+      <li>
+        <a
+          href="javascript:;"
+          [routerLink]="['/user/client/profile']"
+          routerLinkActive="active"
+          class="fix-box"
+          ><i class="fas fa-user align-self"></i>My Details</a
+        >
+      </li>
+      <li>
+        <a
+          href="javascript:;"
+          [routerLink]="['/user/client/change-password']"
+          routerLinkActive="active"
+          class="fix-box"
+          ><i class="fas fa-lock align-self"></i>Change Password</a
+        >
+      </li>
+      <li>
+        <a
+          href="javascript:;"
+          [routerLink]="['/user/client/notification-setting']"
+          routerLinkActive="active"
+          class="fix-box"
+          ><i class="fas fa-bell align-self"></i>Notification Settings</a
+        >
+      </li>
+      <li>
+        <a
+          href="javascript:;"
+          class="fix-box"
+          [routerLink]="['/user/client/payment-setting']"
+          routerLinkActive="active"
+          ><i class="fas fa-credit-card align-self"></i>Payment Settings</a
+        >
+      </li>
+      <li>
+        <a href="javascript:;" (click)="logout()"
+          ><i class="fas fa-sign-out"></i>Logout
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>

@@ -1,0 +1,540 @@
+<div class="process-form d-flex justify-content-center align-items-center">
+  <div class="process-form-in">
+    <div class="form-logo text-center">
+      <a href="javascript:;" (click)="goToHome()">
+        <img src="assets/images/logo.svg" />
+      </a>
+    </div>
+
+    <form
+      [formGroup]="basicDetail"
+      *ngIf="signUpStep == 1"
+      autocomplete="off"
+      (keyup.enter)="(false)"
+      onsubmit="return false;"
+    >
+      <div class="form-text text-center">
+        <h4>Sign up to get started</h4>
+      </div>
+      <div class="login-form">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="radio-sec">
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  type="radio"
+                  id="customRadioInline1"
+                  name="type"
+                  class="custom-control-input"
+                  formControlName="type"
+                  [checked]="basicDetail.controls['type'].value == 2"
+                />
+                <label
+                  class="custom-control-label"
+                  for="customRadioInline1"
+                  (click)="selectType(2)"
+                  >I am a Client</label
+                >
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  type="radio"
+                  id="customRadioInline2"
+                  name="type"
+                  class="custom-control-input"
+                  formControlName="type"
+                  [checked]="basicDetail.controls['type'].value == 3"
+                />
+                <label
+                  class="custom-control-label"
+                  for="customRadioInline2"
+                  (click)="selectType(3)"
+                  >I am a Freelancer</label
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="name"
+                name=""
+                class="form-control"
+                placeholder="First Name"
+                formControlName="firstName"
+              />
+              <span
+                class="glyphicon glyphicon-envelope form-control-feedback"
+              ></span>
+              <div
+                *ngIf="
+                  basicDetail.controls['firstName'].invalid &&
+                  (basicDetail.controls['firstName'].dirty ||
+                    basicDetail.controls['firstName'].touched ||
+                    this.formSubmitAttempt[0])
+                "
+              >
+                <span
+                  class="error text-danger"
+                  *ngIf="basicDetail.controls['firstName'].errors.required"
+                  >First name is required</span
+                >
+                <span
+                  class="error text-danger"
+                  *ngIf="basicDetail.controls.firstName.errors?.rangeLength"
+                  >Please enter a name between 1 and 55 characters long.
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <input
+                type="name"
+                name=" "
+                class="form-control"
+                placeholder="Last Name "
+                formControlName="LastName"
+              />
+              <span
+                class="glyphicon glyphicon-envelope form-control-feedback"
+              ></span>
+              <div
+                *ngIf="
+                  basicDetail.controls['LastName'].invalid &&
+                  (basicDetail.controls['LastName'].dirty ||
+                    basicDetail.controls['LastName'].touched ||
+                    this.formSubmitAttempt[0])
+                "
+              >
+                <span
+                  class="error text-danger"
+                  *ngIf="basicDetail.controls['LastName'].errors.required"
+                  >Last name is required</span
+                >
+                <span
+                  class="error text-danger"
+                  *ngIf="basicDetail.controls.LastName.errors?.rangeLength"
+                  >Please enter a name between 1 and 55 characters long.
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12" *ngIf="userType == 2">
+            <div class="form-group">
+              <div class="info-boxs">
+                <select
+                  type="Select"
+                  class="form-control"
+                  (change)="changeCliet($event)"
+                  formControlName="clientType"
+                >
+                  <option value="" disabled>Select Client Type</option>
+                  <option value="1">Small business</option>
+                  <option value="2">Enterprise</option>
+                </select>
+                <!-- <a href="javascript:; "
+                  ><i class="far fa-question-circle"></i
+                ></a> -->
+              </div>
+              <span
+                class="glyphicon glyphicon-envelope form-control-feedback"
+              ></span>
+              <div
+                *ngIf="
+                  basicDetail.controls['clientType'].invalid &&
+                  (basicDetail.controls['clientType'].dirty ||
+                    basicDetail.controls['clientType'].touched ||
+                    this.formSubmitAttempt[0])
+                "
+              >
+                <span
+                  class="error text-danger"
+                  *ngIf="basicDetail.controls['clientType'].errors.required"
+                  >This field is required</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12" *ngIf="userType == 3">
+            <div class="form-group">
+              <div class="info-boxs">
+                <select
+                  type="Select"
+                  class="form-control"
+                  (change)="changeFreelancer($event)"
+                  formControlName="freelancerType"
+                >
+                  <option value="" disabled>Select Freelancer Type</option>
+                  <option value="1">Graphic designer</option>
+                  <option value="2">Editor</option>
+                </select>
+                <!-- <a href="javascript:; "
+                  ><i class="far fa-question-circle"></i
+                ></a> -->
+              </div>
+              <span
+                class="glyphicon glyphicon-envelope form-control-feedback"
+              ></span>
+              <div
+                *ngIf="
+                  basicDetail.controls['freelancerType'].invalid &&
+                  (basicDetail.controls['freelancerType'].dirty ||
+                    basicDetail.controls['freelancerType'].touched ||
+                    this.formSubmitAttempt[0])
+                "
+              >
+                <span
+                  class="error text-danger"
+                  *ngIf="basicDetail.controls['freelancerType'].errors.required"
+                  >This field is required</span
+                >
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12" *ngIf="userType == 2">
+            <div class="form-group">
+              <input
+                type="name"
+                name=" "
+                class="form-control"
+                placeholder="Company Name "
+                formControlName="companyName"
+              />
+              <div
+                *ngIf="
+                  basicDetail.controls['companyName'].invalid &&
+                  (basicDetail.controls['companyName'].dirty ||
+                    basicDetail.controls['companyName'].touched ||
+                    this.formSubmitAttempt[0])
+                "
+              >
+                <span
+                  class="error text-danger"
+                  *ngIf="basicDetail.controls['companyName'].errors.required"
+                  >Company name is required</span
+                >
+                <span
+                  class="error text-danger"
+                  *ngIf="basicDetail.controls.companyName.errors?.rangeLength"
+                  >Please enter a name between 1 and 55 characters long.
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12" *ngIf="userType == 2">
+            <div class="form-group">
+              <div class="info-boxs">
+                <input
+                  type="name "
+                  name=" "
+                  class="form-control"
+                  placeholder="Appear as "
+                  formControlName="appearAs"
+                />
+                <!-- <a href="javascript:; "
+                  ><i class="far fa-question-circle"></i
+                ></a> -->
+              </div>
+              <div
+                *ngIf="
+                  basicDetail.controls['appearAs'].invalid &&
+                  (basicDetail.controls['appearAs'].dirty ||
+                    basicDetail.controls['appearAs'].touched ||
+                    this.formSubmitAttempt[0])
+                "
+              >
+                <span
+                  class="error text-danger"
+                  *ngIf="basicDetail.controls['appearAs'].errors.required"
+                  >This field is required</span
+                >
+                <span
+                  class="error text-danger"
+                  *ngIf="basicDetail.controls.appearAs.errors?.rangeLength"
+                  >Please enter vale between 1 and 500 characters long.
+                </span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12" *ngIf="userType == 2">
+            <div class="form-group">
+              <textarea
+                name="text "
+                class="form-control"
+                placeholder="Business Summary...tell us about your company does! "
+                formControlName="summary"
+              ></textarea>
+              <div
+                *ngIf="
+                  basicDetail.controls['summary'].invalid &&
+                  (basicDetail.controls['summary'].dirty ||
+                    basicDetail.controls['summary'].touched ||
+                    this.formSubmitAttempt[0])
+                "
+              >
+                <span
+                  class="error text-danger"
+                  *ngIf="basicDetail.controls['summary'].errors.required"
+                  >Business summary is required</span
+                >
+                <span
+                  class="error text-danger"
+                  *ngIf="basicDetail.controls.summary.errors?.rangeLength"
+                  >Please enter vale between 1 and 1000 characters long.
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="sigup-btt-sec">
+          <button class="btn btn-orange m-auto" (click)="onClickNext(0)">
+            Next
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <form
+      [formGroup]="addressDetail"
+      [hidden]="signUpStep != 2"
+      (keyup.enter)="onClickNext(1)"
+    >
+      <div class="form-text text-center">
+        <h4>Enter your contact details</h4>
+      </div>
+      <div class="login-form">
+        <div class="form-group">
+          <input
+            type="text "
+            class="form-control"
+            placeholder="Street Address "
+            formControlName="address"
+            #search
+            autocorrect="off"
+            autocapitalize="off"
+            spellcheck="off"
+            name="address1"
+          />
+          <div
+            *ngIf="
+              addressDetail.controls['address'].invalid &&
+              (addressDetail.controls['address'].dirty ||
+                addressDetail.controls['address'].touched ||
+                this.formSubmitAttempt[1])
+            "
+          >
+            <span
+              class="error text-danger"
+              *ngIf="addressDetail.controls['address'].errors.required"
+              >Adress field is required</span
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <input
+            type="city"
+            class="form-control"
+            placeholder="City"
+            formControlName="city"
+          />
+          <div
+            *ngIf="
+              addressDetail.controls['city'].invalid &&
+              (addressDetail.controls['city'].dirty ||
+                addressDetail.controls['city'].touched ||
+                this.formSubmitAttempt[1])
+            "
+          >
+            <span
+              class="error text-danger"
+              *ngIf="addressDetail.controls['city'].errors.required"
+              >City is required</span
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <input
+            type="state "
+            class="form-control"
+            placeholder="State "
+            formControlName="state"
+          />
+          <div
+            *ngIf="
+              addressDetail.controls['state'].invalid &&
+              (addressDetail.controls['state'].dirty ||
+                addressDetail.controls['state'].touched ||
+                this.formSubmitAttempt[1])
+            "
+          >
+            <span
+              class="error text-danger"
+              *ngIf="addressDetail.controls['state'].errors.required"
+              >State is required</span
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <input
+            type="code"
+            class="form-control"
+            placeholder="Zipcode "
+            formControlName="zipCode"
+          />
+          <div
+            *ngIf="
+              addressDetail.controls['zipCode'].invalid &&
+              (addressDetail.controls['zipCode'].dirty ||
+                addressDetail.controls['zipCode'].touched ||
+                this.formSubmitAttempt[1])
+            "
+          >
+            <span
+              class="error text-danger"
+              *ngIf="addressDetail.controls['zipCode'].errors.required"
+              >Code is required</span
+            >
+          </div>
+        </div>
+        <div class="sigup-btt-sec">
+          <button type="button" class="btn btn-yellow" (click)="onClickPrev(1)">
+            Back
+          </button>
+          <button type="submit" class="btn btn-orange" (click)="onClickNext(1)">
+            Next
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <form
+      [formGroup]="LoginDetail"
+      [hidden]="signUpStep != 3"
+      autocomplete="off"
+      (keyup.enter)="onClickNext(2)"
+    >
+      <div class="form-text text-center">
+        <h4 style="font-size: 20px">Set up your email and password</h4>
+      </div>
+      <div class="login-form">
+        <div class="form-group">
+          <input
+            type="email"
+            autocomplete="new-password"
+            class="form-control"
+            placeholder="Email Address "
+            formControlName="email"
+          />
+          <div
+            *ngIf="
+              LoginDetail.controls['email'].invalid &&
+              (LoginDetail.controls['email'].dirty ||
+                LoginDetail.controls['email'].touched ||
+                this.formSubmitAttempt[2])
+            "
+          >
+            <span
+              class="error text-danger"
+              *ngIf="LoginDetail.controls['email'].errors.required"
+              >Email is required</span
+            >
+
+            <span
+              class="error text-danger"
+              *ngIf="LoginDetail.controls['email'].errors.pattern"
+              >Please enter valid email</span
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <input
+            type="password"
+            class="form-control"
+            placeholder="Password "
+            formControlName="password"
+          />
+          <div
+            *ngIf="
+              LoginDetail.controls['password'].invalid &&
+              (LoginDetail.controls['password'].dirty ||
+                LoginDetail.controls['password'].touched ||
+                this.formSubmitAttempt[2])
+            "
+          >
+            <span
+              class="error text-danger"
+              *ngIf="LoginDetail.controls['password'].errors.required"
+              >Password is required</span
+            >
+            <span
+              class="error text-danger"
+              *ngIf="LoginDetail.controls['password'].errors.minlength"
+              >Password must be between 8-12 characters</span
+            >
+            <span
+              class="error text-danger"
+              *ngIf="LoginDetail.controls['password'].errors.maxlength"
+              >Password must be between 8-12 characters</span
+            >
+          </div>
+        </div>
+        <div class="form-group">
+          <input
+            type="password"
+            class="form-control"
+            placeholder="Confirm Password "
+            formControlName="confirmPassword"
+          />
+          <div
+            *ngIf="
+              !LoginDetail.controls['confirmPassword'].untouched ||
+              this.formSubmitAttempt[2] ||
+              !LoginDetail.controls['confirmPassword'].untouched
+            "
+          >
+            <span
+              class="error text-danger"
+              *ngIf="
+                LoginDetail.controls['confirmPassword'].errors &&
+                LoginDetail.controls['confirmPassword'].errors.required
+              "
+              >Confirm password is required</span
+            >
+            <span
+              class="error text-danger"
+              *ngIf="
+                !(
+                  LoginDetail.controls['confirmPassword'].errors &&
+                  LoginDetail.controls['confirmPassword'].errors.required
+                ) &&
+                LoginDetail.errors &&
+                LoginDetail.errors != null &&
+                LoginDetail.errors.passwordsNotEqual
+              "
+              >Password and password confirmation must match</span
+            >
+          </div>
+        </div>
+        <!-- <div class="radio-sec ">
+                    <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="customRadioInline1" name="type" class="custom-control-input " formControlName="type" [checked]="LoginDetail.controls['type'].value == 2">
+                        <label class="custom-control-label" for="customRadioInline1" (click)="selectType(2)">I am a Client</label>
+                    </div>
+                    <div class="custom-control custom-radio custom-control-inline ">
+                        <input type="radio" id="customRadioInline2" name="type" class="custom-control-input " formControlName="type" [checked]="LoginDetail.controls['type'].value == 3">
+                        <label class="custom-control-label" for="customRadioInline2" (click)="selectType(3)">I am a Freelancer</label>
+                    </div>
+                </div> -->
+        <div class="sigup-btt-sec">
+          <button type="button" class="btn btn-yellow" (click)="onClickPrev(2)">
+            Back
+          </button>
+          <button type="submit" class="btn btn-orange" (click)="onClickNext(2)">
+            Sign Up
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

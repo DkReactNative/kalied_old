@@ -1,0 +1,180 @@
+<div class="inner-wraper">
+    <div class="about-banner">
+        <div class="container-fluid d-flex">
+            <div class="ab-banner-content ml-auto ">
+                <h1>{{pageData.title?pageData.title:"About Us"}}</h1>
+                <p style="white-space: break-spaces">{{pageData.title_descrition?pageData.title_descrition:" "}}</p>
+            </div>
+        </div>
+    </div>
+
+    <!--Creatives -->
+    <div class="cretive-works">
+        <div class="container">
+            <p style="white-space: break-spaces">{{pageData.description1?pageData.description1:" "}}</p>
+            <div class="row">
+                <div class="col-md-6">
+                    <figure><img src="{{pageData.leftimage?pageData.leftimage:'assets/images/take-shoot-2.png'}}"></figure>
+                </div>
+                <div class="col-md-6">
+                    <figure><img src="{{pageData.rightimage?pageData.rightimage:'assets/images/take-shoot-1.png'}}"></figure>
+                </div>
+            </div>
+            <p style="white-space: break-spaces">{{pageData.description2?pageData.description2:" "}}</p>
+        </div>
+    </div>
+    <!--Creatives -->
+
+    <!-- testimonial -->
+    <div class="testimonial">
+        <div class="container">
+            <div class="heading-title text-center">
+                <h4>Meet Our Cretive Professionls</h4>
+                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text</p>
+            </div>
+            <div class="testimonial-in">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="editors" role="tabpanel" aria-labelledby="editors-tab">
+                        <div class="editors-owl owl-carousel owl-theme">
+                      
+                            <div class="item" *ngFor="let editor of editoData;let i=index;">
+                                <div class="row m-0">
+                                    <div class="col-md-4 p-0 testi-left">
+                                        <div class="testimonial-img">
+                                            <figure style="height:400px">
+                                                <img src="{{editor.image?editor.image:'assets/images/testi1.jpg'}}">
+                                            </figure>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 p-0 testi-right">
+                                        <article>
+                                            <div class="testi-commnet">
+
+                                                <h5 style="white-space: break-spaces">{{editor.about}} </h5>
+                                                <p style="white-space: break-spaces">{{editor.comment}}</p>
+                                            </div>
+                                            <div class="testi-user d-flex">
+                                                <figure>
+                                                    <img src="{{editor.image?editor.image:'assets/images/testi1.jpg'}}">
+                                                </figure>
+                                                <figcaption>
+                                                    <h6>{{editor.name}}</h6>
+                                                    <span>Editor</span>
+                                                </figcaption>
+                                            </div>
+                                        </article>
+                                    </div>
+                                </div>
+                            </div>
+                       
+                        </div>
+                    </div>
+                    <div class="tab-pane show fade" id="graphics" role="tabpanel" aria-labelledby="graphics-tab">
+                        <div class="graphics-owl owl-carousel owl-theme">
+                        
+                            <div class="item" *ngFor="let editor of graphicData;let i=index;">
+                                <div class="row m-0">
+                                    <div class="col-md-4 p-0 testi-left">
+                                        <div class="testimonial-img">
+                                            <figure style="height:400px">
+                                                <img src="{{editor.image?editor.image:'assets/images/testi1.jpg'}}">
+                                            </figure>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8 p-0 testi-right">
+
+                                        <article>
+                                            <div class="testi-commnet">
+                                                <h5 style="white-space: break-spaces">{{editor.about}} </h5>
+                                                <p style="white-space: break-spaces">{{editor.comment}}</p>
+                                            </div>
+                                           <div class="testi-user d-flex">
+                                                <figure>
+                                                    <img src="{{editor.image?editor.image:'assets/images/testi1.jpg'}}">
+                                                </figure>
+                                                <figcaption>
+                                                    <h6>{{editor.name}}</h6>
+                                                    <span>Graphic Designer</span>
+                                                </figcaption>
+                                            </div>
+                                        </article>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="testimonial-tabs">
+            <div class="container">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="editors-tab" data-toggle="tab" href="#editors" role="tab" aria-controls="editors" aria-selected="true">
+                            <figure>
+                                <img src="assets/images/img1.jpg">
+                            </figure>
+                            <span>Editors</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="graphics-tab" data-toggle="tab" href="#graphics" role="tab" aria-controls="graphics" aria-selected="false">
+                            <figure>
+                                <img src="assets/images/img2.jpg">
+                            </figure>
+                            <span>Graphics Designers</span>
+                        </a>
+                    </li>
+                  <!--   <li class="nav-item">
+                        <a class="nav-link" id="camera-tab" data-toggle="tab" href="#camera" role="tab" aria-controls="camera" aria-selected="false">
+                            <figure>
+                                <img src="assets/images/img3.jpg">
+                            </figure>
+                            <span>Camera Operators </span>
+                        </a>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- testimonial -->
+
+    <!-- team  -->
+    <div class="team-home section-padding">
+        <div class="container">
+            <div class="heading-title text-center">
+                <h4>Experience With Top Tier Clients</h4>
+            </div>
+            <div class="team-slide">
+                <div class="team-review">
+                    <p>The Kaleide team always demonstrates a deep understanding of our voice, and their knowledge of our brand really shows in the final product...</p>
+                </div>
+                <div class="team-slider owl-carousel owl-theme">
+                  
+                <ng-container *ngIf="clientsData && clientsData.terms">
+                   <div class="item" *ngFor="let client of clientsData.terms;let i =index">
+                        <article>
+                            <div class="img-border">
+                                <figure>
+                                    <img src="{{client.image?client.image:'assets/images/testi6.jpg'}}">
+                                </figure>
+                            </div>
+                            <figcaption>
+                                <h4 style="white-space: break-spaces">{{client.about}}</h4>
+                                <p>{{client.profession}}</p>
+                                <span>{{client.name}}</span>
+                                <div class="team-review-hidden" style="display: none;">
+                                    <p>{{client.company}}</p>
+                                </div>
+                            </figcaption>
+                        </article>
+                    </div>  
+                    </ng-container>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- team -->
+</div>

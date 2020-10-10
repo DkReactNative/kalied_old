@@ -1,0 +1,342 @@
+<app-admin-header
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-header>
+<app-admin-sidebar
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-sidebar>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" style="min-height: 100% !important;">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      User Profile
+    </h1>
+    <ol class="breadcrumb">
+      <li>
+        <a routerLink="/admin"><i class="fa fa-dashboard"></i> Dashboard</a>
+      </li>
+      <li class="active">User profile</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-md-3">
+        <!-- Profile Image -->
+        <div class="box box-primary">
+          <div class="box-body box-profile">
+            <img
+              *ngIf="user.image"
+              class="profile-user-img img-responsive img-circle"
+              src="{{ globals.uploadUrl }}user/{{ user.image }}"
+              alt="User profile picture"
+            />
+            <img
+              *ngIf="!user.image"
+              class="profile-user-img img-responsive img-circle"
+              src="assets/images/dummy_user.png"
+              alt="User profile picture"
+            />
+            <h3 class="profile-username text-center">{{ user.name }}</h3>
+            <ul class="list-group list-group-unbordered">
+              <li class="list-group-item">
+                <b>Email: </b> <a class="pull-right">{{ user.email }}</a>
+              </li>
+            </ul>
+          </div>
+          <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+      </div>
+      <!-- /.col -->
+      <div class="col-md-9">
+        <div class="nav-tabs-custom">
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a href="#profile" data-toggle="tab">Profile</a>
+            </li>
+            <li>
+              <a href="#change_password" data-toggle="tab">Change Password</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="active tab-pane" id="profile">
+              <form
+                class="form-horizontal"
+                #profileUpdateForm="ngForm"
+                (ngSubmit)="
+                  !profileUpdateForm.invalid &&
+                    update_profile(profileUpdateForm.value)
+                "
+              >
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="name">Name</label>
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Name"
+                      [(ngModel)]="profileUpdateUser.name"
+                      name="name"
+                      id="name"
+                      #name="ngModel"
+                      required
+                      minlength="3"
+                      maxlength="55"
+                    />
+                    <div
+                      *ngIf="
+                        (name.invalid && (name.dirty || name.touched)) ||
+                        profileUpdateForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="name.hasError('required')"
+                        >Name is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="name.hasError('minlength')"
+                        >Name should be at least 3 characters long</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="name.hasError('maxlength')"
+                        >Name should not exceed 55 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="email"
+                    >Email</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      [(ngModel)]="profileUpdateUser.email"
+                      #email_is="ngModel"
+                      placeholder="Enter Email"
+                      name="email"
+                      id="email"
+                      required
+                      email="true"
+                      class="form-control"
+                      value="{{ user.email }}"
+                      readonly
+                    />
+                    <div
+                      *ngIf="
+                        (email_is.invalid &&
+                          (email_is.dirty || email_is.touched)) ||
+                        profileUpdateForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="email_is.hasError('required')"
+                        >Email is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="email_is.hasError('email')"
+                        >Email format is not correct</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="image"
+                    >Profile Image</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="file"
+                      placeholder="Enter Image"
+                      name="image"
+                      id="image"
+                      accept=".png, .jpg, .jpeg"
+                      (change)="uploadFile($event)"
+                      class="form-control"
+                      value="{{ user.image }}"
+                    />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-8"></div>
+                  <!-- /.col -->
+                  <div class="col-xs-4">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-block btn-flat"
+                    >
+                      Update
+                    </button>
+                  </div>
+                  <!-- /.col -->
+                </div>
+              </form>
+            </div>
+            <!-- /.tab-pane -->
+            <div class="tab-pane" id="change_password">
+              <form
+                class="form-horizontal"
+                id="changePasswordForm"
+                #changePasswordForm="ngForm"
+                (ngSubmit)="
+                  !changePasswordForm.invalid &&
+                    change_password(changePasswordForm)
+                "
+              >
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="old_password"
+                    >Old Password</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="password"
+                      class="form-control"
+                      placeholder="Old Password"
+                      [(ngModel)]="passwordUpdateUser.old_password"
+                      name="old_password"
+                      id="old_password"
+                      #old_password="ngModel"
+                      required
+                      minlength="6"
+                    />
+                    <div
+                      *ngIf="
+                        (old_password.invalid &&
+                          (old_password.dirty || old_password.touched)) ||
+                        changePasswordForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="old_password.hasError('required')"
+                        >Old Password is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="old_password.hasError('minlength')"
+                        >Old Password should be at least 6 characters long</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="password"
+                    >Password</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="password"
+                      class="form-control"
+                      placeholder="Password"
+                      [(ngModel)]="passwordUpdateUser.password"
+                      name="password"
+                      id="password"
+                      #password="ngModel"
+                      required
+                      minlength="6"
+                    />
+                    <div
+                      *ngIf="
+                        (password.invalid &&
+                          (password.dirty || password.touched)) ||
+                        changePasswordForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="password.hasError('required')"
+                        >Password is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="password.hasError('minlength')"
+                        >Password should be at least 6 characters long</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="confirm_password"
+                    >Confirm Password</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="password"
+                      class="form-control"
+                      placeholder="Confirm Password"
+                      [(ngModel)]="passwordUpdateUser.confirm_password"
+                      name="confirm_password"
+                      id="confirm_password"
+                      #confirm_password="ngModel"
+                      required
+                      minlength="6"
+                    />
+                    <div
+                      *ngIf="
+                        (confirm_password.invalid &&
+                          (confirm_password.dirty ||
+                            confirm_password.touched)) ||
+                        changePasswordForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="confirm_password.hasError('required')"
+                        >Confirm Password is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="confirm_password.hasError('minlength')"
+                        >Confirm Password should be at least 6 characters
+                        long</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="
+                          !confirm_password.hasError('required') &&
+                          !confirm_password.hasError('minlength') &&
+                          changePasswordForm.value.password !==
+                            changePasswordForm.value.confirm_password
+                        "
+                        >Passwords don't match.</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-8"></div>
+                  <!-- /.col -->
+                  <div class="col-xs-4">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-block btn-flat"
+                    >
+                      Change Password
+                    </button>
+                  </div>
+                  <!-- /.col -->
+                </div>
+              </form>
+            </div>
+            <!-- /.tab-pane -->
+          </div>
+          <!-- /.tab-content -->
+        </div>
+        <!-- /.nav-tabs-custom -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>
+<app-admin-footer [globalSettings]="globalSettings"></app-admin-footer>

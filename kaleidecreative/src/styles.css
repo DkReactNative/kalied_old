@@ -1,0 +1,349 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100% !important;
+}
+.share-icon:before {
+  content: "\f1e0" !important;
+}
+.ng5-slider.animate .ng5-slider-pointer {
+  outline: none !important;
+}
+ng-multiselect-dropdown .multiselect-dropdown .dropdown-btn {
+  display: inline-block !important;
+  border: 0px solid #adadad !important;
+  background-color: #121418 !important;
+  width: 100% !important;
+  padding: 6px 12px !important;
+  color: white !important;
+  margin-bottom: 0 !important;
+  font-weight: 400 !important;
+  line-height: 2.082857143 !important;
+  height: 45px !important;
+  text-align: left !important;
+  vertical-align: middle !important;
+  cursor: pointer !important;
+  background-image: none !important;
+  min-width: 200px !important;
+  border-radius: 5px !important;
+}
+
+ng-multiselect-dropdown .multiselect-dropdown .dropdown-btn .dropdown-down {
+  border-top: 7px solid #999 !important;
+  border-left: 7px solid transparent !important;
+  border-right: 7px solid transparent !important;
+}
+
+ng-multiselect-dropdown .multiselect-dropdown .dropdown-btn .dropdown-up {
+  border-bottom: 7px solid #999 !important;
+  border-left: 7px solid transparent !important;
+  border-right: 7px solid transparent !important;
+}
+
+ng-multiselect-dropdown .multiselect-dropdown .dropdown-btn .selected-item {
+  background: linear-gradient(to right, #8400ff 0%, #2c23ff 100%) !important;
+}
+ng-multiselect-dropdown
+  .multiselect-item-checkbox
+  input[type="checkbox"]:checked
+  + div:before {
+  background: #8400ff !important;
+}
+ng-multiselect-dropdown
+  .multiselect-item-checkbox
+  input[type="checkbox"]
+  + div:before {
+  border: 2px solid #8400ff !important;
+}
+ng-multiselect-dropdown .dropdown-list {
+  min-width: 130px !important;
+}
+
+/* ng-multiselect-dropdown .multiselect-dropdown .dropdown-btn .dropdown-down {
+  mask-image: url("assets/images/down-arrow-s.svg") !important;
+  mask-size: contain !important;
+
+  -webkit-mask-image: url("assets/images/down-arrow-s.svg") !important;
+  -webkit-mask-size: contain !important;
+
+  height: 24px !important;
+  top: 3px !important;
+  width: 24px !important;
+}
+
+ng-multiselect-dropdown .multiselect-dropdown .dropdown-btn .dropdown-up {
+  mask-image: url("assets/images/down-arrow-s.svg") !important;
+  mask-size: contain !important;
+
+  -webkit-mask-image: url("assets/images/down-arrow-s.svg") !important;
+  -webkit-mask-size: contain !important;
+
+  height: 24px !important;
+  top: 3px !important;
+  width: 24px !important;
+} */
+
+.modal-comman .modal-content {
+  background: #121420 !important;
+}
+
+.modal-content {
+  background: #121420 !important;
+}
+
+#video-module .modal-dialog {
+  min-width: 945px;
+}
+.modal-comman .modal-dialog {
+  min-width: 760px !important;
+}
+.modal-dialog {
+  min-width: 760px !important;
+  margin-top: 60px !important;
+}
+
+.modal-header h5 {
+  width: 100% !important;
+  text-align: center !important;
+  color: #fff !important;
+}
+
+.modal-header {
+  border-bottom: 1px solid #212437 !important;
+}
+
+.modal-header {
+  border-bottom: none !important;
+  padding: 0px !important;
+}
+
+.modal-header .close {
+  position: absolute;
+  top: -37px;
+  right: -31px;
+  font-size: 40px;
+  opacity: 1;
+  color: #fff;
+  text-shadow: none;
+}
+
+.Starz-box2 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.starz-bx {
+  align-self: flex-end;
+}
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100% !important;
+}
+.share-icon:before {
+  content: "\f1e0" !important;
+}
+ng-multiselect-dropdown .multiselect-dropdown .dropdown-btn {
+  display: inline-block !important;
+  border: 0px solid #adadad !important;
+  background-color: #121418 !important;
+  width: 100% !important;
+  padding: 6px 12px !important;
+  color: white !important;
+  margin-bottom: 0 !important;
+  font-weight: 400 !important;
+  line-height: 2.082857143 !important;
+  height: 45px !important;
+  text-align: left !important;
+  vertical-align: middle !important;
+  cursor: pointer !important;
+  background-image: none !important;
+  min-width: 200px !important;
+  border-radius: 5px !important;
+}
+
+ng-multiselect-dropdown .multiselect-dropdown .dropdown-btn .dropdown-down {
+  border-top: 7px solid #999 !important;
+  border-left: 7px solid transparent !important;
+  border-right: 7px solid transparent !important;
+}
+
+ng-multiselect-dropdown .multiselect-dropdown .dropdown-btn .dropdown-up {
+  border-bottom: 7px solid #999 !important;
+  border-left: 7px solid transparent !important;
+  border-right: 7px solid transparent !important;
+}
+
+ng-multiselect-dropdown .multiselect-dropdown .dropdown-btn .selected-item {
+  background: linear-gradient(to right, #8400ff 0%, #2c23ff 100%) !important;
+}
+ng-multiselect-dropdown
+  .multiselect-item-checkbox
+  input[type="checkbox"]:checked
+  + div:before {
+  background: #8400ff !important;
+}
+ng-multiselect-dropdown
+  .multiselect-item-checkbox
+  input[type="checkbox"]
+  + div:before {
+  border: 2px solid #8400ff !important;
+}
+ng-multiselect-dropdown .dropdown-list {
+  min-width: 130px !important;
+}
+
+/* ng-multiselect-dropdown .multiselect-dropdown .dropdown-btn .dropdown-down {
+  mask-image: url("assets/images/down-arrow-s.svg") !important;
+  mask-size: contain !important;
+
+  -webkit-mask-image: url("assets/images/down-arrow-s.svg") !important;
+  -webkit-mask-size: contain !important;
+
+  height: 24px !important;
+  top: 3px !important;
+  width: 24px !important;
+}
+
+ng-multiselect-dropdown .multiselect-dropdown .dropdown-btn .dropdown-up {
+  mask-image: url("assets/images/down-arrow-s.svg") !important;
+  mask-size: contain !important;
+
+  -webkit-mask-image: url("assets/images/down-arrow-s.svg") !important;
+  -webkit-mask-size: contain !important;
+
+  height: 24px !important;
+  top: 3px !important;
+  width: 24px !important;
+} */
+
+.modal-comman .modal-content {
+  background: #121420 !important;
+}
+
+.modal-content {
+  background: #121420 !important;
+}
+
+#video-module .modal-dialog {
+  min-width: 945px;
+}
+.modal-comman .modal-dialog {
+  min-width: 760px;
+}
+.modal-dialog {
+  min-width: 760px;
+  margin-top: 60px !important;
+}
+
+.modal-header h5 {
+  width: 100% !important;
+  text-align: center !important;
+  color: #fff !important;
+}
+
+.modal-header {
+  border-bottom: 1px solid #212437 !important;
+}
+
+.modal-header {
+  border-bottom: none !important;
+  padding: 0px !important;
+}
+
+.modal-header .close {
+  position: absolute;
+  top: -37px;
+  right: -31px;
+  font-size: 40px;
+  opacity: 1;
+  color: #fff;
+  text-shadow: none;
+}
+
+.Starz-box2 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.starz-bx {
+  align-self: flex-end;
+}
+
+.mat-form-field,
+.mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+.mat-form-field-underline {
+  display: none;
+}
+.mat-chip-list-wrapper {
+  margin-left: 5px !important;
+  margin-right: 5px !important;
+}
+
+.ng2-pdf-viewer-container {
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 144px !important;
+  min-width: 144px !important;
+  height: 145px !important;
+  max-height: 145px !important;
+  border-radius: 5px !important;
+  border: 1px solid #656776 !important;
+  margin-bottom: 0px !important;
+  overflow: hidden !important;
+}
+
+.Starz-box figcaption p {
+  max-height: 170px !important;
+  overflow: hidden;
+  white-space: pre-line !important;
+  text-align: start;
+}
+
+.client-boxi {
+  white-space: pre-line !important;
+}
+
+.my-custom-tooltip {
+  max-width: unset !important;
+  font-size: 14px;
+}
+.tooltip-inner {
+  background-color: #495057 !important;
+  color: white;
+}
+.bs-tooltip-top .arrow::before,
+.bs-tooltip-auto[x-placement^="top"] .arrow::before {
+  border-top-color: #495057 !important;
+}
+
+.tooltip .tooltip-inner {
+  background: #495057 !important;
+}
+
+.level_box ul li a {
+  min-height: 205px;
+}
+
+.ck-editor__editable_inline {
+  min-height: 250px;
+}
+
+.store-list li {
+  max-height: 215px;
+}
+.ject-in {
+  margin-bottom: 10px;
+}
+.project-ins {
+  display: flex;
+  flex-flow: row wrap;
+}

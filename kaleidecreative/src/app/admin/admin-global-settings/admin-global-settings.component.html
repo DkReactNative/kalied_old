@@ -1,0 +1,558 @@
+<app-admin-header
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-header>
+<app-admin-sidebar
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-sidebar>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper" style="min-height: 100% !important;">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      Global Settings
+    </h1>
+    <ol class="breadcrumb">
+      <li>
+        <a routerLink="/admin"><i class="fa fa-dashboard"></i> Dashboard</a>
+      </li>
+      <li class="active">Global Settings</li>
+    </ol>
+  </section>
+
+  <!-- Main content -->
+  <section class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="nav-tabs-custom">
+          <ul class="nav nav-tabs">
+            <li class="active">
+              <a href="#global" data-toggle="tab">Global</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="active tab-pane" id="global">
+              <form
+                class="form-horizontal"
+                #globalSettingUpdateForm="ngForm"
+                (ngSubmit)="
+                  !globalSettingUpdateForm.invalid &&
+                    update_global_settings(globalSettingUpdateForm.value)
+                "
+              >
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="site_title"
+                    >Site Title</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Site Title"
+                      [(ngModel)]="globalSettingUpdateUser.site_title"
+                      name="site_title"
+                      id="site_title"
+                      #site_title="ngModel"
+                      required
+                      minlength="3"
+                      maxlength="55"
+                    />
+                    <div
+                      *ngIf="
+                        (site_title.invalid &&
+                          (site_title.dirty || site_title.touched)) ||
+                        globalSettingUpdateForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="site_title.hasError('required')"
+                        >Site Title is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="site_title.hasError('minlength')"
+                        >Site Title should not be atleast 3 characters
+                        long</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="site_title.hasError('maxlength')"
+                        >Site Title should not exceed 55 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="site_description"
+                    >Site Description</label
+                  >
+                  <div class="col-sm-5">
+                    <textarea
+                      type="text"
+                      class="form-control"
+                      placeholder="Site Description"
+                      [(ngModel)]="globalSettingUpdateUser.site_description"
+                      name="site_description"
+                      id="site_description"
+                      #site_description="ngModel"
+                      maxlength="1000"
+                    ></textarea>
+                    <div
+                      *ngIf="
+                        (site_description.invalid &&
+                          (site_description.dirty ||
+                            site_description.touched)) ||
+                        globalSettingUpdateForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="site_description.hasError('required')"
+                        >Site Description is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="site_description.hasError('maxlength')"
+                        >Site Description should not exceed 1000
+                        characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="copyright"
+                    >Copyright</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Copyright"
+                      [(ngModel)]="globalSettingUpdateUser.copyright"
+                      name="copyright"
+                      id="copyright"
+                      #copyright="ngModel"
+                      required
+                      minlength="3"
+                      maxlength="55"
+                    />
+                    <div
+                      *ngIf="
+                        (copyright.invalid &&
+                          (copyright.dirty || copyright.touched)) ||
+                        globalSettingUpdateForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="copyright.hasError('required')"
+                        >Copyright is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="copyright.hasError('minlength')"
+                        >Copyright should not be atleast 3 characters long</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="copyright.hasError('maxlength')"
+                        >Copyright should not exceed 55 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="admin_from_email"
+                    >Admin From_email</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Copyright"
+                      [(ngModel)]="globalSettingUpdateUser.admin_from_email"
+                      name="admin_from_email"
+                      id="admin_from_email"
+                      #admin_from_email="ngModel"
+                      required
+                      minlength="3"
+                      maxlength="55"
+                    />
+                    <div
+                      *ngIf="
+                        (admin_from_email.invalid &&
+                          (admin_from_email.dirty ||
+                            admin_from_email.touched)) ||
+                        globalSettingUpdateForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="admin_from_email.hasError('required')"
+                        >Email is required</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="copyright"
+                    >Admin Receive Email</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Admin Receive Email"
+                      [(ngModel)]="globalSettingUpdateUser.admin_receive_email"
+                      name="admin_receive_email"
+                      id="admin_receive_email"
+                      #admin_receive_email="ngModel"
+                      required
+                      minlength="3"
+                      maxlength="55"
+                    />
+                    <div
+                      *ngIf="
+                        (admin_receive_email.invalid &&
+                          (admin_receive_email.dirty ||
+                            admin_receive_email.touched)) ||
+                        globalSettingUpdateForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="copyright.hasError('required')"
+                        >Email is required</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="address"
+                    >Address</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Address"
+                      [(ngModel)]="globalSettingUpdateUser.address"
+                      name="address"
+                      id="address"
+                      #address="ngModel"
+                      required
+                      minlength="3"
+                      maxlength="55"
+                    />
+                    <div
+                      *ngIf="
+                        (address.invalid &&
+                          (address.dirty || address.touched)) ||
+                        globalSettingUpdateForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="address.hasError('required')"
+                        >Address is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="address.hasError('minlength')"
+                        >Address should not be atleast 3 characters long</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="address.hasError('maxlength')"
+                        >Address should not exceed 55 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="address"
+                    >Phone</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Phone"
+                      [(ngModel)]="globalSettingUpdateUser.phone"
+                      name="phone"
+                      id="phone"
+                      #phone="ngModel"
+                      required
+                      minlength="3"
+                      maxlength="55"
+                    />
+                    <div
+                      *ngIf="
+                        (phone.invalid && (phone.dirty || phone.touched)) ||
+                        globalSettingUpdateForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="phone.hasError('required')"
+                        >Phone is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="phone.hasError('minlength')"
+                        >Phone should not be atleast 3 characters long</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="phone.hasError('maxlength')"
+                        >Phone should not exceed 55 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="facebook_url"
+                    >Facebook Url</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Facebook Url"
+                      [(ngModel)]="globalSettingUpdateUser.facebook_url"
+                      name="facebook_url"
+                      id="facebook_url"
+                      #facebook_url="ngModel"
+                      required
+                      minlength="3"
+                      maxlength="55"
+                    />
+                    <div
+                      *ngIf="
+                        (facebook_url.invalid &&
+                          (facebook_url.dirty || facebook_url.touched)) ||
+                        globalSettingUpdateForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="facebook_url.hasError('required')"
+                        >Url is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="facebook_url.hasError('minlength')"
+                        >Url should not be atleast 3 characters long</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="facebook_url.hasError('maxlength')"
+                        >Url should not exceed 55 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="twitter_url"
+                    >Twitter Url</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Twitter Url"
+                      [(ngModel)]="globalSettingUpdateUser.twitter_url"
+                      name="twitter_url"
+                      id="twitter_url"
+                      #twitter_url="ngModel"
+                      required
+                      minlength="3"
+                      maxlength="55"
+                    />
+                    <div
+                      *ngIf="
+                        (twitter_url.invalid &&
+                          (twitter_url.dirty || twitter_url.touched)) ||
+                        globalSettingUpdateForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="twitter_url.hasError('required')"
+                        >Url is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="twitter_url.hasError('minlength')"
+                        >Url should not be atleast 3 characters long</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="twitter_url.hasError('maxlength')"
+                        >Url should not exceed 55 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="google_url"
+                    >Google Url</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Google Url"
+                      [(ngModel)]="globalSettingUpdateUser.google_url"
+                      name="google_url"
+                      id="google_url"
+                      #google_url="ngModel"
+                      required
+                      minlength="3"
+                      maxlength="55"
+                    />
+                    <div
+                      *ngIf="
+                        (google_url.invalid &&
+                          (google_url.dirty || google_url.touched)) ||
+                        globalSettingUpdateForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="google_url.hasError('required')"
+                        >Url is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="google_url.hasError('minlength')"
+                        >Url should not be atleast 3 characters long</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="google_url.hasError('maxlength')"
+                        >Url should not exceed 55 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="google_url"
+                    >Linkedin Url</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Linkedin Url"
+                      [(ngModel)]="globalSettingUpdateUser.linkedin_url"
+                      name="linkedin_url"
+                      id="linkedin_url"
+                      #linkedin_url="ngModel"
+                      required
+                      minlength="3"
+                      maxlength="55"
+                    />
+                    <div
+                      *ngIf="
+                        (linkedin_url.invalid &&
+                          (google_url.dirty || google_url.touched)) ||
+                        globalSettingUpdateForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="linkedin_url.hasError('required')"
+                        >Url is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="linkedin_url.hasError('minlength')"
+                        >Url should not be atleast 3 characters long</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="linkedin_url.hasError('maxlength')"
+                        >Url should not exceed 55 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="google_url"
+                    >Pinterest Url</label
+                  >
+                  <div class="col-sm-5">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Pinterest Url"
+                      [(ngModel)]="globalSettingUpdateUser.pinterest_url"
+                      name="pinterest_url"
+                      id="pinterest_url"
+                      #pinterest_url="ngModel"
+                      required
+                      minlength="3"
+                      maxlength="55"
+                    />
+                    <div
+                      *ngIf="
+                        (pinterest_url.invalid &&
+                          (pinterest_url.dirty || pinterest_url.touched)) ||
+                        globalSettingUpdateForm.submitted
+                      "
+                    >
+                      <span
+                        class="error text-danger"
+                        *ngIf="pinterest_url.hasError('required')"
+                        >Url is required</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="pinterest_url.hasError('minlength')"
+                        >Url should not be atleast 3 characters long</span
+                      >
+                      <span
+                        class="error text-danger"
+                        *ngIf="pinterest_url.hasError('maxlength')"
+                        >Url should not exceed 55 characters</span
+                      >
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group has-feedback">
+                  <label class="col-sm-2 control-label" for="copyright"></label>
+                  <div class="col-sm-5">
+                    <button
+                      type="submit"
+                      class="btn btn-primary btn-block btn-flat"
+                    >
+                      Update
+                    </button>
+                  </div>
+                </div>
+                <!-- <div class="row">
+                    <div class="col-xs-4"> </div>                   
+                    <div class="col-xs-4">
+                      <button type="submit" class="btn btn-primary btn-block btn-flat">Update</button>
+                    </div>                    
+                    <div class="col-xs-4"> </div>
+                  </div> -->
+              </form>
+            </div>
+            <!-- /.tab-pane -->
+          </div>
+          <!-- /.tab-content -->
+        </div>
+        <!-- /.nav-tabs-custom -->
+      </div>
+      <!-- /.col -->
+    </div>
+    <!-- /.row -->
+  </section>
+  <!-- /.content -->
+</div>
+<app-admin-footer [globalSettings]="globalSettings"></app-admin-footer>

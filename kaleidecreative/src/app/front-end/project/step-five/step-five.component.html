@@ -1,0 +1,322 @@
+<!-- inner-wraper -->
+<div class="inner-wraper inner-create-bg">
+  <div class="container" *ngIf="projectInformation">
+    <div class="create-title">
+      <h4>Create Project</h4>
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
+      </p>
+    </div>
+    <div class="create-pdd90">
+      <div class="createdashboard">
+        <div class="row">
+          <div class="col-md-3">
+            <app-project-side-bar
+              [projectId]="projectId ? Btoa(projectId) : ''"
+            ></app-project-side-bar>
+          </div>
+          <div class="col-md-9">
+            <div class="review-box">
+              <h4>Review Project</h4>
+              <div class="review-btt">
+                <button
+                  class="btn btn-yellow"
+                  data-toggle="modal"
+                  data-target="#invite-freelancer"
+                >
+                  Invite freelancer
+                </button>
+                <button class="btn btn-orange" (click)="postProject()">
+                  Post Project
+                </button>
+              </div>
+            </div>
+            <div class="RightContent DashboardContent">
+              <div class="inspir-sec">
+                <div class="cont-line-pdd">
+                  <div class="Descript-box">
+                    <h4 class="prefa-texts">Project title & Description</h4>
+                    <button
+                      class="btn btn-fil-color edit-btn"
+                      [routerLink]="[
+                        '/user/project/create1/' +
+                          (projectId ? Btoa(projectId) : '')
+                      ]"
+                    >
+                      <input type="file" id="file" />
+                      <label for="file1"
+                        ><i class="fas fa-pencil-alt"></i
+                      ></label>
+                    </button>
+                  </div>
+                  <div class="descript-title">
+                    <h5>Project title</h5>
+                    <p>
+                      {{ projectInformation.title }}
+                    </p>
+                  </div>
+                  <div class="descript-title">
+                    <h5>Project Description</h5>
+                    <p>
+                      {{ projectInformation.description }}
+                    </p>
+                  </div>
+                  <div class="descript-title">
+                    <h5>Style</h5>
+                    <p>{{ projectInformation.style }}</p>
+                  </div>
+                  <div class="descript-title">
+                    <h5>Skills</h5>
+                    <p>
+                      {{ getMultipleNameByValue(projectInformation.skills) }}
+                    </p>
+                  </div>
+                  <div class="descript-title">
+                    <h5>Background</h5>
+                    <p>
+                      {{ projectInformation.background }}
+                    </p>
+                  </div>
+                </div>
+                <div class="project-ass cont-line-pdd">
+                  <div class="Descript-box">
+                    <h4 class="prefa-texts">Project details</h4>
+                    <button
+                      class="btn btn-fil-color edit-btn"
+                      [routerLink]="[
+                        '/user/project/create2/' +
+                          (projectId ? Btoa(projectId) : '')
+                      ]"
+                    >
+                      <input type="file" id="file" />
+                      <label for="file1"
+                        ><i class="fas fa-pencil-alt"></i
+                      ></label>
+                    </button>
+                  </div>
+                  <h4 class="detass-texts">Inspiration</h4>
+                  <div class="project-ins">
+                    <div
+                      class="ject-in"
+                      *ngFor="let image of projectInformation.images"
+                    >
+                      <figure>
+                        <img
+                          src="{{ projectInformation.image_pdf_path + image }}"
+                        />
+                      </figure>
+                      <!-- <a href="#"><i class="fas fa-times"></i></a> -->
+                    </div>
+                    <div
+                      class="ject-in"
+                      *ngFor="let pdf of projectInformation.files"
+                    >
+                      <pdf-viewer
+                        [src]="projectInformation.image_pdf_path + pdf"
+                        [render-text]="true"
+                        [original-size]="false"
+                        [show-all]="false"
+                        [fit-to-page]="true"
+                      ></pdf-viewer>
+                      <!-- <a href="#"><i class="fas fa-times"></i></a> -->
+                    </div>
+                  </div>
+                  <div class="add-new">
+                    <ng-container
+                      *ngFor="let video of projectInformation.video"
+                    >
+                      <a href="{{ video.url }}" target="_blank">{{
+                        video.url
+                      }}</a>
+                      <p>
+                        {{ video.description }}
+                      </p>
+                    </ng-container>
+                  </div>
+
+                  <div
+                    class="Descript-box"
+                    style="border-top: 1px solid #21212e; padding-top: 30px"
+                  >
+                    <h4 class="prefa-texts">Freelancer Requirements</h4>
+                    <button
+                      class="btn btn-fil-color edit-btn"
+                      [routerLink]="[
+                        '/user/project/create3/' +
+                          (projectId ? Btoa(projectId) : '')
+                      ]"
+                    >
+                      <input type="file" id="file" />
+                      <label for="file1"
+                        ><i class="fas fa-pencil-alt"></i
+                      ></label>
+                    </button>
+                  </div>
+
+                  <div class="ject-dt-title">
+                    <h5>Freelancer type</h5>
+                    <p>
+                      {{ freelancerType[projectInformation.freelancer_type] }}
+                    </p>
+                  </div>
+                  <div class="ject-dt-title">
+                    <h5>Project type</h5>
+                    <p>
+                      {{
+                        projectInformation.project_type
+                          ? projectInformation.project_type.name
+                          : "NA"
+                      }}
+                    </p>
+                  </div>
+                  <div class="ject-dt-title">
+                    <h5>Genre</h5>
+                    <p>
+                      {{ getMultipleNameByValue(projectInformation.genere) }}
+                    </p>
+                  </div>
+                  <div class="ject-dt-title">
+                    <h5>Genre</h5>
+                    <p>
+                      {{ getMultipleNameByValue(projectInformation.industry) }}
+                    </p>
+                  </div>
+                  <h4 class="detass-texts">Preferred Location</h4>
+                  <div class="ject-dt-title">
+                    <h5>Country</h5>
+                    <p>{{ projectInformation.country }}</p>
+                  </div>
+                  <div class="ject-dt-title">
+                    <h5>City</h5>
+                    <p>{{ projectInformation.city }}</p>
+                  </div>
+                  <div class="ject-dt-title">
+                    <h5>Zip code</h5>
+                    <p>{{ projectInformation.zipcode }}</p>
+                  </div>
+                </div>
+
+                <div class="Descript-box">
+                  <h4 class="prefa-texts">Schedule and Budget</h4>
+                  <button
+                    class="btn btn-fil-color edit-btn"
+                    [routerLink]="[
+                      '/user/project/create4/' +
+                        (projectId ? Btoa(projectId) : '')
+                    ]"
+                  >
+                    <input type="file" id="file" />
+                    <label for="file1"><i class="fas fa-pencil-alt"></i></label>
+                  </button>
+                </div>
+                <div class="pen-descript">
+                  <div class="pay-in">
+                    <p>Payment Type</p>
+                    <span>
+                      {{ paymentType[projectInformation.payment_type] }}
+                    </span>
+                  </div>
+                  <div class="pay-in">
+                    <p>Amount</p>
+                    <span>{{
+                      projectInformation.payment_type == 1
+                        ? projectInformation.fixed_budget[0] +
+                          "$-" +
+                          projectInformation.fixed_budget[1] +
+                          "$"
+                        : projectInformation.hourly_rate + "$"
+                    }}</span>
+                  </div>
+                  <div class="pay-in">
+                    <p>Start date</p>
+                    <span>{{
+                      projectInformation.start_date | dateFormat: "DD-MM-YYYY"
+                    }}</span>
+                  </div>
+                  <div class="pay-in">
+                    <p>End date</p>
+                    <span>{{
+                      projectInformation.end_date | dateFormat: "DD-MM-YYYY"
+                    }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- inner-wraper -->
+</div>
+
+<div
+  class="modal fade modal-comman"
+  id="invite-freelancer"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header invit-pdd">
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="add-card-pdd">
+          <h6 class="invit-li">Invite<span> Freelancers </span></h6>
+          <div class="create-info">
+            <ul>
+              <li *ngFor="let list of inviteFreelancers">
+                <a
+                  href="javadcript:;"
+                  (click)="insertFreelancer(list.freelancer_id)"
+                  >{{ list?.first_name }} {{ list?.last_name
+                  }}<i
+                    class="fas fa-thumbs-up"
+                    [ngStyle]="{
+                      color: formBody.includes(list.freelancer_id) ? 'blue' : ''
+                    }"
+                  ></i
+                ></a>
+              </li>
+            </ul>
+          </div>
+          <div class="row">
+            <div class="col-md-12 reson_hi">
+              <div class="form-group">
+                <label>Invite message</label>
+                <textarea
+                  type="text"
+                  name=""
+                  class="form-control"
+                  placeholder=""
+                  [(ngModel)]="inviteeMessage"
+                  maxlength="2000"
+                ></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="ct-linebt text-left">
+            <button
+              class="btn btn-orange"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

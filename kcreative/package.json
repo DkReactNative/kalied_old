@@ -1,0 +1,42 @@
+{
+  "name": "node_demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^3.2.0",
+    "bcrypt-nodejs": "0.0.3",
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "curlrequest": "^1.0.1",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.7-alpha.3",
+    "express-validator": "^6.4.0",
+    "file-exists": "^5.0.1",
+    "formidable": "^1.2.2",
+    "fs": "0.0.1-security",
+    "http": "0.0.0",
+    "lodash": "^4.17.20",
+    "moment": "^2.24.0",
+    "mongoose": "^5.8.12",
+    "node-input-validator": "^4.2.0",
+    "node-uuid": "^1.4.8",
+    "nodejs-base64": "^1.0.3",
+    "nodemailer": "^6.4.3",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "path": "^0.12.7",
+    "paypal-rest-sdk": "^1.8.1",
+    "request": "^2.88.2",
+    "slugify": "^1.4.0",
+    "socket.io": "^2.3.0"
+  }
+}

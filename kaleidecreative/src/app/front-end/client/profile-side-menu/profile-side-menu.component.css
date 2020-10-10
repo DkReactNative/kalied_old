@@ -1,0 +1,13 @@
+.fix-box {
+    display: flex;
+    /*justify-content: center*/
+    width: 100%
+}
+
+.align-self{
+	align-self: center;
+}
+
+li{
+	display: flex;
+}

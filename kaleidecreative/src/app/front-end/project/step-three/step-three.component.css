@@ -1,0 +1,18 @@
+ul {
+  height: auto !important;
+  max-height: 300px;
+  overflow: auto;
+  background: #16161a !important;
+}
+.btn-width {
+  width: 100%;
+}
+.filters-input-primary .content-title {
+  color: white !important;
+}
+.filters-input-primary .custom-control-label {
+  color: white !important;
+}
+.more-filter-item {
+  border-bottom: 0px solid #d5d4d2 !important;
+}

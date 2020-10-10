@@ -1,0 +1,115 @@
+<footer>
+  <div class="footer-main">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="foot-details">
+            <a href="javascript:;">
+              <img src="assets/images/logo.svg" />
+            </a>
+            <p>
+              {{
+                global.configData ? global.configData["site_description"] : ""
+              }}
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6 footer-menu-btm">
+          <h4 class="footer-head">Important Links</h4>
+          <div class="footer-link">
+            <ul class="row">
+              <li class="col-md-6">
+                <a
+                  href="javascript:;"
+                  [routerLink]="['about-us']"
+                  routerLinkActive="active"
+                  >About us</a
+                >
+              </li>
+              <li class="col-md-6">
+                <a
+                  href="javascript:;"
+                  [routerLink]="['client/find-freelancers/2']"
+                  >Find Freelancers</a
+                >
+              </li>
+              <li class="col-md-6">
+                <a
+                  href="javascript:;"
+                  [routerLink]="['how-it-works']"
+                  routerLinkActive="active"
+                  >How it works</a
+                >
+              </li>
+              <li class="col-md-6">
+                <a href="javascript:;" [routerLink]="['find-job']">Find Work</a>
+              </li>
+              <li class="col-md-6">
+                <a
+                  href="javascript:;"
+                  [routerLink]="['faq']"
+                  routerLinkActive="active"
+                  >FAQ</a
+                >
+              </li>
+              <li class="col-md-6">
+                <a
+                  href="javascript:;"
+                  [routerLink]="['term-condition']"
+                  routerLinkActive="active"
+                  >Terms & Conditions</a
+                >
+              </li>
+              <li class="col-md-6">
+                <a
+                  href="javascript:;"
+                  [routerLink]="['contact-us']"
+                  routerLinkActive="active"
+                  >Contact Us</a
+                >
+              </li>
+              <li class="col-md-6">
+                <a
+                  href="javascript:;"
+                  [routerLink]="['privacy-policy']"
+                  routerLinkActive="active"
+                  >Privacy policy</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <h4 class="footer-head">Connect With Us</h4>
+          <div class="footer-social">
+            <ul>
+              <li (click)="openUrl(global.configData['facebook_url'])">
+                <a href="javascript:;"
+                  ><i class="fab fa-facebook-f"></i> Facebook</a
+                >
+              </li>
+              <li (click)="openUrl(global.configData['twitter_url'])">
+                <a href="javascript:;"
+                  ><i class="fab fa-twitter"></i> Twitter</a
+                >
+              </li>
+              <li (click)="openUrl(global.configData['linkedin_url'])">
+                <a href="javascript:;"
+                  ><i class="fab fa-linkedin-in"></i>Linked in</a
+                >
+              </li>
+              <li (click)="openUrl(global.configData['pinterest_url'])">
+                <a href="javascript:;"
+                  ><i class="fab fa-pinterest-p"></i> Pinterest</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot-last-copy">
+    <span>{{ global.configData ? global.configData["copyright"] : "" }}</span>
+  </div>
+</footer>

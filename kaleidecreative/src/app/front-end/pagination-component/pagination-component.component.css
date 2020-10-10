@@ -1,0 +1,7 @@
+.disabled {
+  cursor: not-allowed;
+}
+
+.active :hover {
+  cursor: default;
+}

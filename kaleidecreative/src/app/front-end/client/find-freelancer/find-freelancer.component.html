@@ -1,0 +1,1203 @@
+<!-- inner-wraper -->
+<div class="inner-wraper inner-create-bg">
+  <div class="container">
+    <p id="copy-click" (click)="copyToClipboard('dharmendra')"></p>
+    <div class="head-title">
+      <h2>Discover <b>Creative Professionals</b></h2>
+      <h3>
+        Choose from thousands of creative workers, ready to work on-set,
+        in-house, or remotely.
+      </h3>
+      <p>
+        Too many great choices?
+        <a href="javascript:;">Let us search for you!</a>
+      </p>
+    </div>
+    <div class="discover_pdd">
+      <div class="tabs-button d-flex">
+        <div class="tabs-in">
+          <a
+            href="javascript:;"
+            routerLink="/user/client/find-freelancers/2"
+            routerLinkActive="active"
+            [ngClass]="formData.freelancer_type == 2 ? 'active' : ''"
+            ><img src="assets/images/find1.png" /><span>Editors</span></a
+          >
+          <a
+            href="javascript:;"
+            routerLink="/user/client/find-freelancers/1"
+            routerLinkActive="active"
+            [ngClass]="formData.freelancer_type == 1 ? 'active' : ''"
+            ><img src="assets/images/find2.png" /><span
+              >Graphic artists</span
+            ></a
+          >
+        </div>
+        <div class="tabs-in ml-auto">
+          <a
+            href="javascript:;"
+            routerLink="{{
+              global.user ? '/user/client/favourite-folder' : '/user/login'
+            }}"
+            routerLinkActive="active"
+            ><img src="assets/images/find3.png" /><span>Favorites</span></a
+          >
+          <a
+            href="javascript:;"
+            routerLink="{{
+              global.user ? '/user/client/hidden-tabs' : '/user/login'
+            }}"
+            routerLinkActive="active"
+            ><img src="assets/images/find4.png" /><span>Hidden</span></a
+          >
+        </div>
+      </div>
+      <div class="box-border-gredit-line">
+        <div class="box-border-gredit freel_pdd0">
+          <div class="box-filters d-flex">
+            <div class="freelancers-filter">
+              <div class="box-filters-input">
+                <select (change)="changeOption($event, 'project_type')">
+                  <option value="">Project Type</option>
+                  <option
+                    *ngFor="let data of projectType"
+                    value="{{ data.value }}"
+                  >
+                    {{ data.name }}
+                  </option>
+                </select>
+              </div>
+              <div class="box-filters-input">
+                <select (change)="changeOption($event, 'industry')">
+                  <option value="">Industry</option>
+                  <option
+                    *ngFor="let data of industryType"
+                    value="{{ data.value }}"
+                  >
+                    {{ data.name }}
+                  </option>
+                </select>
+              </div>
+              <div class="box-filters-input">
+                <select (change)="changeOption($event, 'genre')">
+                  <option value="">Genre</option>
+                  <option
+                    *ngFor="let data of genereType"
+                    value="{{ data.value }}"
+                  >
+                    {{ data.name }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="box-filters-input">
+                <div class="dropdown rate-bttn">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Location
+                  </button>
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <div class="search-box ml-auto" style="margin-right: 5px">
+                      <input
+                        type="text"
+                        id="geo-filter-input"
+                        class="form-control location-input"
+                        name="address1"
+                        #search
+                        placeholder="Leave blank for remote work"
+                        [(ngModel)]="formData.address"
+                      />
+                      <i
+                        class="fas fa-search"
+                        style="cursor: pointer"
+                        (click)="filterList(1)"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="box-filters-input">
+                <div class="dropdown rate-bttn">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Rate
+                  </button>
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <h6 style="color: white">Hourly rate</h6>
+                    <ng5-slider
+                      [(value)]="minValue"
+                      [(highValue)]="maxValue"
+                      [options]="options"
+                      (userChangeEnd)="userChangeEnd($event)"
+                    ></ng5-slider>
+                  </div>
+                </div>
+              </div>
+              <div class="box-filters-input">
+                <div class="dropdown rate-bttn">
+                  <button class="btn clear-filter" (click)="resetFilters()">
+                    Reset
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="search-box-sec">
+              <div class="search-box ml-auto">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="search-filter-input"
+                  name="keyword"
+                  placeholder="Search for keywords..."
+                  [(ngModel)]="formData.keyword"
+                  (keyup.Space)="filterList(1)"
+                  (keyup.Enter)="filterList(1)"
+                  style="color: white"
+                />
+                <i
+                  class="fas fa-search"
+                  style="cursor: pointer"
+                  (click)="filterList(1)"
+                ></i>
+              </div>
+            </div>
+          </div>
+          <!-- -----Editors found”---- -->
+          <h3 class="found_title">
+            Search Results
+            <span
+              >“ {{ records.totalCount }}
+              {{
+                formData.freelancer_type == 1 ? "Graphic Artists" : "Editors"
+              }}
+              found”</span
+            >
+          </h3>
+          <div class="row">
+            <div class="col-md-3">
+              <div class="edit-pro-content">
+                <div class="collapse-li active">
+                  <button
+                    class="acc-tit collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#company-details"
+                    aria-expanded="false"
+                    aria-controls="company-details"
+                    [ngClass]="
+                      formData.primarySkill.length > 0
+                        ? 'color-white'
+                        : 'color-other'
+                    "
+                  >
+                    Primary Skills
+                    <div class="acc-tit-icon">
+                      <i class="fas fa-chevron-down"></i>
+                    </div>
+                  </button>
+                  <div class="collapse company-detail" id="company-details">
+                    <div class="in_menu">
+                      <div
+                        class="custom-control custom-checkbox"
+                        *ngFor="let data of primarySkill; let i = index"
+                      >
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [value]="data.value"
+                          (change)="onCheckboxChange($event, 'primarySkill')"
+                          id="g-check{{ i }}"
+                          [checked]="formData.primarySkill.includes(data.value)"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="g-check{{ i }}"
+                          >{{ data.name }}</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="collapse-li line_blue">
+                  <button
+                    class="acc-tit collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#company-details1"
+                    aria-expanded="false"
+                    aria-controls="company-details1"
+                    [ngClass]="
+                      formData.secondarySkill.length > 0
+                        ? 'color-white'
+                        : 'color-other'
+                    "
+                  >
+                    Secondary Skills
+                    <div class="acc-tit-icon">
+                      <i class="fas fa-chevron-down"></i>
+                    </div>
+                  </button>
+                  <div class="collapse company-detail" id="company-details1">
+                    <div class="in_menu">
+                      <div
+                        class="custom-control custom-checkbox"
+                        *ngFor="let data of secondarySkill; let i = index"
+                      >
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [value]="data.value"
+                          (change)="onCheckboxChange($event, 'secondarySkill')"
+                          id="h-check{{ i }}"
+                          [checked]="
+                            formData.secondarySkill.includes(data.value)
+                          "
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="h-check{{ i }}"
+                          >{{ data.name }}</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="collapse-li line_orenge"
+                  *ngIf="formData.freelancer_type == 1"
+                >
+                  <button
+                    class="acc-tit collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#company-details2"
+                    aria-expanded="false"
+                    aria-controls="company-details2"
+                    [ngClass]="
+                      formData.graphic_speacialities.length > 0
+                        ? 'color-white'
+                        : 'color-other'
+                    "
+                  >
+                    Graphic Specialties
+                    <div class="acc-tit-icon">
+                      <i class="fas fa-chevron-down"></i>
+                    </div>
+                  </button>
+                  <div class="collapse company-detail" id="company-details2">
+                    <div class="in_menu">
+                      <div
+                        class="custom-control custom-checkbox"
+                        *ngFor="let data of graphicSpecialties; let i = index"
+                      >
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [value]="data.value"
+                          (change)="
+                            onCheckboxChange($event, 'graphic_speacialities')
+                          "
+                          id="i-check{{ i }}"
+                          [checked]="
+                            formData.graphic_speacialities.includes(data.value)
+                          "
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="i-check{{ i }}"
+                          >{{ data.name }}</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="collapse-li line_green"
+                  *ngIf="formData.freelancer_type == 2"
+                >
+                  <button
+                    class="acc-tit collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#company-details3"
+                    aria-expanded="false"
+                    aria-controls="company-details3"
+                    [ngClass]="
+                      formData.editing_style.length > 0
+                        ? 'color-white'
+                        : 'color-other'
+                    "
+                  >
+                    Editing Style
+                    <div class="acc-tit-icon">
+                      <i class="fas fa-chevron-down"></i>
+                    </div>
+                  </button>
+                  <div class="collapse company-detail" id="company-details3">
+                    <div class="in_menu">
+                      <div
+                        class="custom-control custom-checkbox"
+                        *ngFor="let data of editingStyle; let i = index"
+                      >
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [value]="data.value"
+                          (change)="onCheckboxChange($event, 'editing_style')"
+                          id="j-check{{ i }}"
+                          [checked]="
+                            formData.editing_style.includes(data.value)
+                          "
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="j-check{{ i }}"
+                          >{{ data.name }}</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="collapse-li line_loreng">
+                  <button
+                    class="acc-tit collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#company-details4"
+                    aria-expanded="false"
+                    aria-controls="company-details4"
+                    [ngClass]="
+                      formData.awards.length > 0 ? 'color-white' : 'color-other'
+                    "
+                  >
+                    Award
+                    <div class="acc-tit-icon">
+                      <i class="fas fa-chevron-down"></i>
+                    </div>
+                  </button>
+                  <div class="collapse company-detail" id="company-details4">
+                    <div class="in_menu">
+                      <div
+                        class="custom-control custom-checkbox"
+                        *ngFor="let data of awards; let i = index"
+                      >
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [value]="data.value"
+                          (change)="onCheckboxChange($event, 'awards')"
+                          id="k-check{{ i }}"
+                          [checked]="formData.awards.includes(data.value)"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="k-check{{ i }}"
+                          >{{ data.name }}</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="collapse-li line_red">
+                  <button
+                    class="acc-tit collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#company-details9"
+                    aria-expanded="false"
+                    aria-controls="company-details9"
+                    [ngClass]="
+                      formData.experience_level.length > 0
+                        ? 'color-white'
+                        : 'color-other'
+                    "
+                  >
+                    Experience Level
+                    <div class="acc-tit-icon">
+                      <i class="fas fa-chevron-down"></i>
+                    </div>
+                  </button>
+                  <div class="collapse company-detail" id="company-details9">
+                    <div class="in_menu">
+                      <div
+                        class="custom-control custom-checkbox"
+                        *ngFor="let data of experience_level; let i = index"
+                      >
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [value]="data.value"
+                          (change)="
+                            onCheckboxChange($event, 'experience_level')
+                          "
+                          id="l-check{{ i }}"
+                          [checked]="
+                            formData.experience_level.includes(data.value)
+                          "
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="l-check{{ i }}"
+                          >{{ data.name }}</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="collapse-li line_red">
+                  <button
+                    class="acc-tit collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#company-details5"
+                    aria-expanded="false"
+                    aria-controls="company-details5"
+                    [ngClass]="
+                      formData.ethnicity.length > 0
+                        ? 'color-white'
+                        : 'color-other'
+                    "
+                  >
+                    Ethnicity
+                    <div class="acc-tit-icon">
+                      <i class="fas fa-chevron-down"></i>
+                    </div>
+                  </button>
+                  <div class="collapse company-detail" id="company-details5">
+                    <div class="in_menu">
+                      <div
+                        class="custom-control custom-checkbox"
+                        *ngFor="let data of ethnicityData; let i = index"
+                      >
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [value]="data.value"
+                          (change)="onCheckboxChange($event, 'ethnicity')"
+                          id="m-check{{ i }}"
+                          [checked]="formData.ethnicity.includes(data.value)"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="m-check{{ i }}"
+                          >{{ data.name }}</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="collapse-li">
+                  <button
+                    class="acc-tit collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#company-details6"
+                    aria-expanded="false"
+                    aria-controls="company-details6"
+                  >
+                    Gender
+                    <div class="acc-tit-icon">
+                      <i class="fas fa-chevron-down"></i>
+                    </div>
+                  </button>
+                  <div class="collapse company-detail" id="company-details6">
+                    <div class="in_menu">
+                      <div
+                        class="custom-control custom-checkbox"
+                        *ngFor="let data of GenderData; let i = index"
+                      >
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [value]="data.value"
+                          (change)="changeOption($event, 'gender')"
+                          id="n-check{{ i }}"
+                          [checked]="formData.gender == data.value"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="n-check{{ i }}"
+                          >{{ data.name }}</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="collapse-li line_lblue">
+                  <button
+                    class="acc-tit collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#company-details7"
+                    aria-expanded="false"
+                    aria-controls="company-details7"
+                  >
+                    Orientation
+                    <div class="acc-tit-icon">
+                      <i class="fas fa-chevron-down"></i>
+                    </div>
+                  </button>
+                  <div class="collapse company-detail" id="company-details7">
+                    <div class="in_menu">
+                      <div
+                        class="custom-control custom-checkbox"
+                        *ngFor="let data of OrientationData; let i = index"
+                      >
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [value]="data.value"
+                          (change)="changeOption($event, 'orientation')"
+                          id="o-check{{ i }}"
+                          [checked]="formData.orientation == data.value"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="o-check{{ i }}"
+                          >{{ data.name }}</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="collapse-li line_lblue">
+                  <button
+                    class="acc-tit collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#company-details8"
+                    aria-expanded="false"
+                    aria-controls="company-details8"
+                  >
+                    Disabilities
+                    <div class="acc-tit-icon">
+                      <i class="fas fa-chevron-down"></i>
+                    </div>
+                  </button>
+                  <div class="collapse company-detail" id="company-details8">
+                    <div class="in_menu">
+                      <div
+                        class="custom-control custom-checkbox"
+                        *ngFor="let data of DisabilitiesData; let i = index"
+                      >
+                        <input
+                          type="checkbox"
+                          class="custom-control-input"
+                          [value]="data.value"
+                          (change)="changeOption($event, 'disabilities')"
+                          id="p-check{{ i }}"
+                          [checked]="formData.disabilities == data.value"
+                        />
+                        <label
+                          class="custom-control-label"
+                          for="p-check{{ i }}"
+                          >{{ data.name }}</label
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-9">
+              <!-- .....right 1-sec... -->
+              <div
+                class="about-me row"
+                style="cursor: pointer"
+                *ngFor="let user of records.records; let i = index"
+                (click)="OpenModal(template1, user, null, 'model-dialog2')"
+              >
+                <div class="col-md-8">
+                  <div class="Starz-box">
+                    <div class="Starz-in">
+                      <figure>
+                        <img
+                          src="{{
+                            user.image
+                              ? records.profile_image_path + user.image
+                              : 'assets/images/account.jpg'
+                          }}"
+                        />
+                      </figure>
+                      <h3 style="max-width: 200px; word-wrap: break-word">
+                        {{ modifiyName(user.first_name, user.last_name) }}
+                      </h3>
+                      <h6 style="max-width: 200px; word-wrap: break-word">
+                        {{ modifyAddressName(user.city, user.state) }}
+                      </h6>
+                      <button
+                        class="btn btn-video"
+                        (click)="
+                          OpenModal(template4, user); $event.stopPropagation()
+                        "
+                        id="open-video-player-model"
+                      >
+                        <span><i class="fas fa-play"></i></span>Profile Video
+                      </button>
+                    </div>
+                    <figcaption>
+                      <h5>About Me</h5>
+                      <p style="max-width: 400px; word-wrap: break-word">
+                        {{
+                          user.aboutme
+                            ? user.aboutme.length > 420
+                              ? user.aboutme.slice(0, 420) + "..."
+                              : user.aboutme
+                            : "NA"
+                        }}
+                      </p>
+                      <div class="clients-pdd">
+                        <h5>Previous Clients</h5>
+                        <h6>
+                          {{
+                            user.pastClient && user.pastClient.length > 0
+                              ? tranformPatClient(user.pastClient)
+                              : "NA"
+                          }}
+                        </h6>
+                      </div>
+                    </figcaption>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="Starz-box2">
+                    <div class="starz-bx">
+                      <button
+                        class="btn btn-fil-color closeing-btn"
+                        id="model-open-copy{{ user._id }}"
+                        (click)="
+                          OpenModal(template1, user, null, 'model-dialog2');
+                          $event.stopPropagation()
+                        "
+                      >
+                        <i class="fas fa-id-badge"></i>
+                      </button>
+                      <button
+                        class="btn btn-fil-color closeing-btn hand-pcolor"
+                        (click)="
+                          OpenModal(template2, user, null);
+                          $event.stopPropagation()
+                        "
+                        id="open-add-favvoutite-model"
+                      >
+                        <i class="fas fa-thumbs-up"></i>
+                      </button>
+                      <button
+                        class="btn btn-fil-color closeing-btn"
+                        (click)="
+                          hideFreelancer(user._id); $event.stopPropagation()
+                        "
+                      >
+                        <i class="fas fa-low-vision"></i>
+                      </button>
+                    </div>
+
+                    <div class="Portfolio-slide">
+                      <h5 *ngIf="user.portfolios && user.portfolios.length > 0">
+                        Portfolio
+                      </h5>
+                      <div
+                        class="Portfolio-slider-carousel owl-carousel owl-theme"
+                        (click)="$event.stopPropagation()"
+                        [hidden]="!user.portfolios"
+                      >
+                        <div
+                          class="item oul-item"
+                          (click)="OpenModal(template5, portfolio)"
+                          style="cursor: pointer"
+                          *ngFor="let portfolio of user.portfolios"
+                        >
+                          <img src="{{ portfolio.thumb_image }}" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- .....right 1-sec... -->
+              <!-- .....right 2-sec... -->
+
+              <!-- ------pagination-lists------ -->
+              <div class="pagination-lists" *ngIf="records.totalCount >= 1">
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination pagination-circle pg-blue">
+                    <li
+                      class="page-item"
+                      (click)="
+                        records.currentPage > 1 &&
+                          filterList(records.currentPage - 1)
+                      "
+                    >
+                      <a class="page-link" aria-label="Previous">
+                        <span aria-hidden="true"
+                          ><i class="fas fa-chevron-left"></i
+                        ></span>
+                        <span class="sr-only">Previous</span>
+                      </a>
+                    </li>
+                    <li
+                      class="page-item"
+                      *ngFor="let page of pageArray; let i = index"
+                      [ngClass]="page == records.currentPage ? 'active' : ''"
+                      (click)="page != records.currentPage && filterList(page)"
+                    >
+                      <a class="page-link">{{ page }}</a>
+                    </li>
+                    <li
+                      class="page-item"
+                      (click)="
+                        records.currentPage < records.totalPages &&
+                          filterList(records.currentPage + 1)
+                      "
+                    >
+                      <a class="page-link" aria-label="Next">
+                        <span aria-hidden="true"
+                          ><i class="fas fa-chevron-right"></i
+                        ></span>
+                        <span class="sr-only">Next</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+              <!-- ------pagination-lists------ -->
+            </div>
+          </div>
+          <!-- -----Editors found”---- -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- inner-wraper -->
+
+<!-- Modal view profile  -->
+<ng-template #template1>
+  <div class="modal-header">
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      id="profile-video-close"
+      aria-label="Close"
+      (click)="profileModalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <profile-component-freelancer
+    class="modal-body"
+    *ngIf="selectedUser"
+    [modalService]="modalService"
+    [page]="'find-freelancer'"
+    [profile_image_path]="records.profile_image_path"
+    [selectedUser]="selectedUser"
+    [originalSelectedUser]="originalSelectedUser"
+    [projectType]="projectType"
+    [industryType]="industryType"
+    [genereType]="genereType"
+    [primarySkill]="primarySkill"
+    [secondarySkill]="secondarySkill"
+    [graphicSpecialties]="graphicSpecialties"
+    [editingStyle]="editingStyle"
+    [awards]="awards"
+    (closeModal)="modalRef.hide()"
+    (openAddNoteModel)="openAddNoteModel()"
+    (hideFreelancer)="hideFreelancer(selectedUser._id)"
+    (OpenModal2)="OpenModal(template2, null)"
+    (OpenModal3)="OpenModal(template3, null)"
+    (OpenModal4)="OpenModal(template4, null)"
+    (OpenModal5)="OpenModal(template5, null, $event.portfolio)"
+    (copyLink)="copyLink()"
+    (changePortFoliFilter1)="changePortFoliFilter($event, 'projectType')"
+    (changePortFoliFilter2)="changePortFoliFilter($event, 'industryType')"
+    (changePortFoliFilter3)="changePortFoliFilter($event, 'genereType')"
+  ></profile-component-freelancer>
+</ng-template>
+<!-- Modal view profile -->
+
+<!-- Modal add to favorites -->
+<ng-template #template2>
+  <div class="modal-header">
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      id="add-favorites-close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="create-info">
+      <div class="create-box">
+        <h6>
+          Save
+          <span>{{
+            selectedUser &&
+              modifiyName(selectedUser.first_name, selectedUser.last_name)
+          }}</span>
+          To
+        </h6>
+        <a
+          href="javascript:;"
+          class="acc-tit collapsed"
+          type="button"
+          data-toggle="collapse"
+          data-target="#create-new"
+          aria-expanded="false"
+          aria-controls="company-details"
+          >Create new list</a
+        >
+      </div>
+      <div class="collapse" id="create-new">
+        <div class="in_uplodfavpdd">
+          <div class="in_uplodfav">
+            <h5>New List Name</h5>
+            <form
+              class="form-horizontal"
+              #aboutUsUpdateFormData="ngForm"
+              (ngSubmit)="
+                !aboutUsUpdateFormData.invalid &&
+                  addFavoutiteFolder(aboutUsUpdateFormData.value)
+              "
+            >
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Title"
+                  [(ngModel)]="formBody.title"
+                  name="title"
+                  id="title"
+                  #title="ngModel"
+                  required
+                  minlength="3"
+                  maxlength="55"
+                />
+                <div
+                  *ngIf="
+                    (title.invalid && (title.dirty || title.touched)) ||
+                    aboutUsUpdateFormData.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="title.hasError('required')"
+                  >
+                    Title is required</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="title.hasError('minlength')"
+                  >
+                    Title should not be atleast 3 characters long</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="title.hasError('maxlength')"
+                  >
+                    Title should not exceed 55 characters</span
+                  >
+                </div>
+              </div>
+
+              <h6>Upload cover photo</h6>
+              <div class="d-flex justify-content-between">
+                <div
+                  class="file-btpdd"
+                  style="display: flex; flex-direction: row"
+                >
+                  <button
+                    class="btn btn-fil-color"
+                    type="button"
+                    style="width: 200px"
+                  >
+                    <input
+                      type="file"
+                      id="file"
+                      name="image"
+                      accept=".png, .jpg, .jpeg"
+                      (change)="uploadFile($event)"
+                    />
+                    <label for="file">choose file</label>
+                  </button>
+                  <figure
+                    class="m-0"
+                    [hidden]="!this.formBody['profileImage']"
+                    style="border-radius: 50%"
+                  >
+                    <div>
+                      <img
+                        id="profile-image"
+                        [src]="this.formBody['profileImage']"
+                        style="
+                          height: 95px;
+                          width: 95px;
+                          object-fit: cover;
+                          border-radius: 50%;
+                          margin-top: -20px;
+                        "
+                      />
+                    </div>
+                  </figure>
+                </div>
+                <button class="btn btn-blue" type="submit">Add</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <ul>
+        <li *ngFor="let list of favouriteFolder">
+          <a href="javadcript:;" (click)="formBody.listId = list._id"
+            >{{ list?.name
+            }}<i
+              class="fas fa-thumbs-up"
+              [ngStyle]="{
+                color: formBody.listId == list._id ? 'blue' : ''
+              }"
+            ></i
+          ></a>
+        </li>
+
+        <div
+          *ngIf="!formBody.listId && aboutUsUpdateFormData2.submitted"
+          style="margin: 0px 10px 20px 20px"
+        >
+          <span class="error text-danger" *ngIf="!formBody.listId">
+            This field is required. please select a list</span
+          >
+        </div>
+      </ul>
+    </div>
+    <div class="create-text">
+      <div class="create-box">
+        <h6>
+          Add note about<span>
+            {{
+              (selectedUser.first_name ? selectedUser.first_name : "") +
+                " " +
+                (selectedUser.last_name ? selectedUser.last_name : "")
+            }}</span
+          >
+        </h6>
+      </div>
+      <form
+        class="form-horizontal"
+        #aboutUsUpdateFormData2="ngForm"
+        (ngSubmit)="
+          !aboutUsUpdateFormData2.invalid &&
+            addFreelancerToFavourite(aboutUsUpdateFormData2.value)
+        "
+      >
+        <div class="form-group">
+          <textarea
+            class="form-control textarea-big"
+            [(ngModel)]="formBody.notes"
+            name="title_descrition"
+            id="title_descrition"
+            #title_descrition="ngModel"
+            maxlength="500"
+            minlength="3"
+            required
+          ></textarea>
+          <div
+            *ngIf="
+              (title_descrition.invalid &&
+                (title_descrition.dirty || title_descrition.touched)) ||
+              aboutUsUpdateFormData2.submitted
+            "
+          >
+            <span
+              class="error text-danger"
+              *ngIf="title_descrition.hasError('required')"
+            >
+              Note is required</span
+            >
+            <span
+              class="error text-danger"
+              *ngIf="title_descrition.hasError('maxlength')"
+            >
+              Note should not exceed 1000 characters</span
+            >
+            <span
+              class="error text-danger"
+              *ngIf="title_descrition.hasError('minlength')"
+            >
+              Note should be more than 3 characters long</span
+            >
+          </div>
+        </div>
+        <div class="ct-linebt">
+          <button class="btn btn-orange" type="submit">Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-template>
+<!-- Modal add to favorites -->
+
+<!-- Modal add note -->
+<ng-template #template3>
+  <div class="modal-content profile_pdd">
+    <div class="modal-header">
+      <button
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Close"
+        id="add-note-close"
+        (click)="modalRef.hide()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="create-text">
+        <div class="create-box">
+          <h6>
+            Add note about<span>
+              {{
+                (selectedUser.first_name ? selectedUser.first_name : "") +
+                  " " +
+                  (selectedUser.last_name ? selectedUser.last_name : "")
+              }}</span
+            >
+          </h6>
+        </div>
+        <form
+          class="form-horizontal"
+          #aboutUsUpdateFormData3="ngForm"
+          (ngSubmit)="
+            !aboutUsUpdateFormData3.invalid &&
+              addNoteToFavourite(aboutUsUpdateFormData3.value)
+          "
+        >
+          <div class="form-group">
+            <textarea
+              class="form-control textarea-big"
+              [(ngModel)]="formBody.freelancer_note"
+              name="title_descrition"
+              id="title_descrition2"
+              #title_descrition2="ngModel"
+              maxlength="500"
+              minlength="3"
+              required
+            ></textarea>
+            <div
+              *ngIf="
+                (title_descrition2.invalid &&
+                  (title_descrition2.dirty || title_descrition2.touched)) ||
+                aboutUsUpdateFormData3.submitted
+              "
+            >
+              <span
+                class="error text-danger"
+                *ngIf="title_descrition2.hasError('required')"
+              >
+                Note is required</span
+              >
+              <span
+                class="error text-danger"
+                *ngIf="title_descrition2.hasError('maxlength')"
+              >
+                Note should not exceed 1000 characters</span
+              >
+              <span
+                class="error text-danger"
+                *ngIf="title_descrition2.hasError('minlength')"
+              >
+                Note should be more than 3 characters long</span
+              >
+            </div>
+          </div>
+          <div class="ct-linebt">
+            <button class="btn btn-orange" type="submit">Save</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<!-- Modal add to favorites -->
+
+<!-- Modal video module-->
+<ng-template #template4>
+  <div class="modal-header">
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      id="video-module-close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="yt_video">
+      <iframe
+        id="v1"
+        allowfullscreen=""
+        frameborder="0"
+        src="https://player.vimeo.com/video/56282283"
+      ></iframe>
+    </div>
+  </div>
+</ng-template>
+<!-- Modal video module-->
+
+<ng-template #template5>
+  <div class="modal-header">
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      id="video-module-close2"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="yt_video">
+      <iframe
+        id="v2"
+        allowfullscreen=""
+        frameborder="0"
+        [src]="selectedPortfolio"
+      ></iframe>
+    </div>
+  </div>
+</ng-template>
+<!-- Modal video module-->
+
+<!--  hourly rate drop down -->
+
+<!-- <div class="menu-content"><div class="content-scroll" style="max-height: 330.8px;"><div class="price-range-filter"><div class="input-wrapper"><label>Min.</label><input type="number" name="gig_price_range" class="min" placeholder="Any" min="0" max="50000" value=""><i>₹</i></div><div class="input-wrapper"><label>Max.</label><input type="number" name="gig_price_range" class="max" placeholder="Any" min="0" max="50000" value=""><i>₹</i></div></div></div><div class="button-row"><a class="clear-all">Clear All</a><a class="apply">Apply</a></div></div> -->

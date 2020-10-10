@@ -1,0 +1,279 @@
+<!-- inner-wraper -->
+<div class="inner-wraper inner-create-bg">
+  <div class="container">
+    <div class="findjb_pdd">
+      <div class="head-title">
+        <h2>Search <b>Project Listings</b></h2>
+        <h3>
+          Choose from thousands of creative workers, ready to work on-set,
+          in-house, or remotely.
+        </h3>
+        <p>
+          Too many great choices?
+          <a href="javascript:;">Let us search for you!</a>
+        </p>
+      </div>
+      <!--  -->
+      <div class="pro-filter-sec">
+        <div class="find_pdd">
+          <div class="box-filters d-flex">
+            <div class="freelancers-filter">
+              <div class="box-filters-input">
+                <select
+                  class="form-control"
+                  (change)="changeOption($event, 'freelancer_type')"
+                >
+                  <option value="">Position</option>
+                  <option value="1">Graphic designer</option>
+                  <option value="2">Editor</option>
+                </select>
+              </div>
+              <div class="box-filters-input">
+                <select (change)="changeOption($event, 'project_type')">
+                  <option value="">Project Type</option>
+                  <option
+                    *ngFor="let data of projectType"
+                    value="{{ data.value }}"
+                  >
+                    {{ data.name }}
+                  </option>
+                </select>
+              </div>
+              <div class="box-filters-input">
+                <select (change)="changeOption($event, 'industry')">
+                  <option value="">Industry</option>
+                  <option
+                    *ngFor="let data of industryType"
+                    value="{{ data.value }}"
+                  >
+                    {{ data.name }}
+                  </option>
+                </select>
+              </div>
+              <div class="box-filters-input">
+                <select (change)="changeOption($event, 'genre')">
+                  <option value="">Genre</option>
+                  <option
+                    *ngFor="let data of genereType"
+                    value="{{ data.value }}"
+                  >
+                    {{ data.name }}
+                  </option>
+                </select>
+              </div>
+              <div class="box-filters-input">
+                <div class="dropdown rate-bttn">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    Location
+                  </button>
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <div class="search-box ml-auto" style="margin-right: 5px">
+                      <input
+                        type="text"
+                        id="geo-filter-input"
+                        class="form-control location-input"
+                        name="address1"
+                        #search
+                        placeholder="Leave blank for remote work"
+                        [(ngModel)]="formData.address"
+                      />
+                      <i
+                        class="fas fa-search"
+                        style="cursor: pointer"
+                        (click)="filterList(1)"
+                      ></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="box-filters-input">
+                <select
+                  class="form-control"
+                  style="width: 132px"
+                  (change)="changeOption($event, 'payment_type')"
+                >
+                  <option value="">Payment Type</option>
+                  <option value="1">Fixed budget</option>
+                  <option value="2">Hourly payment</option>
+                </select>
+              </div>
+              <div class="box-filters-input" *ngIf="this.formData.payment_type">
+                <div class="dropdown rate-bttn">
+                  <button
+                    class="btn dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                  >
+                    {{
+                      this.formData.payment_type == 1
+                        ? "Fixed amount"
+                        : "Hourly rate"
+                    }}
+                  </button>
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <h6 style="color: white">Hourly rate</h6>
+                    <ng5-slider
+                      [(value)]="minValue"
+                      [(highValue)]="maxValue"
+                      [options]="options"
+                      (userChangeEnd)="userChangeEnd($event)"
+                    ></ng5-slider>
+                  </div>
+                </div>
+              </div>
+              <div class="box-filters-input">
+                <button class="clear-filter" (click)="resetFilters()">
+                  Reset
+                </button>
+              </div>
+            </div>
+            <div
+              class="search-box ml-auto"
+              *ngIf="this.global.user && this.global.user.role == 3"
+            >
+              <div class="pdd-noti">
+                <h4>My Matches</h4>
+                <div class="custom-control custom-switch">
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="customSwitch1"
+                    (change)="
+                      formData.mymatch = $event.target.checked; filterList(1)
+                    "
+                    [checked]="formData.mymatch"
+                  />
+                  <label
+                    class="custom-control-label"
+                    for="customSwitch1"
+                  ></label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="box-filters operat_pdd fav_operat">
+            <div class="search-box">
+              <input
+                type="text"
+                class="form-control"
+                name="keyword"
+                placeholder="Search for keywords..."
+                [(ngModel)]="formData.keyword"
+                (keyup.Space)="filterList(1)"
+                (keyup.Enter)="filterList(1)"
+                style="color: white"
+              />
+              <i
+                class="fas fa-search"
+                style="cursor: pointer"
+                (click)="filterList(1)"
+              ></i>
+            </div>
+            <h5>
+              Search Results
+              <span>“ {{ records.totalCount }} project found”</span>
+            </h5>
+          </div>
+        </div>
+
+        <div class="cum-list">
+          <ul class="store-list">
+            <li
+              [ngClass]="i == 0 ? 'active' : ''"
+              *ngFor="let project of records.records; let i = index"
+              (click)="
+                global.user && global.user.role == 3
+                  ? navigate(
+                      'user/freelancer/project/' +
+                        (project._id ? Btoa(project._id) : '') +
+                        '/description/' +
+                        (project._id ? Btoa(project._id) : '')
+                    )
+                  : navigate(
+                      'user/project-detail/' +
+                        (project._id ? Btoa(project._id) : '')
+                    )
+              "
+            >
+              <!-- <li
+              [ngClass]="i == 0 ? 'active' : ''"
+              *ngFor="let project of records.records; let i = index"
+              routerLink="(global.user && global.user.role == 3) ? user/freelancer/project/description/ +
+              (project._id) ? Btoa(project._id): '' : (user/project-detail/) + project._id ? Btoa(project._id): ''"
+            > -->
+              <div class="store_pdd">
+                <h4>{{ project?.title }}</h4>
+                <p>
+                  {{
+                    project.description
+                      ? project.description.length > 220
+                        ? project.description.slice(0, 220) + "..."
+                        : project.description
+                      : "NA"
+                  }}<a
+                    href="javascript:;"
+                    (click)="
+                      navigate(
+                        'user/project-detail/' +
+                          (project._id ? Btoa(project._id) : '')
+                      );
+                      $event.stopPropagation()
+                    "
+                    >Read More
+                  </a>
+                </p>
+              </div>
+              <div class="store_pdd">
+                <span
+                  ><i class="fas fa-donate"></i
+                  >{{ paymentType[project.payment_type] }} -
+                  {{
+                    project.payment_type == 1
+                      ? project.fixed_budget[0] +
+                        "$-" +
+                        project.fixed_budget[1] +
+                        "$"
+                      : project.hourly_rate + "$"
+                  }}</span
+                >
+                <span
+                  ><i class="far fa-clock"></i> Posted
+                  {{ project.created | dateFormat: "calculate" }}</span
+                >
+                <span
+                  ><i class="fas fa-map-marker-alt"></i
+                  >{{ project?.country }}</span
+                >
+              </div>
+            </li>
+          </ul>
+
+          <!-- ------pagination-lists------ -->
+          <pagination-component
+            [totalRecords]="totalPages"
+            [activePage]="currentPage"
+            (onPageChange)="filterList($event)"
+          ></pagination-component>
+          <!-- ------pagination-lists------ -->
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- inner-wraper -->

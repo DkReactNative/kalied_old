@@ -1,0 +1,29 @@
+.example-chip-list {
+  width: 100%;
+  border-radius: 5px;
+  background: #16161a;
+  border-color: #252833;
+  min-height: 120px;
+  font-size: 14px;
+  color: #fff;
+}
+
+.input-class {
+  border: 0px;
+  border-bottom-width: 0px;
+  caret-color: white;
+  height: 42px;
+}
+.mat-form-field-infix {
+  min-height: 120px !important;
+}
+
+.form-field {
+  border-width: 1px !important;
+  border-color: green !important;
+}
+
+.active {
+  background-color: #616161 !important;
+  margin-top: 1px !important;
+}

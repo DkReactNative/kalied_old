@@ -1,0 +1,325 @@
+<ng-container *ngIf="selectedUser">
+  <div class="postbox-pdd">
+    <div class="row">
+      <div class="col-md-4 pdd_adnotes">
+        <button
+          *ngIf="global.user"
+          class="btn btn-green mb-2"
+          (click)="OpenModalEvent(3); openAddNoteModelEvent()"
+        >
+          Add Notes
+        </button>
+        <button class="btn btn-green">Message</button>
+      </div>
+      <div class="col-md-4">
+        <div class="profile-set">
+          <div class="pro-photo">
+            <figure>
+              <div>
+                <img
+                  src="{{
+                    selectedUser.image
+                      ? profile_image_path + selectedUser.image
+                      : 'assets/images/account.jpg'
+                  }}"
+                />
+              </div>
+            </figure>
+          </div>
+          <h6>
+            {{
+              (selectedUser.first_name ? selectedUser.first_name : "") +
+                " " +
+                (selectedUser.last_name ? selectedUser.last_name : "")
+            }}
+          </h6>
+          <p class="d-flex-column">
+            <span>{{ selectedUser.city }}</span>
+            <span>{{ selectedUser.state }}</span>
+            <span>{{ selectedUser.country }}</span>
+          </p>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="notes-list">
+          <button
+            class="btn btn-fil-color closeing-btn"
+            (click)="copyLinkEvent()"
+          >
+            <i class="fas fa-share-alt share-icon"></i>
+          </button>
+          <!-- buttons for find freelancers  component-->
+          <button
+            *ngIf="page == 'find-freelancer'"
+            class="btn btn-fil-color closeing-btn"
+            (click)="OpenModalEvent(2)"
+          >
+            <i class="fas fa-thumbs-up"></i>
+          </button>
+          <button
+            *ngIf="page == 'find-freelancer'"
+            class="btn btn-fil-color closeing-btn"
+            (click)="hideFreelancerEvent()"
+          >
+            <i class="fas fa-low-vision"></i>
+          </button>
+          <!-- End -->
+
+          <!-- button for hidden tabs -->
+          <button
+            *ngIf="page == 'hiddent-tab'"
+            class="btn btn-fil-color closeing-btn"
+            (click)="unHideFreelancerEvent()"
+          >
+            <i class="fa fa-eye"></i>
+          </button>
+          <!-- End -->
+
+          <!-- buttons for favourite component -->
+          <button
+            *ngIf="page == 'favourite'"
+            class="btn btn-fil-color closeing-btn hand-pcolor"
+            (click)="confirmRemoveEvent()"
+          >
+            <i class="fas fa-thumbs-down"></i>
+          </button>
+          <button
+            *ngIf="page == 'favourite'"
+            class="btn btn-fil-color closeing-btn"
+            (click)="hideFreelancerEvent()"
+          >
+            <i class="fas fa-low-vision"></i>
+          </button>
+          <!-- End -->
+
+          <button
+            class="btn btn-fil-color closeing-btn"
+            (click)="
+              closeModalEvent();
+              navigate('user/freelancer-profile/' + selectedUser._id)
+            "
+          >
+            <i class="fas fa-external-link-alt"></i>
+          </button>
+        </div>
+        <button class="btn btn-video" (click)="OpenModalEvent(4)">
+          <span><i class="fas fa-play"></i></span>Profile Video
+        </button>
+      </div>
+    </div>
+    <p class="client-boxi">{{ selectedUser.aboutme }}</p>
+    <div class="client-box">
+      <h3 class="title_clinent">Previous Clients</h3>
+      <h6>
+        {{
+          selectedUser.pastClient && selectedUser.pastClient.length > 0
+            ? tranformPatClient(selectedUser.pastClient)
+            : "NA"
+        }}
+      </h6>
+    </div>
+  </div>
+  <div class="postbox-pdd">
+    <h3 class="title_clinent line_sky_blue">Portfolio</h3>
+    <div class="Portfolio_view">
+      <div class="freelancers-filter">
+        <div class="box-filters-input">
+          <select (change)="changePortFoliFilterEvent($event, 1)">
+            <option value="">Project Type</option>
+            <option *ngFor="let option of projectType" [value]="option.value">
+              {{ option.name }}
+            </option>
+          </select>
+        </div>
+        <div class="box-filters-input">
+          <select (change)="changePortFoliFilterEvent($event, 2)">
+            <option value="">Industry Type</option>
+            <option *ngFor="let option of industryType" [value]="option.value">
+              {{ option.name }}
+            </option>
+          </select>
+        </div>
+        <div class="box-filters-input">
+          <select (change)="changePortFoliFilterEvent($event, 3)">
+            <option value="">Genere</option>
+            <option *ngFor="let option of genereType" [value]="option.value">
+              {{ option.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+      <ul class="select-operat d-flex">
+        <li *ngFor="let portfolio of originalSelectedUser">
+          <a href="javascript:;" (click)="OpenModalEvent(5, portfolio)">
+            <div class="operat-content">
+              <figure>
+                <img src="{{ portfolio.thumb_image }}" />
+              </figure>
+              <!-- <button class="btn btn-play"><i class="fas fa-play"></i></button> -->
+            </div>
+          </a>
+        </li>
+      </ul>
+      <div
+        class="item"
+        *ngIf="originalSelectedUser.length == 0"
+        style="color: white"
+      >
+        Portfolio not found
+      </div>
+    </div>
+  </div>
+  <div class="postbox-pdd">
+    <h3 class="title_clinent line_sky">EXPERIENCE</h3>
+    <div class="marke_box">
+      <h4>Marketing Communications Specialist</h4>
+      <p>Freelance Marketing and Creative Services * Freelance</p>
+      <p>Sep 2019 - Present</p>
+      <p>Indianapolis, IN</p>
+      <p>
+        Produced television, radio, digital and photography projects for one of
+        the top US advertising agencies.Managed entire process from budget
+        estimates through invoicing for clients including The Hoosier Lottery
+        and Chinet. Handled media traffic instructions, distribution and
+        monitoring.
+      </p>
+    </div>
+    <div class="marke_box">
+      <h4>Content Creator</h4>
+      <p>Mortenson Kim * Full-time</p>
+      <p>Aug 2015 - Feb 2018</p>
+      <p>Indianapolis, IN</p>
+      <p>
+        Produced and managed all video, radio, social and photography projects
+        for agency clients including The Hoosier Lottery, Roche Diabetes Care
+        and Michelob Golden Light. Maintained and executed all production
+        schedules, budgets and invoicing. Oversaw graphic designer/motion
+        animator.
+      </p>
+    </div>
+    <div class="marke_box">
+      <h4>Producer</h4>
+      <p>WFYI * Freelance</p>
+      <p>Jul 2013 - Aug 2015</p>
+      <p>Indianapolis, IN</p>
+      <p>
+        Project based producer for in-house and external production clients with
+        WFYI. Handled interviews,script writing, field producing and overseeing
+        edits.
+      </p>
+    </div>
+  </div>
+  <div class="postbox-pdd">
+    <h3 class="title_clinent line_ex">Project Reviews</h3>
+    <div class="marke_box">
+      <h5>Tamara Holder</h5>
+      <h6>Senior writer/Producer at BNB Networks</h6>
+      <p>
+        Project based producer for in-house and external production clients with
+        WFYI. Handled interviews,script writing, field producing and overseeing
+        edits.
+      </p>
+    </div>
+    <div class="marke_box">
+      <h5>Lissa Watson</h5>
+      <h6>Senior writer/Producer at BNB Networks</h6>
+      <p>
+        Project based producer for in-house and external production clients with
+        WFYI. Handled interviews,script writing, field producing and overseeing
+        edits.
+      </p>
+    </div>
+  </div>
+  <div class="postbox-pdd">
+    <h3 class="title_clinent line_reco">Career Recommendations</h3>
+    <ng-container
+      *ngIf="
+        selectedUser.recommendations && selectedUser.recommendations.length > 0
+      "
+    >
+      <div
+        class="marke_box"
+        *ngFor="let recommendation of selectedUser.recommendations"
+      >
+        <h5>
+          {{
+            recommendation.reference_name ? recommendation.reference_name : "NA"
+          }}
+        </h5>
+        <h6>
+          {{ recommendation.positions ? recommendation.positions : "NA" }}
+        </h6>
+        <p>
+          {{
+            recommendation.recommendation_text
+              ? recommendation.recommendation_text
+              : "NA"
+          }}
+        </p>
+      </div>
+    </ng-container>
+    <div
+      class="item"
+      *ngIf="
+        !selectedUser.recommendations ||
+        selectedUser.recommendations.length == 0
+      "
+      style="color: white"
+    >
+      No Recommendations found
+    </div>
+  </div>
+  <div class="postbox-pdd last_light">
+    <h3 class="title_clinent line_avail">PRIMARY SKILLS</h3>
+    <p *ngIf="selectedUser.skills && selectedUser.skills[0]">
+      {{
+        getMultipleNameByValue(
+          primarySkill,
+          selectedUser.skills[0].primary_skills
+        )
+      }}
+    </p>
+
+    <h3 class="title_clinent line_skil">SECONDARY SKILLS</h3>
+    <p *ngIf="selectedUser.skills && selectedUser.skills[0]">
+      {{
+        getMultipleNameByValue(
+          primarySkill,
+          selectedUser.skills[0].primary_skills
+        )
+      }}
+    </p>
+
+    <ng-container *ngIf="selectedUser.freelancer_type == 1">
+      <h3 class="title_clinent line_avail">GRAPHIC SPECIALITIES</h3>
+      <p *ngIf="selectedUser.skills && selectedUser.skills[0]">
+        {{
+          getMultipleNameByValue(
+            graphicSpecialties,
+            selectedUser.skills[0].graphic_specialities
+          )
+        }}
+      </p>
+    </ng-container>
+
+    <ng-container *ngIf="selectedUser.freelancer_type == 2">
+      <h3 class="title_clinent line_skil">EDITING STYLES</h3>
+      <p *ngIf="selectedUser.skills && selectedUser.skills[0]">
+        {{
+          getMultipleNameByValue(
+            editingStyle,
+            selectedUser.skills[0].editing_style
+          )
+        }}
+      </p>
+    </ng-container>
+
+    <h3 class="title_clinent line_avail">AVAILABILITY</h3>
+    <p>{{ availabilityName(selectedUser.availability) }}</p>
+
+    <h3 class="title_clinent line_skil">AWARDS</h3>
+    <p *ngIf="selectedUser.skills && selectedUser.skills[0]">
+      {{ getMultipleNameByValue(awards, selectedUser.skills[0].awards) }}
+    </p>
+  </div>
+</ng-container>

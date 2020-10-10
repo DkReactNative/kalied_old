@@ -1,0 +1,345 @@
+<div class="inner-wraper inner-create-bg">
+  <div class="container">
+    <div class="create-title">
+      <h4>Setup Your Profile</h4>
+      <p>
+        Lorem Ipsum is simply dummy text of the printing and typesetting
+        industry.
+      </p>
+    </div>
+    <div class="create-pdd90">
+      <div class="createdashboard">
+        <div class="row">
+          <app-profile-setup-side-menu
+            class="col-md-3"
+          ></app-profile-setup-side-menu>
+          <div class="col-md-9 DashboardContent">
+            <div class="RightContent">
+              <form
+                class="form-horizontal"
+                role="form"
+                [formGroup]="formData"
+                (ngSubmit)="onClickSubmit(formData)"
+              >
+                <div class="form-group">
+                  <label>Primary skills</label>
+                  <div class="diversity-li newcss-li">
+                    <button
+                      class="acc-tit collapsed newcss-li"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#primary"
+                      aria-expanded="false"
+                      aria-controls="primary"
+                    >
+                      <span class="drop-down-text">Choose skills</span
+                      ><i class="fas fa-chevron-down i-icon"></i>
+                    </button>
+                    <div class="collapse" id="primary">
+                      <div class="in_menu diver_bg diver_bg2">
+                        <div
+                          class="custom-control custom-checkbox"
+                          *ngFor="let data of primarySkill; let i = index"
+                        >
+                          <input
+                            type="checkbox"
+                            [value]="data.value"
+                            (change)="onCheckboxChange($event, 'primarySkill')"
+                            class="custom-control-input"
+                            id="g-check{{ i }}"
+                            [checked]="
+                              getPrimarySkill.value.includes(data.value)
+                            "
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="g-check{{ i }}"
+                            >{{ data.name }}</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <span
+                    class="glyphicon glyphicon-envelope form-control-feedback"
+                  ></span>
+                  <div
+                    *ngIf="
+                      formData.controls['primarySkill'].invalid &&
+                      (formData.controls['primarySkill'].dirty ||
+                        formData.controls['primarySkill'].touched ||
+                        formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls['primarySkill'].errors.required"
+                      >This field is required</span
+                    >
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Secondary skills</label>
+                  <div class="diversity-li newcss-li">
+                    <button
+                      class="acc-tit collapsed newcss-li"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#secondary"
+                      aria-expanded="false"
+                      aria-controls="secondary"
+                    >
+                      <span class="drop-down-text">Choose skills</span
+                      ><i class="fas fa-chevron-down i-icon"></i>
+                    </button>
+                    <div class="collapse" id="secondary">
+                      <div class="in_menu diver_bg diver_bg2">
+                        <div
+                          class="custom-control custom-checkbox"
+                          *ngFor="let data of secondarySkill; let i = index"
+                        >
+                          <input
+                            type="checkbox"
+                            [value]="data.value"
+                            (change)="
+                              onCheckboxChange($event, 'secondarySkill')
+                            "
+                            class="custom-control-input"
+                            id="se-check{{ i }}"
+                            [checked]="
+                              getSecondarySkill.value.includes(data.value)
+                            "
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="se-check{{ i }}"
+                            >{{ data.name }}</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <span
+                    class="glyphicon glyphicon-envelope form-control-feedback"
+                  ></span>
+                  <div
+                    *ngIf="
+                      formData.controls['secondarySkill'].invalid &&
+                      (formData.controls['secondarySkill'].dirty ||
+                        formData.controls['secondarySkill'].touched ||
+                        formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      class="error text-danger"
+                      *ngIf="
+                        formData.controls['secondarySkill'].errors.required
+                      "
+                      >This field is required</span
+                    >
+                  </div>
+                </div>
+
+                <div
+                  class="form-group"
+                  *ngIf="global.user.freelancer_type == 2"
+                >
+                  <label>Editing style</label>
+                  <div class="diversity-li newcss-li">
+                    <button
+                      class="acc-tit collapsed newcss-li"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#editing"
+                      aria-expanded="false"
+                      aria-controls="editing"
+                    >
+                      <span class="drop-down-text">Choose style</span
+                      ><i class="fas fa-chevron-down i-icon"></i>
+                    </button>
+                    <div class="collapse" id="editing">
+                      <div class="in_menu diver_bg diver_bg2">
+                        <div
+                          class="custom-control custom-checkbox"
+                          *ngFor="let data of editingStyle; let i = index"
+                        >
+                          <input
+                            type="checkbox"
+                            [value]="data.value"
+                            (change)="onCheckboxChange($event, 'editingStyle')"
+                            class="custom-control-input"
+                            id="ed-check{{ i }}"
+                            [checked]="
+                              getEditingStyle.value.includes(data.value)
+                            "
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="ed-check{{ i }}"
+                            >{{ data.name }}</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <span
+                    class="glyphicon glyphicon-envelope form-control-feedback"
+                  ></span>
+                  <div
+                    *ngIf="
+                      formData.controls['editingStyle'].invalid &&
+                      (formData.controls['editingStyle'].dirty ||
+                        formData.controls['editingStyle'].touched ||
+                        formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls['editingStyle'].errors.required"
+                      >This field is required</span
+                    >
+                  </div>
+                </div>
+
+                <div
+                  class="form-group"
+                  *ngIf="global.user.freelancer_type == 1"
+                >
+                  <label> Graphic specialties</label>
+                  <div class="diversity-li newcss-li">
+                    <button
+                      class="acc-tit collapsed newcss-li"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#graphic"
+                      aria-expanded="false"
+                      aria-controls="graphic"
+                    >
+                      <span class="drop-down-text">Choose specialties</span
+                      ><i class="fas fa-chevron-down i-icon"></i>
+                    </button>
+                    <div class="collapse" id="graphic">
+                      <div class="in_menu diver_bg diver_bg2">
+                        <div
+                          class="custom-control custom-checkbox"
+                          *ngFor="let data of graphicSpecialties; let i = index"
+                        >
+                          <input
+                            type="checkbox"
+                            [value]="data.value"
+                            (change)="
+                              onCheckboxChange($event, 'graphicSpecialties')
+                            "
+                            class="custom-control-input"
+                            id="gr-check{{ i }}"
+                            [checked]="
+                              getGraphicSpecialties.value.includes(data.value)
+                            "
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="gr-check{{ i }}"
+                            >{{ data.name }}</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <span
+                    class="glyphicon glyphicon-envelope form-control-feedback"
+                  ></span>
+                  <div
+                    *ngIf="
+                      formData.controls['graphicSpecialties'].invalid &&
+                      (formData.controls['graphicSpecialties'].dirty ||
+                        formData.controls['graphicSpecialties'].touched ||
+                        formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      class="error text-danger"
+                      *ngIf="
+                        formData.controls['graphicSpecialties'].errors.required
+                      "
+                      >This field is required</span
+                    >
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label>Awards</label>
+                  <div class="diversity-li newcss-li">
+                    <button
+                      class="acc-tit collapsed newcss-li"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#awards"
+                      aria-expanded="false"
+                      aria-controls="awards"
+                    >
+                      <span class="drop-down-text">Choose awards</span
+                      ><i class="fas fa-chevron-down i-icon"></i>
+                    </button>
+                    <div class="collapse" id="awards">
+                      <div class="in_menu diver_bg diver_bg2">
+                        <div
+                          class="custom-control custom-checkbox"
+                          *ngFor="let data of awards; let i = index"
+                        >
+                          <input
+                            type="checkbox"
+                            [value]="data.value"
+                            (change)="onCheckboxChange($event, 'awards')"
+                            class="custom-control-input"
+                            id="a-check{{ i }}"
+                            [checked]="getAwards.value.includes(data.value)"
+                          />
+                          <label
+                            class="custom-control-label"
+                            for="a-check{{ i }}"
+                            >{{ data.name }}</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <span
+                    class="glyphicon glyphicon-envelope form-control-feedback"
+                  ></span>
+                  <div
+                    *ngIf="
+                      formData.controls['awards'].invalid &&
+                      (formData.controls['awards'].dirty ||
+                        formData.controls['awards'].touched ||
+                        formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls['awards'].errors.required"
+                      >This field is required</span
+                    >
+                  </div>
+                </div>
+
+                <div class="setup_btt">
+                  <button
+                    href="javascript:;"
+                    [routerLink]="['/user/freelancer/set-up/1']"
+                    class="btn btn-gry"
+                  >
+                    back
+                  </button>
+                  <button href="javascript:;" class="btn btn-orange">
+                    Update
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

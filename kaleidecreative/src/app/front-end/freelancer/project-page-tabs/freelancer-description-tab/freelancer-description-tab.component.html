@@ -1,0 +1,389 @@
+<div class="row fpd_projet">
+  <div class="col-md-9">
+    <div class="RightContent DashboardContent jects-pdd">
+      <div class="inspir-sec">
+        <div class="cont-line-pdd">
+          <div class="Descript-box">
+            <h4 class="prefa-texts">Project title &amp; Description</h4>
+          </div>
+          <div class="descript-title">
+            <h5>Project title</h5>
+            <p>
+              {{ projectInformation?.title }}
+            </p>
+          </div>
+          <div class="descript-title">
+            <h5>Project Description</h5>
+            <p>
+              {{ projectInformation?.description }}
+            </p>
+          </div>
+          <div class="descript-title">
+            <h5>Style</h5>
+            <p>
+              {{ projectInformation?.style }}
+            </p>
+          </div>
+          <div class="descript-title">
+            <h5>Skills</h5>
+            <p>
+              {{
+                projectInformation?.skills
+                  ? getMultipleNameByValue(projectInformation?.skills)
+                  : "N/A"
+              }}
+            </p>
+          </div>
+          <div class="descript-title">
+            <h5>Background</h5>
+            <p>
+              {{ projectInformation?.background }}
+            </p>
+          </div>
+        </div>
+        <div class="project-ass cont-line-pdd">
+          <div class="Descript-box">
+            <h4 class="prefa-texts">Project details</h4>
+          </div>
+          <h4 class="detass-texts">Inspiration</h4>
+          <div class="project-ins">
+            <div
+              class="ject-in"
+              *ngFor="let image of projectInformation?.images"
+            >
+              <figure>
+                <img src="{{ projectInformation?.image_pdf_path + image }}" />
+              </figure>
+              <!-- <a href="#"><i class="fas fa-times"></i></a> -->
+            </div>
+            <div class="ject-in" *ngFor="let pdf of projectInformation?.files">
+              <pdf-viewer
+                [src]="projectInformation?.image_pdf_path + pdf"
+                [render-text]="true"
+                [original-size]="false"
+                [show-all]="false"
+                [fit-to-page]="true"
+              ></pdf-viewer>
+              <!-- <a href="#"><i class="fas fa-times"></i></a> -->
+            </div>
+          </div>
+          <div class="add-new">
+            <ng-container *ngFor="let video of projectInformation?.video">
+              <a href="{{ video.url }}" target="_blank">{{ video.url }}</a>
+              <p>
+                {{ video.description }}
+              </p>
+            </ng-container>
+          </div>
+          <div
+            class="Descript-box"
+            style="border-top: 1px solid #21212e; padding-top: 30px"
+          >
+            <h4 class="prefa-texts">Freelancer Requirements</h4>
+          </div>
+          <div class="pen-descript">
+            <div class="pay-in">
+              <p>Freelancer type</p>
+              <span>{{
+                freelancerType[projectInformation?.freelancer_type]
+              }}</span>
+            </div>
+            <div class="pay-in">
+              <p>Project type</p>
+              <span>
+                {{
+                  projectInformation?.project_type
+                    ? projectInformation?.project_type.name
+                    : "NA"
+                }}</span
+              >
+            </div>
+            <div class="pay-in">
+              <p>Genre</p>
+              <span>{{
+                projectInformation?.genere
+                  ? getMultipleNameByValue(projectInformation?.genere)
+                  : "N/A"
+              }}</span>
+            </div>
+            <div class="pay-in">
+              <p>Industry</p>
+              <span>{{
+                projectInformation?.industry
+                  ? getMultipleNameByValue(projectInformation?.industry)
+                  : "N/A"
+              }}</span>
+            </div>
+          </div>
+          <h4 class="detass-texts">Preferred Location</h4>
+          <div class="pen-descript">
+            <div class="pay-in">
+              <p>Country</p>
+              <span>{{ projectInformation?.country }}</span>
+            </div>
+            <div class="pay-in">
+              <p>City</p>
+              <span>{{ projectInformation?.city }}</span>
+            </div>
+            <div class="pay-in">
+              <p>Zip code</p>
+              <span>{{ projectInformation?.zipcode }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="Descript-box">
+          <h4 class="prefa-texts">Schedule and Budget</h4>
+        </div>
+
+        <div class="pen-descript">
+          <div class="pay-in">
+            <p>Payment Type</p>
+            <span>
+              {{ paymentType[projectInformation?.payment_type] }}
+            </span>
+          </div>
+          <div class="pay-in">
+            <p>Amount</p>
+            <span>{{
+              projectInformation?.payment_type == 1
+                ? projectInformation?.fixed_budget[0] +
+                  "$-" +
+                  projectInformation?.fixed_budget[1] +
+                  "$"
+                : projectInformation?.hourly_rate + "$"
+            }}</span>
+          </div>
+          <div class="pay-in">
+            <p>Start date</p>
+            <span>{{
+              projectInformation?.start_date | dateFormat: "DD-MM-YYYY"
+            }}</span>
+          </div>
+          <div class="pay-in">
+            <p>End date</p>
+            <span>{{
+              projectInformation?.end_date | dateFormat: "DD-MM-YYYY"
+            }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="right-acknow">
+      <div class="line_acknow">
+        <h4 class="prefa-texts">Project status</h4>
+        <div class="qoutation-status">
+          <button class="btn btn-accept">
+            {{
+              modifiedProjectStatuc[projectInformation?.status]
+                ? modifiedProjectStatuc[projectInformation?.status]
+                : projectstatus[projectInformation?.status]
+            }}
+          </button>
+          <p class="qoutation-amount" *ngIf="projectInformation?.status === 1">
+            {{
+              projectInformation?.payment_type == 1
+                ? projectInformation?.fixed_budget[0] +
+                  "$-" +
+                  projectInformation?.fixed_budget[1] +
+                  "$"
+                : projectInformation?.hourly_rate + "$"
+            }}
+          </p>
+        </div>
+      </div>
+      <div class="line_acknow">
+        <ul>
+          <li>
+            <a href="javascript:;" (click)="OpenModal(quoto)"
+              >View offer status</a
+            >
+          </li>
+          <li>
+            <a
+              href="javascript:;"
+              data-toggle="modal"
+              data-target="#cancel-project"
+              >Cancel a project</a
+            >
+          </li>
+          <li>
+            <a
+              href="javascript:;"
+              data-toggle="modal"
+              data-target="#refund-request"
+              >Refund request</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="line_acknow">
+        <button class="btn btn-green" (click)="OpenModal(quoto)">
+          APPLY FOR JOB
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #quoto>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Quoting Module</h5>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="closeModel()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="add-card-pdd">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="v-editor view_line">
+            <div class="editor-sec">
+              <h4>Graphic Designer cum Video Editor</h4>
+              <p>
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's
+              </p>
+            </div>
+            <button class="btn btn-blue" (click)="closeModel()">
+              View Project
+            </button>
+          </div>
+        </div>
+        <ng-container *ngIf="projectInformation?.payment_type == '1'">
+          <h4 class="sml-head col-md-12">Fixed Payment Type</h4>
+          <div class="col-md-12">
+            <div class="contact-fill fill-edit">
+              <div class="form-group">
+                <label>Amount</label>
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">$</div>
+                  </div>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inlineFormInputGroup"
+                    placeholder="100"
+                  />
+                  <br />
+                  <div
+                    class="text-danger error-message"
+                    *ngIf="!amountRequired"
+                  >
+                    Amount field is required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="projectInformation?.payment_type == '2'">
+          <h4 class="sml-head col-md-12">Hourly Payment Type</h4>
+          <div class="col-md-12">
+            <div class="contact-fill fill-edit">
+              <div class="form-group">
+                <label>Hourly Rate</label>
+                <div class="input-group mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inlineFormInputGroup"
+                    placeholder="100"
+                    [(ngModel)]="quotationHourlyRate"
+                    (keydown)="totalPayable()"
+                  />
+                  <br />
+                  <div
+                    class="text-danger error-message"
+                    *ngIf="hourlyRateRequired"
+                  >
+                    Hourly rate field is required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="contact-fill fill-edit">
+              <div class="form-group">
+                <label>Expected Hours</label>
+                <div class="input-group mb-2">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="inlineFormInputGroup"
+                    placeholder="100"
+                    [(ngModel)]="quotationHours"
+                    (keydown)="totalPayable()"
+                  />
+                  <br />
+                  <div
+                    class="text-danger error-message"
+                    *ngIf="expectedHoursRequired"
+                  >
+                    Expected hours field is required
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <ng-container>
+            <div class="col-md-12">
+              <div class="contact-fill fill-edit">
+                <div class="form-group">
+                  <label>Total Payable (read only)</label>
+                  <div class="input-group mb-2">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="inlineFormInputGroup"
+                      [value]="
+                        payableAmount
+                          ? payableAmount + ' (including 10% admin commission)'
+                          : '0 (Amount will be of including 10% admin commission)'
+                      "
+                      readonly
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <div class="col-md-12 reson_hi">
+          <div class="form-group">
+            <label>Message</label>
+            <textarea
+              type="text"
+              name=""
+              class="form-control"
+              placeholder=""
+              [(ngModel)]="quotationMessage"
+            ></textarea>
+            <div class="text-danger error-message" *ngIf="messageRequired">
+              Message field is required
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ct-linebt">
+        <button class="btn btn-orange" (click)="applyForProject()">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,0 +1,31 @@
+.location-input {
+  color: white;
+  padding-left: 30px;
+  min-width: 200px;
+}
+
+.title_content2 {
+  font-size: 16px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: #fff;
+  padding-left: 18px;
+  margin-bottom: 0px;
+  padding-bottom: 5px;
+}
+.big-model-dialog {
+  height: 100%;
+  /* background: linear-gradient(to right, #4882c2 0, #7eb8e3 100%) */
+}
+
+.share-icon:before {
+  content: "\f1e0" !important;
+}
+
+.color-white {
+  color: white !important;
+}
+
+.color-other {
+  color: white !important;
+}

@@ -1,0 +1,491 @@
+<div class="inner-wraper inner-hmain-bg">
+  <div class="container">
+    <div class="profile-setting d-flex">
+      <app-freelancer-side-menu style="width: 30%"></app-freelancer-side-menu>
+      <div class="pro-set-right ml-auto">
+        <div class="pro-head-bar">
+          <h4>Skills and awards</h4>
+        </div>
+        <div class="pro-right-container bacim_pdd30">
+          <form
+            class="form-horizontal"
+            role="form"
+            [formGroup]="formData"
+            (ngSubmit)="onClickSubmit(formData.value)"
+          >
+            <div class="basic_line level_box">
+              <h6>What is your level of experience in Graphic Design?</h6>
+              <ul style="padding-bottom: 15px">
+                <li>
+                  <a
+                    href="javascript:;"
+                    (click)="changeExperience(1)"
+                    [ngClass]="experienceField == 1 ? 'active' : ''"
+                  >
+                    <h4>Entry level</h4>
+                    <p>
+                      Approximately 1 - 3 years of professional experience. You
+                      have amazing natural talent, enthusiasm for your work, and
+                      the desire to acquire even more skills.
+                    </p>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="javascript:;"
+                    (click)="changeExperience(2)"
+                    [ngClass]="experienceField == 2 ? 'active' : ''"
+                  >
+                    <h4>Intermediate</h4>
+                    <p>
+                      Approximately 4 - 8 years of professional experience. You
+                      have an established track record and a strong body of
+                      work.
+                    </p>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="javascript:;"
+                    (click)="changeExperience(3)"
+                    [ngClass]="experienceField == 3 ? 'active' : ''"
+                  >
+                    <h4>Expert</h4>
+                    <p>
+                      Approximately 10+ years of professional experience. You
+                      have an impressive list of A+ clients and a comprehensive
+                      knowledge of every aspect of your field.
+                    </p>
+                  </a>
+                </li>
+              </ul>
+              <span
+                class="glyphicon glyphicon-envelope form-control-feedback"
+              ></span>
+              <div
+                *ngIf="
+                  formData.controls['experienceField'].invalid &&
+                  (formData.controls['experienceField'].dirty ||
+                    formData.controls['experienceField'].touched ||
+                    formSubmitAttempt)
+                "
+              >
+                <span
+                  class="error text-danger"
+                  *ngIf="formData.controls['experienceField'].errors.required"
+                  >This field is required</span
+                >
+              </div>
+              <div class="form-group">
+                <label>Years of professional experience</label>
+                <input
+                  type="text"
+                  name=""
+                  class="form-control"
+                  placeholder="Enter only experience year"
+                  formControlName="experienceYear"
+                  minlength="1"
+                  maxlength="3"
+                  (keydown.space)="spaceKey($event)"
+                  (blur)="onBlurMethod($event)"
+                />
+                <span
+                  class="glyphicon glyphicon-envelope form-control-feedback"
+                ></span>
+                <div
+                  *ngIf="
+                    formData.controls['experienceYear'].invalid &&
+                    (formData.controls['experienceYear'].dirty ||
+                      formData.controls['experienceYear'].touched ||
+                      formSubmitAttempt)
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="formData.controls['experienceYear'].errors.required"
+                    >This field is required!!
+                  </span>
+                  <span
+                    class="error text-danger"
+                    *ngIf="formData.controls.experienceYear.errors?.pattern"
+                    >Please enter a valid year !!
+                  </span>
+                  <span
+                    class="error text-danger"
+                    *ngIf="
+                      formData.controls.experienceYear.errors?.min &&
+                      !formData.controls.experienceYear.errors?.pattern
+                    "
+                    >Year should be greater than 0 !!
+                  </span>
+                  <span
+                    class="error text-danger"
+                    *ngIf="
+                      formData.controls.experienceYear.errors?.max &&
+                      !formData.controls.experienceYear.errors?.pattern
+                    "
+                    >Year should be less than 60 !!
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="basic_line">
+              <div class="row Previous_box">
+                <div
+                  class="col-md-4"
+                  *ngFor="
+                    let client of formData.get('previousClient')['value'];
+                    let i = index;
+                    let first = first;
+                    let last = last
+                  "
+                  style="margin-bottom: 10px"
+                >
+                  <article>
+                    <h4>{{ client.clientName }}</h4>
+                    <p>
+                      {{ client.role }} Worked as
+                      {{
+                        client.workedAs == 1
+                          ? "Freelancer"
+                          : client.workedAs == 2
+                          ? "Staff"
+                          : ""
+                      }}
+                    </p>
+                    <span>{{ client.workLength }}</span>
+                    <div class="d-flex">
+                      <button
+                        class="btn btn-fil-color edit-btn"
+                        (click)="editClient(i)"
+                        type="button"
+                      >
+                        <input type="file" id="file" />
+                        <label for="file1"><i class="fas fa-edit"></i></label>
+                      </button>
+                      <button
+                        class="btn btn-fil-color closeing-btn"
+                        *ngIf="!(last && first)"
+                        type="button"
+                        (click)="removeClient(i)"
+                      >
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </article>
+                </div>
+              </div>
+              <div
+                class="container mb-4 p-3"
+                formArrayName="previousClient"
+                *ngFor="let client of clientControls; let i = index"
+              >
+                <div class="row" [formGroupName]="editIndex">
+                  <h4 class="sml-head col-md-12">Previous Clients</h4>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Client name</label>
+                      <input
+                        type="text"
+                        name=""
+                        class="form-control"
+                        value=""
+                        formControlName="clientName"
+                      />
+                      <span
+                        class="glyphicon glyphicon-envelope form-control-feedback"
+                      ></span>
+                      <div
+                        *ngIf="
+                          client.controls.clientName.invalid &&
+                          (client.controls.clientName.dirty ||
+                            client.controls.clientName.touched ||
+                            formSubmitAttempt ||
+                            clientSubmitAttempt)
+                        "
+                      >
+                        <span
+                          class="error text-danger"
+                          *ngIf="client.controls.clientName.errors.required"
+                          >This field is required</span
+                        >
+                        <span
+                          class="error text-danger"
+                          *ngIf="client.controls.clientName.errors.rangeLength"
+                          >Then name should be 1 to 55 characters long</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Role</label>
+                      <input
+                        type="text"
+                        name=""
+                        class="form-control"
+                        value=""
+                        formControlName="role"
+                      />
+                      <span
+                        class="glyphicon glyphicon-envelope form-control-feedback"
+                      ></span>
+                      <div
+                        *ngIf="
+                          client.controls.role.invalid &&
+                          (client.controls.role.dirty ||
+                            client.controls.role.touched ||
+                            formSubmitAttempt ||
+                            clientSubmitAttempt)
+                        "
+                      >
+                        <span
+                          class="error text-danger"
+                          *ngIf="client.controls.role.errors.required"
+                          >This field is required</span
+                        >
+                        <span
+                          class="error text-danger"
+                          *ngIf="client.controls.role.errors.rangeLength"
+                          >Then role should be 1 to 55 characters long</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Worked as</label>
+                      <select class="form-control" formControlName="workedAs">
+                        <option value="" disabled>Select type</option>
+                        <option value="1">Freelancer</option>
+                        <option value="2">Staff</option>
+                      </select>
+                      <span
+                        class="glyphicon glyphicon-envelope form-control-feedback"
+                      ></span>
+                      <div
+                        *ngIf="
+                          client.controls.workedAs.invalid &&
+                          (client.controls.workedAs.dirty ||
+                            client.controls.workedAs.touched ||
+                            formSubmitAttempt ||
+                            clientSubmitAttempt)
+                        "
+                      >
+                        <span
+                          class="error text-danger"
+                          *ngIf="client.controls.workedAs.errors.required"
+                          >This field is required</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>Start date</label>
+                      <div class="sche-in">
+                        <input
+                          type="date"
+                          name=""
+                          class="form-control"
+                          formControlName="startDate"
+                          placeholder=""
+                        />
+                        <i
+                          class="fas fa-calendar-alt"
+                          style="pointer-events: none"
+                        ></i>
+                      </div>
+                      <span
+                        class="glyphicon glyphicon-envelope form-control-feedback"
+                      ></span>
+                      <div
+                        *ngIf="
+                          client.controls.startDate.invalid &&
+                          (client.controls.startDate.dirty ||
+                            client.controls.startDate.touched ||
+                            formSubmitAttempt ||
+                            clientSubmitAttempt)
+                        "
+                      >
+                        <span
+                          class="error text-danger"
+                          *ngIf="client.controls.startDate.errors.required"
+                          >This field is required</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label>End date</label>
+                      <div class="sche-in">
+                        <input
+                          type="date"
+                          name=""
+                          class="form-control"
+                          placeholder=""
+                          formControlName="endDate"
+                        />
+                        <i
+                          class="fas fa-calendar-alt"
+                          style="pointer-events: none"
+                        ></i>
+                      </div>
+                      <span
+                        style="pointer-events: none"
+                        class="glyphicon glyphicon-envelope form-control-feedback"
+                      ></span>
+                      <div
+                        *ngIf="
+                          client.controls.endDate.invalid &&
+                          (client.controls.endDate.dirty ||
+                            client.controls.endDate.touched ||
+                            formSubmitAttempt ||
+                            clientSubmitAttempt)
+                        "
+                      >
+                        <span
+                          class="error text-danger"
+                          *ngIf="client.controls.endDate.errors.required"
+                          >This field is required</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <button
+                      type="button"
+                      class="btn btn-blue"
+                      (click)="addClient(client)"
+                    >
+                      {{ isEdit == true ? "Update" : "Add Job" }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="pricing_pdd">
+              <h4 class="sml-head">Pricing</h4>
+              <div class="form-group">
+                <label>Hourly Rate</label>
+                <input
+                  type="text"
+                  name=""
+                  class="form-control"
+                  placeholder="Enter hourly rate"
+                  formControlName="hourlyRate"
+                  step="0.01"
+                  maxlength="11"
+                />
+                <span
+                  class="glyphicon glyphicon-envelope form-control-feedback"
+                ></span>
+                <div
+                  *ngIf="
+                    formData.controls['hourlyRate'].invalid &&
+                    (formData.controls['hourlyRate'].dirty ||
+                      formData.controls['hourlyRate'].touched ||
+                      formSubmitAttempt)
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="formData.controls['hourlyRate'].errors.required"
+                    >This field is required!!
+                  </span>
+                  <span
+                    class="error text-danger"
+                    *ngIf="formData.controls.hourlyRate.errors?.pattern"
+                    >Please enter a valid rate !!
+                  </span>
+                  <span
+                    class="error text-danger"
+                    *ngIf="
+                      formData.controls.hourlyRate.errors?.min &&
+                      !formData.controls.hourlyRate.errors?.pattern
+                    "
+                    >Rate should be greater than 0 !!
+                  </span>
+                  <span
+                    class="error text-danger"
+                    *ngIf="
+                      formData.controls.hourlyRate.errors?.maxLength &&
+                      !formData.controls.hourlyRate.errors?.pattern
+                    "
+                    >Rate should not more than 10 number long !!
+                  </span>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Add Minimum Fixed Price</label>
+                <input
+                  type="text"
+                  name=""
+                  class="form-control"
+                  placeholder="Enter fixed price"
+                  formControlName="fixedPrice"
+                  step="0.01"
+                  maxlength="11"
+                  mat-raised-button
+                  matTooltip="The minimum budget you would accept for a fixed-price project."
+                  [matTooltipPosition]="position.value"
+                  matTooltipClass="my-custom-tooltip"
+                  aria-label="Button that displays a tooltip in various positions"
+                />
+                <span
+                  class="glyphicon glyphicon-envelope form-control-feedback"
+                ></span>
+                <div
+                  *ngIf="
+                    formData.controls['fixedPrice'].invalid &&
+                    (formData.controls['fixedPrice'].dirty ||
+                      formData.controls['fixedPrice'].touched ||
+                      formSubmitAttempt)
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="formData.controls['fixedPrice'].errors.required"
+                    >This field is required!!
+                  </span>
+                  <span
+                    class="error text-danger"
+                    *ngIf="formData.controls.fixedPrice.errors?.pattern"
+                    >Please enter a valid price !!
+                  </span>
+                  <span
+                    class="error text-danger"
+                    *ngIf="
+                      formData.controls.fixedPrice.errors?.min &&
+                      !formData.controls.fixedPrice.errors?.pattern
+                    "
+                    >Price should be greater than 0 !!
+                  </span>
+                  <span
+                    class="error text-danger"
+                    *ngIf="
+                      formData.controls.fixedPrice.errors?.maxLength &&
+                      !formData.controls.fixedPrice.errors?.pattern
+                    "
+                    >Price should not more than 10 number long !!
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="up_bttn">
+              <button class="btn btn-orange">UPDATE</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

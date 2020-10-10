@@ -1,0 +1,187 @@
+<!-- inner-wraper -->
+<div class="inner-wraper inner-hmain-bg">
+  <div class="container">
+    <!-- Inner wraper -->
+    <div class="dash-main-pdd">
+      <h4 class="ject-4">{{ projectInformation.title }}</h4>
+      <div class="createdashboard">
+        <div class="fpd_projet">
+          <div class="RightContent DashboardContent jects-pdd">
+            <div class="inspir-sec">
+              <div class="cont-line-pdd">
+                <div class="Descript-box">
+                  <h4 class="prefa-texts">Project title &amp; Description</h4>
+                  <div class="prefa_sec">
+                    <button class="btn btn-green">APPLY FOR JOB</button>
+                  </div>
+                </div>
+                <div class="descript-title">
+                  <h5>Project title</h5>
+                  <p>
+                    {{ projectInformation.title }}
+                  </p>
+                </div>
+                <div class="descript-title">
+                  <h5>Project Description</h5>
+                  <p>
+                    {{ projectInformation.description }}
+                  </p>
+                </div>
+                <div class="descript-title">
+                  <h5>Style</h5>
+                  <p>
+                    {{ projectInformation.style }}
+                  </p>
+                </div>
+                <div class="descript-title">
+                  <h5>Skills</h5>
+                  <p>
+                    {{ getMultipleNameByValue(projectInformation.skills) }}
+                  </p>
+                </div>
+                <div class="descript-title">
+                  <h5>Background</h5>
+                  <p>
+                    {{ projectInformation.background }}
+                  </p>
+                </div>
+              </div>
+              <div class="project-ass cont-line-pdd">
+                <div class="Descript-box">
+                  <h4 class="prefa-texts">Project details</h4>
+                </div>
+                <h4 class="detass-texts">Inspiration</h4>
+                <div class="project-ins">
+                  <div
+                    class="ject-in"
+                    *ngFor="let image of projectInformation.images"
+                  >
+                    <figure>
+                      <img
+                        src="{{ projectInformation.image_pdf_path + image }}"
+                      />
+                    </figure>
+                    <!-- <a href="#"><i class="fas fa-times"></i></a> -->
+                  </div>
+                  <div
+                    class="ject-in"
+                    *ngFor="let pdf of projectInformation.files"
+                  >
+                    <pdf-viewer
+                      [src]="projectInformation.image_pdf_path + pdf"
+                      [render-text]="true"
+                      [original-size]="false"
+                      [show-all]="false"
+                      [fit-to-page]="true"
+                    ></pdf-viewer>
+                    <!-- <a href="#"><i class="fas fa-times"></i></a> -->
+                  </div>
+                </div>
+                <div class="add-new">
+                  <ng-container *ngFor="let video of projectInformation.video">
+                    <a href="{{ video.url }}" target="_blank">{{
+                      video.url
+                    }}</a>
+                    <p>
+                      {{ video.description }}
+                    </p>
+                  </ng-container>
+                </div>
+
+                <div
+                  class="Descript-box"
+                  style="border-top: 1px solid #21212e; padding-top: 30px"
+                >
+                  <h4 class="prefa-texts">Freelancer Requirements</h4>
+                </div>
+
+                <div class="pen-descript">
+                  <div class="pay-in">
+                    <p>Freelancer type</p>
+                    <span>
+                      {{
+                        freelancerType[projectInformation.freelancer_type]
+                      }}</span
+                    >
+                  </div>
+                  <div class="pay-in">
+                    <p>Project type</p>
+                    <span>{{
+                      projectInformation.project_type
+                        ? projectInformation.project_type.name
+                        : "NA"
+                    }}</span>
+                  </div>
+                  <div class="pay-in">
+                    <p>Genre</p>
+                    <span>{{
+                      getMultipleNameByValue(projectInformation.genere)
+                    }}</span>
+                  </div>
+                  <div class="pay-in">
+                    <p>Industry</p>
+                    <span>{{
+                      getMultipleNameByValue(projectInformation.industry)
+                    }}</span>
+                  </div>
+                </div>
+                <h4 class="detass-texts">Preferred Location</h4>
+                <div class="pen-descript">
+                  <div class="pay-in">
+                    <p>Country</p>
+                    <span>{{ projectInformation.country }}</span>
+                  </div>
+                  <div class="pay-in">
+                    <p>City</p>
+                    <span>{{ projectInformation.city }}</span>
+                  </div>
+                  <div class="pay-in">
+                    <p>Zip code</p>
+                    <span>{{ projectInformation.zipcode }}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="Descript-box">
+                <h4 class="prefa-texts">Schedule and Budget</h4>
+              </div>
+              <div class="pen-descript">
+                <div class="pay-in">
+                  <p>Payment Type</p>
+                  <span>
+                    {{ paymentType[projectInformation.payment_type] }}</span
+                  >
+                </div>
+                <div class="pay-in">
+                  <p>Amount</p>
+                  <span>{{
+                    projectInformation.payment_type == 1
+                      ? projectInformation.fixed_budget[0] +
+                        "$-" +
+                        projectInformation.fixed_budget[1] +
+                        "$"
+                      : projectInformation.hourly_rate + "$"
+                  }}</span>
+                </div>
+                <div class="pay-in">
+                  <p>Start date</p>
+                  <span>{{
+                    projectInformation.start_date | dateFormat: "DD-MM-YYYY"
+                  }}</span>
+                </div>
+                <div class="pay-in">
+                  <p>End date</p>
+                  <span>{{
+                    projectInformation.end_date | dateFormat: "DD-MM-YYYY"
+                  }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Inner wraper -->
+  </div>
+</div>
+<!-- inner-wraper -->

@@ -1,0 +1,64 @@
+<div class="pay-tabpdd">
+  <ng-container *ngIf="pendingPayment.length == 0">
+    <article>
+      <h5 class="no-data">No data found</h5>
+    </article>
+  </ng-container>
+  <ng-container *ngIf="pendingPayment && pendingPayment.length > 0">
+    <ng-container *ngFor="let item of pendingPayment">
+      <article>
+        <div class="pending-pdd">
+          <figure><img src="assets/images/user-editor.png" /></figure>
+          <figcaption *ngFor="let freelancer of item.freelancer_data">
+            <h4>
+              {{ freelancer?.first_name | titlecase }}
+              {{ freelancer?.last_name | titlecase }}
+            </h4>
+            <button
+              class="btn btn-pend"
+              *ngIf="item?.projectPaymentStatus == 'Pending'"
+            >
+              Pending
+            </button>
+          </figcaption>
+        </div>
+        <div class="pay-fix">
+          <div class="d-flex">
+            <div class="a-poid">
+              <h5>Amount</h5>
+              <p>
+                {{
+                  item?.payment_type == 1 ? "Hourly Payment" : "Fixed Budget"
+                }}
+              </p>
+              <p>${{ item?.projectPaymentAmount }}</p>
+            </div>
+            <div class="a-poid">
+              <h5>Due date for payment</h5>
+              <p>10-04-2020</p>
+            </div>
+            <!-- <button
+              class="btn btn-blue"
+              (click)="makePayment(item?.projectPaymentAmount)"
+            >
+              Make Payment
+            </button> -->
+            <button
+              class="btn btn-blue"
+              *ngIf="item?.projectPaymentStatus == 'Pending'"
+              (click)="makePayment(item?.projectPaymentAmount)"
+            >
+              Make Payment
+            </button>
+            <button
+              class="btn btn-blue"
+              *ngIf="item?.projectPaymentStatus == 'Completed'"
+            >
+              Completed
+            </button>
+          </div>
+        </div>
+      </article>
+    </ng-container>
+  </ng-container>
+</div>

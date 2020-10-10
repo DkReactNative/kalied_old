@@ -1,0 +1,49 @@
+<header class="main-header">
+    <!-- Logo -->
+    <a routerLink="/admin" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>{{siteTitleAcronym}}</b></span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>{{siteTitle}}</b></span>
+    </a>
+    <!-- Header Navbar: style can be found in header.less -->
+    <nav class="navbar navbar-static-top" style="display: block">
+        <!-- Sidebar toggle button-->
+        <a href="javascript;" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!-- User Account: style can be found in dropdown.less -->
+                <li class="dropdown user user-menu">
+                    <a href="javascript;" class="dropdown-toggle" data-toggle="dropdown">
+                        <img *ngIf="user.image" src="{{globals.uploadUrl}}user/{{user.image}}" class="user-image" alt="{{user.name}}">
+                        <img *ngIf="!user.image" src="assets/admin/images/dummy_user.png" class="user-image" alt="{{user.name}}">
+                        <span class="hidden-xs">{{user.name}}</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- User image -->
+                        <li class="user-header">
+                            <img *ngIf="user.image" src="{{globals.uploadUrl}}user/{{user.image}}" class="img-circle" alt="{{user.name}}">
+                            <img *ngIf="!user.image" src="assets/admin/images/dummy_user.png" class="img-circle" alt="{{user.name}}">
+                            <p>
+                                {{user.name}}
+                                <!-- <small>Member since Nov. 2012</small> -->
+                            </p>
+                        </li>
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a routerLink="/admin/profile_edit" class="btn btn-default btn-flat">Profile</a>
+                            </div>
+                            <div class="pull-right">
+                                <a (click)="adminLogout()" class="btn btn-default btn-flat">Sign out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

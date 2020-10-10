@@ -1,0 +1,74 @@
+<div class="inner-wraper inner-hmain-bg">
+  <div class="container">
+    <!-- Inner wraper -->
+    <div class="dash-main-pdd">
+      <h4 class="ject-4">Client Dashboard</h4>
+      <div class="createdashboard">
+        <div class="dash_pddc">
+          <div class="cont_client">
+            <div
+              class="card-border"
+              (click)="navigate('client/find-freelancers')"
+            >
+              <div class="client_card">
+                <div class="content">
+                  <h2 class="client_title"><span>Find</span>Freelancers</h2>
+                  <div class="client_text">
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the industry's
+                      standard dummy text ever since the.
+                    </p>
+                    <button href="javascript:;" class="btn btn-orange">
+                      View Projects
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-border" [routerLink]="['/user/project/create1']">
+              <div class="client_card">
+                <div class="content">
+                  <h2 class="client_title"><span>Post</span>A new job</h2>
+                  <div class="client_text">
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the industry's
+                      standard dummy text ever since the.
+                    </p>
+                    <button href="javascript:;" class="btn btn-orange">
+                      View Projects
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="card-border"
+              [routerLink]="['/user/client/my-projects']"
+            >
+              <div class="client_card">
+                <div class="content">
+                  <h2 class="client_title"><span>My</span>Projects</h2>
+                  <div class="client_text">
+                    <p>
+                      Lorem Ipsum is simply dummy text of the printing and
+                      typesetting industry. Lorem Ipsum has been the industry's
+                      standard dummy text ever since the.
+                    </p>
+                    <button href="javascript:;" class="btn btn-orange">
+                      View Projects
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Inner wraper -->
+  </div>
+</div>

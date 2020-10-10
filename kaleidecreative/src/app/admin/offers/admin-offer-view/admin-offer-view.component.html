@@ -1,0 +1,61 @@
+<app-admin-header [user]="user" [globalSettings]="globalSettings"></app-admin-header>
+<app-admin-sidebar [user]="user" [globalSettings]="globalSettings"></app-admin-sidebar>
+
+<div class="content-wrapper">
+    <section class="content-header">
+        <h1>
+            {{pageTitle}}
+            <small>View</small>
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-primary">
+                    <!-- /.box-header -->
+                    <div class="box-body" *ngIf="record">
+                        <div class="row">
+                            <div class="box-body">
+                                <label class="col-md-3">Ttile :</label>
+                                <div class="col-md-9">{{ record.title }}</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="box-body">
+                                <label class="col-md-3">Content :</label>
+                                <div *ngIf="record.type=='text'" class="col-md-9" [innerHTML]="record.content"></div>
+                                <div *ngIf="record.type=='image'" class="col-md-9" ><img class="profile-user-img" src="{{globals.apiUrl}}public/uploads/images/offers/{{record.content}}"></div>
+                                <div *ngIf="record.type=='video'" class="col-md-9">
+                                    <video width="320" height="240" controls>
+                                        <source src="{{globals.apiUrl}}public/uploads/images/offers/{{record.content}}" type="video/mp4">
+                                        <source src="{{globals.apiUrl}}public/uploads/images/offers/{{record.content}}" type="video/ogg">
+                                        <source src="{{globals.apiUrl}}public/uploads/images/offers/{{record.content}}" type="video/mov">
+                                        <source src="{{globals.apiUrl}}public/uploads/images/offers/{{record.content}}" type="video/mkv">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="box-body">
+                                <label class="col-md-3">Status :</label>
+                                <div class="col-md-9">{{ (record.status == 1) ? 'Active' : 'Inactive' }}</div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="box-body text-center">
+                                <a class="btn btn-primary" routerLink="/admin/{{pageSlug}}">Back</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+</div>
+
+
+<app-admin-footer [globalSettings]="globalSettings"></app-admin-footer>

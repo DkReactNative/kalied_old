@@ -1,0 +1,270 @@
+<app-admin-header
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-header>
+<app-admin-sidebar
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-sidebar>
+
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      {{ pageTitle }}
+      <small>Update</small>
+    </h1>
+  </section>
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box box-primary">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <form
+              #newRecordForm="ngForm"
+              (ngSubmit)="
+                !newRecordForm.invalid && newRecordSubmit(newRecordForm.value)
+              "
+            >
+              <div class="form-group has-feedback">
+                <label>First Name :</label>
+                <input
+                  [(ngModel)]="newRecordByAdmin.first_name"
+                  #first_name="ngModel"
+                  name="first_name"
+                  required
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter First Name"
+                  minlength="1"
+                  maxlength="55"
+                />
+                <div
+                  *ngIf="
+                    (first_name.invalid &&
+                      (first_name.dirty || first_name.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="first_name.hasError('required')"
+                    >First Name is required</span
+                  >
+                </div>
+              </div>
+              <div class="form-group has-feedback">
+                <label>Last Name :</label>
+                <input
+                  [(ngModel)]="newRecordByAdmin.last_name"
+                  #last_name="ngModel"
+                  name="last_name"
+                  required
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Last Name"
+                  minlength="1"
+                  maxlength="55"
+                />
+                <div
+                  *ngIf="
+                    (last_name.invalid &&
+                      (last_name.dirty || last_name.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="last_name.hasError('required')"
+                    >Last Name is required</span
+                  >
+                </div>
+              </div>
+              <div class="form-group has-feedback">
+                <label>Company/Enterprise Name :</label>
+                <input
+                  [(ngModel)]="newRecordByAdmin.companyname"
+                  #companyname="ngModel"
+                  name="companyname"
+                  required
+                  type="text"
+                  class="form-control"
+                  placeholder="Company/Enterprise Name"
+                  minlength="1"
+                  maxlength="55"
+                />
+                <div
+                  *ngIf="
+                    (companyname.invalid &&
+                      (companyname.dirty || companyname.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="companyname.hasError('required')"
+                    >Company/Enterprise Name is required</span
+                  >
+                </div>
+              </div>
+              <div class="form-group has-feedback">
+                <label>Appear as :</label>
+                <input
+                  [(ngModel)]="newRecordByAdmin.appearas"
+                  #appearas="ngModel"
+                  name="appearas"
+                  required
+                  type="text"
+                  class="form-control"
+                  placeholder="Appear as"
+                  minlength="1"
+                  maxlength="500"
+                />
+                <!-- <div *ngIf="appearas.invalid && (appearas.dirty || appearas.touched) || newRecordForm.submitted">
+                                  <span class="error text-danger" *ngIf="appearas.hasError('required')">Appear as is required</span>
+                                </div> -->
+              </div>
+              <div class="form-group has-feedback">
+                <label>Email :</label>
+                <input
+                  [(ngModel)]="newRecordByAdmin.email"
+                  #email="ngModel"
+                  name="email"
+                  required
+                  email="true"
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Email"
+                  autocomplete="false"
+                  minlength="1"
+                  maxlength="1000"
+                  readonly
+                />
+                <div
+                  *ngIf="
+                    (email.invalid && (email.dirty || email.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="email.hasError('required')"
+                    >Email is required</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="email.hasError('email')"
+                    >Email format is not correct</span
+                  >
+                </div>
+              </div>
+
+              <!--  <div class="form-group has-feedback">
+                                <label>Phone no. :</label>
+                                <input [(ngModel)]="newRecordByAdmin.phoneno" #phoneno="ngModel" name="phoneno" required type="text" pattern="[0-9]*" class="form-control" placeholder="Phone no">
+                                <div *ngIf="phoneno.invalid && (phoneno.dirty || phoneno.touched) || newRecordForm.submitted">
+                                    <span class="error text-danger" *ngIf="phoneno.hasError('required')">Phone no is required</span>
+                                    <span class="error text-danger" *ngIf="phoneno.hasError('pattern')">Number Only</span>                                    
+                                </div>
+                            </div>    -->
+
+              <div class="form-group has-feedback">
+                <label>Select Business Type</label>
+                <input
+                  type="radio"
+                  [(ngModel)]="newRecordByAdmin.businesstype"
+                  #businesstype="ngModel"
+                  [value]="1"
+                  name="businesstype"
+                  id="businesstype1"
+                  required
+                /><label for="businesstype1">Small Business</label>
+                <input
+                  type="radio"
+                  [(ngModel)]="newRecordByAdmin.businesstype"
+                  #businesstype="ngModel"
+                  [value]="2"
+                  name="businesstype"
+                  id="businesstype2"
+                  required
+                /><label for="businesstype2">Enterprise Client</label>
+                <div
+                  *ngIf="
+                    (businesstype.invalid &&
+                      (businesstype.dirty || businesstype.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="businesstype.hasError('required')"
+                    >Business Type is required</span
+                  >
+                </div>
+              </div>
+              <div class="form-group has-feedback">
+                <label>Business Summary </label>
+                <input
+                  [(ngModel)]="newRecordByAdmin.business_summary"
+                  #business_summary="ngModel"
+                  name="business_summary"
+                  required
+                  type="text"
+                  class="form-control"
+                  placeholder="Business Summary"
+                  minlength="1"
+                  maxlength="1000"
+                />
+                <div
+                  *ngIf="
+                    (business_summary.invalid &&
+                      (business_summary.dirty || business_summary.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="business_summary.hasError('required')"
+                    >Business Summary is required</span
+                  >
+                </div>
+              </div>
+              <div class="form-group has-feedback">
+                <label>Address </label>
+                <input
+                  [(ngModel)]="newRecordByAdmin.address"
+                  #address="ngModel"
+                  name="address"
+                  required
+                  type="text"
+                  class="form-control"
+                  placeholder="Address"
+                />
+                <div
+                  *ngIf="
+                    (address.invalid && (address.dirty || address.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="address.hasError('required')"
+                    >Address is required</span
+                  >
+                </div>
+              </div>
+              <div class="form-group">
+                <a class="btn btn-primary" routerLink="/admin/client">Back</a
+                >&nbsp;
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-admin-footer [globalSettings]="globalSettings"></app-admin-footer>

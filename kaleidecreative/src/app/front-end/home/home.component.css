@@ -1,0 +1,16 @@
+.post-job-css {
+  flex: 0 0 50%;
+  max-width: 50%;
+}
+
+.owl-carousel .owl-nav {
+  left: auto;
+}
+.owl-carousel .owl-nav .owl-prev {
+  border-radius: 0px;
+}
+
+#image-custom > div > figure {
+  max-width: 150px;
+  max-height: 150px;
+}

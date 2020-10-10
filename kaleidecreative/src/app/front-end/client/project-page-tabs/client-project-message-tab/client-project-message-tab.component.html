@@ -1,0 +1,585 @@
+<div class="candidate-pdd">
+  <ul class="nav nav-pills" id="pills-tab" role="tablist">
+    <li class="nav-item">
+      <a
+        class="nav-link active"
+        id="pills-invited-tab"
+        data-toggle="pill"
+        href="#pills-invited"
+        role="tab"
+        aria-controls="pills-invited"
+        aria-selected="true"
+        >Invited Freelancers</a
+      >
+    </li>
+    <li class="nav-item">
+      <a
+        class="nav-link"
+        id="pills-applied-tab"
+        data-toggle="pill"
+        href="#pills-applied"
+        role="tab"
+        aria-controls="pills-applied"
+        aria-selected="false"
+        >Applied Freelancers</a
+      >
+    </li>
+  </ul>
+  <div class="tab-content" id="pills-tabContent">
+    <div
+      class="tab-pane fade show active"
+      id="pills-invited"
+      role="tabpanel"
+      aria-labelledby="pills-invited-tab"
+    >
+      <!-- .....massage-box..... -->
+      <div class="business-chat">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="chat-list">
+              <div class="chat-more">
+                <!-- condition to check whether any freelancer is invited for the project or not -->
+                <ng-container *ngIf="invitedFreelancers.length > 0">
+                  <ng-container *ngFor="let item of invitedFreelancers">
+                    <div class="user-chat">
+                      <figure (click)="joinRoom(item.freelancer_data._id)">
+                        <img src="assets/images/user-editor.png" />
+                      </figure>
+                      <figcaption (click)="joinRoom(item.freelancer_data._id)">
+                        <h4>
+                          {{ item.freelancer_data.first_name }}
+                          {{ item.freelancer_data.last_name }}
+                        </h4>
+                      </figcaption>
+                      <button class="btn btn-fil-color closeing-btn">
+                        <i class="fas fa-times"></i>
+                      </button>
+                    </div>
+                  </ng-container>
+                </ng-container>
+                <!-- condition to check if there are no invited freelancers -->
+                <ng-container *ngIf="invitedFreelancers.length == 0">
+                  <div class="text-center no-freelancer-available">
+                    No Freelancers Available
+                  </div>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="chat-infobox">
+              <!-- condition to check whether any freelance is selected to chat or not -->
+              <ng-container *ngIf="otherUser != null">
+                <div class="user-chats">
+                  <figure><img src="assets/images/user-editor.png" /></figure>
+                  <figcaption>
+                    <h4>
+                      {{ otherUser?.first_name }} {{ otherUser?.last_name }}
+                    </h4>
+                  </figcaption>
+                  <button
+                    class="btn btn-green"
+                    (click)="openModal(bookNowModel)"
+                  >
+                    BOOK NOW
+                  </button>
+                </div>
+                <div class="user-chating-box">
+                  <!-- condition to check that the selected freelancer have done any chat or not -->
+                  <ng-container *ngIf="chatMsg.length > 0">
+                    <ng-container *ngFor="let item of chatMsg; index as i">
+                      <div
+                        class="left-chat"
+                        *ngIf="item.sender_id != authUser._id"
+                      >
+                        <div class="left-chat-in">
+                          <figure>
+                            <img src="assets/images/user-editor.png" />
+                          </figure>
+                          <figcaption>
+                            <div
+                              *ngIf="item.type == 'text'"
+                              class="first-message"
+                            >
+                              <p>
+                                {{ item.message }}
+                              </p>
+                            </div>
+                            <p
+                              class="first-message"
+                              *ngIf="
+                                item.type == 'proposal' &&
+                                item.message == 'Accepted'
+                              "
+                            >
+                              Freelance accepted your proposal, please release
+                              the decided payment.
+                            </p>
+                            <p
+                              class="first-message"
+                              *ngIf="
+                                item.type == 'proposal' &&
+                                item.message == 'Rejected'
+                              "
+                            >
+                              Freelance rejected your proposal.
+                            </p>
+                            <span>{{ item.created | date: "shortTime" }}</span>
+                          </figcaption>
+                        </div>
+                      </div>
+                      <div
+                        class="right-chat"
+                        *ngIf="item.sender_id == authUser._id"
+                      >
+                        <div class="left-chat-in">
+                          <figure>
+                            <img src="assets/images/user-editor1.png" />
+                          </figure>
+                          <figcaption>
+                            <div
+                              *ngIf="item.type == 'text'"
+                              class="first-message"
+                            >
+                              <p>
+                                {{ item.message }}
+                              </p>
+                            </div>
+                            <div
+                              class="project-proposal-section"
+                              *ngIf="item.type == 'proposal'"
+                            >
+                              <div class="project-proposal-des">
+                                <p class="project-proposal-message">
+                                  {{ item.message ? item.message : "N/A" }}
+                                </p>
+                                <!-- <a href="">View project</a> -->
+                                <div class="price-pro-sec">
+                                  <div class="view-pro-in">
+                                    <h5>final price</h5>
+                                    <h6>
+                                      {{
+                                        item.type_details.amount
+                                          ? item.type_details.amount
+                                          : "N/A"
+                                      }}$
+                                    </h6>
+                                  </div>
+                                  <div class="view-pro-in">
+                                    <h5>total payable price</h5>
+                                    <h6>
+                                      {{
+                                        item.type_details.amount
+                                          ? item.type_details.amount
+                                          : "N/A"
+                                      }}$
+                                    </h6>
+                                  </div>
+                                </div>
+                                <!-- <p class="project-proposal-amount">
+                                  {{
+                                    item.type_details.amount
+                                      ? item.type_details.amount
+                                      : "N/A"
+                                  }}
+                                </p> -->
+                              </div>
+                              <!-- <div class="project-proposal-button-section">
+                                <button
+                                  class="project-proposal-accept-btn btn btn-success"
+                                  (click)="proposalResponse('1', item._id)"
+                                >
+                                  Accept
+                                </button>
+                                <button
+                                  class="project-proposal-reject-btn btn btn-danger"
+                                  (click)="proposalResponse('0', item._id)"
+                                >
+                                  Reject
+                                </button>
+                              </div> -->
+                            </div>
+                            <span>{{ item.created | date: "shortTime" }}</span>
+                          </figcaption>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </ng-container>
+                  <!-- condition to check if there is nothing discussed before -->
+                  <ng-container
+                    *ngIf="joinedUsers.length == 0 && chatMsg.length == 0"
+                  >
+                    <div class="text-center" style="color: grey">
+                      Start your conversation here.
+                    </div>
+                  </ng-container>
+                </div>
+
+                <div class="chat-textarea">
+                  <div class="form-group">
+                    <textarea
+                      class="form-control"
+                      placeholder="Message....."
+                      [(ngModel)]="message"
+                    ></textarea>
+                    <button class="btn btn-fil-color">
+                      <input type="file" id="file" />
+                      <label for="file"><i class="fas fa-paperclip"></i></label>
+                    </button>
+                  </div>
+                  <button class="btn btn-orange" (click)="sendMessage()">
+                    Send
+                  </button>
+                </div>
+              </ng-container>
+
+              <!-- condition to check if there is no freelancer is selected to chat -->
+              <ng-container
+                *ngIf="otherUser == null && invitedFreelancers.length > 0"
+              >
+                <div class="text-center select-any-freelancer">
+                  Please select any freelancer to start conversation.
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+        <!-- .....massage-box..... -->
+      </div>
+    </div>
+    <div
+      class="tab-pane fade"
+      id="pills-applied"
+      role="tabpanel"
+      aria-labelledby="pills-applied-tab"
+    >
+      <!-- .....right 1-sec... -->
+      <div class="about-me row">
+        <div class="col-md-9">
+          <div class="Starz-box">
+            <div class="Starz-in">
+              <figure><img src="assets/images/user-editor.png" /></figure>
+              <h3>Jassica .W</h3>
+              <h6>Los Angeles, CA</h6>
+              <button class="btn btn-video">
+                <span><i class="fas fa-play"></i></span>Profile Video
+              </button>
+            </div>
+            <figcaption>
+              <h5>About Me</h5>
+              <p>
+                I have 20 years of experience in the editing and motion graphics
+                field, with a concentration in On-Air Promos. Very versatile
+                with an eye for detail unmatched by any. Available to work
+                daytimes, weekends, and evenings.
+              </p>
+              <div class="hourly">
+                <h2>Hourly rate</h2>
+                <span>$10.00</span>
+              </div>
+              <div class="clients-pdd">
+                <h5>Previous Clients</h5>
+                <h6>HBO, Starz, Showtime, AMC, Ford</h6>
+              </div>
+            </figcaption>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="Starz-box2">
+            <div class="starz-bx">
+              <button class="btn btn-fil-color closeing-btn green_btn">
+                <i class="fas fa-envelope"></i>
+              </button>
+              <button class="btn btn-fil-color closeing-btn">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+
+            <div class="Portfolio-slide">
+              <h5>Portfolio</h5>
+              <div class="Portfolio-slider-carousel owl-carousel owl-theme">
+                <div class="item">
+                  <img src="assets/images/slider-port1.png" />
+                </div>
+                <div class="item">
+                  <img src="assets/images/slider-port1.png" />
+                </div>
+                <div class="item">
+                  <img src="assets/images/slider-port1.png" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- .....right 1-sec... -->
+      <!-- .....right 2-sec... -- -->
+      <div class="about-me row">
+        <div class="col-md-9">
+          <div class="Starz-box">
+            <div class="Starz-in">
+              <figure><img src="assets/images/user-editor.png" /></figure>
+              <h3>Jassica .W</h3>
+              <h6>Los Angeles, CA</h6>
+              <button class="btn btn-video">
+                <span><i class="fas fa-play"></i></span>Profile Video
+              </button>
+            </div>
+            <figcaption>
+              <h5>About Me</h5>
+              <p>
+                I have 20 years of experience in the editing and motion graphics
+                field, with a concentration in On-Air Promos. Very versatile
+                with an eye for detail unmatched by any. Available to work
+                daytimes, weekends, and evenings.
+              </p>
+              <div class="hourly">
+                <h2>Hourly rate</h2>
+                <span>$10.00</span>
+              </div>
+              <div class="clients-pdd">
+                <h5>Previous Clients</h5>
+                <h6>HBO, Starz, Showtime, AMC, Ford</h6>
+              </div>
+            </figcaption>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="Starz-box2">
+            <div class="starz-bx">
+              <button class="btn btn-fil-color closeing-btn green_btn">
+                <i class="fas fa-envelope"></i>
+              </button>
+              <button class="btn btn-fil-color closeing-btn">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+
+            <div class="Portfolio-slide">
+              <h5>Portfolio</h5>
+              <div class="Portfolio-slider-carousel owl-carousel owl-theme">
+                <div class="item">
+                  <img src="assets/images/slider-port1.png" />
+                </div>
+                <div class="item">
+                  <img src="assets/images/slider-port1.png" />
+                </div>
+                <div class="item">
+                  <img src="assets/images/slider-port1.png" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- .....right 2-sec... -->
+      <!-- .....right 3-sec... -- -->
+      <div class="about-me row">
+        <div class="col-md-9">
+          <div class="Starz-box">
+            <div class="Starz-in">
+              <figure><img src="assets/images/user-editor.png" /></figure>
+              <h3>Jassica .W</h3>
+              <h6>Los Angeles, CA</h6>
+              <button class="btn btn-video">
+                <span><i class="fas fa-play"></i></span>Profile Video
+              </button>
+            </div>
+            <figcaption>
+              <h5>About Me</h5>
+              <p>
+                I have 20 years of experience in the editing and motion graphics
+                field, with a concentration in On-Air Promos. Very versatile
+                with an eye for detail unmatched by any. Available to work
+                daytimes, weekends, and evenings.
+              </p>
+              <div class="hourly">
+                <h2>Hourly rate</h2>
+                <span>$10.00</span>
+              </div>
+              <div class="clients-pdd">
+                <h5>Previous Clients</h5>
+                <h6>HBO, Starz, Showtime, AMC, Ford</h6>
+              </div>
+            </figcaption>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="Starz-box2">
+            <div class="starz-bx">
+              <button class="btn btn-fil-color closeing-btn green_btn">
+                <i class="fas fa-envelope"></i>
+              </button>
+              <button class="btn btn-fil-color closeing-btn">
+                <i class="fas fa-times"></i>
+              </button>
+            </div>
+
+            <div class="Portfolio-slide">
+              <h5>Portfolio</h5>
+              <div class="Portfolio-slider-carousel owl-carousel owl-theme">
+                <div class="item">
+                  <img src="assets/images/slider-port1.png" />
+                </div>
+                <div class="item">
+                  <img src="assets/images/slider-port1.png" />
+                </div>
+                <div class="item">
+                  <img src="assets/images/slider-port1.png" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- .....right 3-sec... -->
+      <!-- ------pagination-lists------ -->
+      <div class="pagination-lists">
+        <nav aria-label="Page navigation example">
+          <ul class="pagination pagination-circle pg-blue">
+            <li class="page-item">
+              <a class="page-link" aria-label="Previous">
+                <span aria-hidden="true"
+                  ><i class="fas fa-chevron-left"></i
+                ></span>
+                <span class="sr-only">Previous</span>
+              </a>
+            </li>
+            <li class="page-item"><a class="page-link">1</a></li>
+            <li class="page-item"><a class="page-link">2</a></li>
+            <li class="page-item"><a class="page-link">3</a></li>
+            <li class="page-item"><a class="page-link">4</a></li>
+            <li class="page-item active"><a class="page-link">5</a></li>
+            <li class="page-item"><a class="page-link">6</a></li>
+            <li class="page-item"><a class="page-link">7</a></li>
+            <li class="page-item"><a class="page-link">...</a></li>
+            <li class="page-item"><a class="page-link">11</a></li>
+            <li class="page-item">
+              <a class="page-link" aria-label="Next">
+                <span aria-hidden="true"
+                  ><i class="fas fa-chevron-right"></i
+                ></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <!-- ------pagination-lists------ -->
+    </div>
+  </div>
+</div>
+
+<ng-template #bookNowModel>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">PROPOSAL</h5>
+    <button
+      type="number"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="modalRef.hide()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <div class="add-card-pdd">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="v-editor view_line">
+            <div class="editor-sec">
+              <h4>{{ projectInfo?.title }}</h4>
+              <p>
+                {{ projectInfo?.description }}
+              </p>
+            </div>
+            <button
+              class="btn btn-blue"
+              [routerLink]="[
+                '/user/client/project/description/' + Btoa(projectId)
+              ]"
+            >
+              View Project
+            </button>
+          </div>
+        </div>
+        <div class="col-md-12">
+          <div class="contact-fill fill-edit">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Payable Price</label>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">$</div>
+                </div>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="inlineFormInputGroup"
+                  placeholder="100"
+                  [(ngModel)]="projectAmount"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- <div class="col-md-12">
+          <div class="contact-fill fill-edit">
+            <div class="form-group">
+              <label for="exampleInputEmail1">Final Price</label>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text">$</div>
+                </div>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="inlineFormInputGroup"
+                  placeholder="100"
+                  [(ngModel)]="projectFinalAmount"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 reson_hi">
+          <div class="form-group">
+            <label>Project Link</label>
+            <input
+              type="text"
+              name=""
+              class="form-control"
+              placeholder="www.website.com"
+              [(ngModel)]="projectMessage"
+            />
+          </div>
+        </div> -->
+
+        <div class="col-md-12 reson_hi">
+          <div class="form-group">
+            <label>Message</label>
+            <textarea
+              type="text"
+              name=""
+              class="form-control"
+              placeholder=""
+              [(ngModel)]="projectMessage"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="ct-linebt">
+        <button class="btn btn-orange" (click)="projectFinalize()">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+</ng-template>

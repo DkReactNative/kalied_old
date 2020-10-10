@@ -1,0 +1,76 @@
+<app-admin-header [user]="user" [globalSettings]="globalSettings"></app-admin-header>
+<app-admin-sidebar [user]="user" [globalSettings]="globalSettings"></app-admin-sidebar>
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      {{pageTitle}}
+      <small>View</small>
+    </h1>
+  </section>
+
+  <!-- Main content -->
+  <section class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box box-primary">
+          <!-- /.box-header -->
+          <div class="box-body">
+
+            <table class="table">
+            <body>
+            <tr>
+              <td id="td-des">First Name :</td>
+              <td id="td-data">{{ record.first_name }}</td>
+            </tr>
+            <tr>
+              <td id="td-des">Last Name :</td>
+              <td id="td-data">{{ record.last_name }}</td>
+            </tr>
+            <tr>
+              <td id="td-des">Email :</td>
+              <td id="td-data">{{ record.email }}</td>
+            </tr>
+            <tr>
+              <td id="td-des">Bussiness Type :</td>
+              <td id="td-data">{{ record.businesstype==1?'Small Business':'Enterprise Client' }}</td>
+            </tr>
+            <tr>
+              <td id="td-des">Company/Enterprise Name :</td>
+              <td id="td-data">{{ record.companyname }}</td>
+            </tr>
+            <tr>
+              <td id="td-des">Business Summary :</td>
+              <td id="td-data">{{ record.business_summary }}</td>
+            </tr>
+            <tr>
+              <td id="td-des">Appear as :</td>
+              <td id="td-data">{{ record.appearas }}</td>
+            </tr>
+            <tr>
+              <td id="td-des">Address :</td>
+              <td id="td-data">{{ record.address }}</td>
+            </tr>
+            <tr>
+              <td id="td-des">Status :</td>
+              <td id="td-data">{{ (record.status == 1) ? 'Active' : 'Inactive'  }}</td>
+            </tr>
+          </body>
+          </table>
+             
+
+            <div class="row">
+              <div class="box-body text-center">
+                <a class="btn btn-primary" routerLink="/admin/client">Back</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+
+
+<app-admin-footer [globalSettings]="globalSettings"></app-admin-footer>

@@ -1,0 +1,112 @@
+<app-admin-header
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-header>
+<app-admin-sidebar
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-sidebar>
+
+<div class="content-wrapper">
+  <!-- Content Header (Page header) -->
+  <section class="content-header">
+    <h1>
+      {{ pageTitle }}
+      <small>Create</small>
+    </h1>
+  </section>
+  <section class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box box-primary">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <form
+              #newRecordForm="ngForm"
+              (ngSubmit)="
+                !newRecordForm.invalid && newRecordSubmit(newRecordForm.value)
+              "
+            >
+              <div class="form-group has-feedback">
+                <label>Question :</label>
+                <input
+                  [(ngModel)]="newRecordByAdmin.question"
+                  #question="ngModel"
+                  name="question"
+                  minlength="3"
+                  maxlength="200"
+                  required
+                  type="text"
+                  class="form-control"
+                  placeholder="Enter Question"
+                />
+                <div
+                  *ngIf="
+                    (question.invalid &&
+                      (question.dirty || question.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="question.hasError('required')"
+                    >Question is required</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="question.hasError('minlength')"
+                  >
+                    Question must be at least 3 characters long</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="question.hasError('maxlength')"
+                  >
+                    Question can not be max 200 characters long</span
+                  >
+                </div>
+              </div>
+              <div class="form-group has-feedback">
+                <label>Content :</label>
+                <angular-editor
+                  [placeholder]="'Enter Answer'"
+                  [config]="editorConfig"
+                  [(ngModel)]="newRecordByAdmin.answer"
+                  minlength="3"
+                  #answer="ngModel"
+                  name="answer"
+                  required
+                ></angular-editor>
+                <div
+                  *ngIf="
+                    (answer.invalid && (answer.dirty || answer.touched)) ||
+                    newRecordForm.submitted
+                  "
+                >
+                  <span
+                    class="error text-danger"
+                    *ngIf="answer.hasError('required')"
+                    >Answer is required</span
+                  >
+                  <span
+                    class="error text-danger"
+                    *ngIf="answer.hasError('minlength')"
+                  >
+                    Answer must be at least 3 characters long</span
+                  >
+                </div>
+              </div>
+              <div class="form-group">
+                <a class="btn btn-primary" routerLink="/admin/faq">Back</a
+                >&nbsp;
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-admin-footer [globalSettings]="globalSettings"></app-admin-footer>

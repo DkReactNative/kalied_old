@@ -1,0 +1,422 @@
+<div class="inner-wraper inner-hmain-bg">
+  <div class="container">
+    <div class="profile-setting d-flex">
+      <app-profile-side-menu></app-profile-side-menu>
+      <div class="pro-set-right ml-auto">
+        <div class="pro-head-bar">
+          <h4>Account setting</h4>
+        </div>
+        <div class="pro-right-container">
+          <form
+            [formGroup]="formData"
+            autocomplete="off"
+            (ngSubmit)="updateProfile(formData.value)"
+          >
+            <h4 class="sml-head">Basic account details</h4>
+            <div class="sm-photo d-flex">
+              <div class="pro-photo">
+                <figure class="m-0" (click)="triggerFile()">
+                  <div>
+                    <img
+                      id="profile-image"
+                      [src]="profileImage"
+                      style="height: 95px; width: 95px; object-fit: cover"
+                    />
+                  </div>
+                </figure>
+              </div>
+              <a
+                href="javascript:;"
+                class="btn btn-blue text-center-class"
+                data-toggle="modal"
+                data-target="#change-photo"
+                for="file-input"
+                (click)="triggerFile()"
+                >Change Photo
+              </a>
+              <input
+                [hidden]="true"
+                type="file"
+                id="file-input"
+                name="image"
+                accept=".png, .jpg, .jpeg"
+                (change)="uploadFile($event)"
+                style="opacity: 0"
+                value=""
+              />
+            </div>
+            <div class="row mt-4">
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>First Name</label>
+                  <input
+                    type="text"
+                    name=""
+                    class="form-control"
+                    placeholder="First Name"
+                    formControlName="firstName"
+                  />
+                  <span
+                    class="glyphicon glyphicon-envelope form-control-feedback"
+                  ></span>
+                  <div
+                    *ngIf="
+                      formData.controls['firstName'].invalid &&
+                      (formData.controls['firstName'].dirty ||
+                        formData.controls['firstName'].touched ||
+                        formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls['firstName'].errors.required"
+                      >First name is required</span
+                    >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls.firstName.errors?.rangeLength"
+                      >Please enter a name between 1 and 55 characters long.
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Last Name</label>
+                  <input
+                    type="text"
+                    name=" "
+                    class="form-control"
+                    placeholder="Last Name "
+                    formControlName="LastName"
+                  />
+                  <span
+                    class="glyphicon glyphicon-envelope form-control-feedback"
+                  ></span>
+                  <div
+                    *ngIf="
+                      formData.controls['LastName'].invalid &&
+                      (formData.controls['LastName'].dirty ||
+                        formData.controls['LastName'].touched ||
+                        formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls['LastName'].errors.required"
+                      >Last name is required</span
+                    >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls.LastName.errors?.rangeLength"
+                      >Please enter a name between 1 and 55 characters long.
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Email</label>
+                  <input
+                    readonly
+                    type="text"
+                    name=""
+                    class="form-control"
+                    formControlName="email"
+                    disabled
+                  />
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Phone number</label>
+                  <input
+                    type="text"
+                    name=""
+                    class="form-control"
+                    formControlName="phone"
+                    placeholder="Phone Number "
+                  />
+                  <span
+                    class="glyphicon glyphicon-envelope form-control-feedback"
+                  ></span>
+                  <div
+                    *ngIf="
+                      formData.controls['phone'].invalid &&
+                      (formData.controls['phone'].dirty ||
+                        formData.controls['phone'].touched ||
+                        formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls['phone'].errors.required"
+                      >Phone number is required</span
+                    >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls.phone.errors.pattern"
+                      >Please enter number between 8 and 12 numbers long.
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <h4 class="sml-head col-md-12">Basic account details</h4>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Company Name</label>
+                  <input
+                    type="text"
+                    name=""
+                    class="form-control"
+                    formControlName="companyName"
+                    placeholder="Company Name "
+                  />
+                  <span
+                    class="glyphicon glyphicon-envelope form-control-feedback"
+                  ></span>
+                  <div
+                    *ngIf="
+                      formData.controls['companyName'].invalid &&
+                      (formData.controls['companyName'].dirty ||
+                        formData.controls['companyName'].touched ||
+                        formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls['companyName'].errors.required"
+                      >Company Name is required</span
+                    >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls.companyName.errors?.rangeLength"
+                      >Please a name between 1 and 100 characters long.
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Business Summary</label>
+                  <textarea
+                    class="form-control textarea-big"
+                    formControlName="summary"
+                    placeholder="Business Summary"
+                  ></textarea>
+                  <span
+                    class="glyphicon glyphicon-envelope form-control-feedback"
+                  ></span>
+                  <div
+                    *ngIf="
+                      formData.controls['summary'].invalid &&
+                      (formData.controls['summary'].dirty ||
+                        formData.controls['summary'].touched ||
+                        formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls['summary'].errors.required"
+                    >
+                      Business Summary is required</span
+                    >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls.summary.errors?.rangeLength"
+                      >Please enter a value between 1 and 2000 characters long.
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Address</label>
+                  <textarea
+                    class="form-control textarea-big"
+                    name="address1"
+                    #search
+                    formControlName="address"
+                    placeholder="Enter Address "
+                  ></textarea>
+                  <span
+                    class="glyphicon glyphicon-envelope form-control-feedback"
+                  ></span>
+                  <div
+                    *ngIf="
+                      formData.controls['address'].invalid &&
+                      (formData.controls['address'].dirty ||
+                        formData.controls['address'].touched ||
+                        formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls['address'].errors.required"
+                      >Address is required</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="col-md-6">
+                      <div class="form-group">
+                        <label>City</label>
+                        <input type="text" name="" class="form-control" formControlName="city" placeholder="City Name " >
+                        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+                            <div *ngIf="formData.controls['city'].invalid &&
+                            (formData.controls['city'].dirty ||
+                            formData.controls['city'].touched ||
+                              formSubmitAttempt)">
+                                <span class="error text-danger" *ngIf="formData.controls['city'].errors.required">City name is required</span>
+                                <span class="error text-danger" *ngIf="formData.controls.city.errors?.rangeLength">Please enter a name between 1 and 100 characters long. </span>
+                            </div>
+                      </div>
+                    </div> -->
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>State</label>
+                  <input
+                    type="text"
+                    name=""
+                    class="form-control"
+                    formControlName="state"
+                    placeholder="State Name "
+                  />
+                  <span
+                    class="glyphicon glyphicon-envelope form-control-feedback"
+                  ></span>
+                  <div
+                    *ngIf="
+                      formData.controls['state'].invalid &&
+                      (formData.controls['state'].dirty ||
+                        formData.controls['state'].touched ||
+                        formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls['state'].errors.required"
+                      >State name is required</span
+                    >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls.state.errors?.rangeLength"
+                      >Please enter a name between 1 and 100 characters long.
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Zip Code</label>
+                  <input
+                    type="text"
+                    name=""
+                    class="form-control"
+                    formControlName="zipCode"
+                    placeholder="Zip Code "
+                  />
+                  <span
+                    class="glyphicon glyphicon-envelope form-control-feedback"
+                  ></span>
+                  <div
+                    *ngIf="
+                      formData.controls['zipCode'].invalid &&
+                      (formData.controls['zipCode'].dirty ||
+                        formData.controls['zipCode'].touched ||
+                        formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls['zipCode'].errors.required"
+                      >Zip Code is required</span
+                    >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls.zipCode.errors?.rangeLength"
+                      >Please enter a code between 1 and 10 characters long.
+                    </span>
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls.zipCode.errors?.pattern"
+                      >Please enter a valid code
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Country</label>
+                  <input
+                    readonly
+                    type="text"
+                    name=""
+                    class="form-control"
+                    value="Country Name"
+                    formControlName="country"
+                    placeholder="Country Name "
+                    disabled
+                  />
+                  <span
+                    class="glyphicon glyphicon-envelope form-control-feedback"
+                  ></span>
+                  <div
+                    *ngIf="
+                      formData.controls['country'].invalid &&
+                      (formData.controls['country'].dirty ||
+                        formData.controls['country'].touched ||
+                        formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls['country'].errors.required"
+                      >Country name is required</span
+                    >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls.country.errors?.rangeLength"
+                      >Please enter a name between 1 and 55 characters long.
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label>Website</label>
+                  <input
+                    type="text"
+                    name=""
+                    class="form-control"
+                    value="www.crownsvideo.com"
+                    formControlName="website"
+                    placeholder="Website Name "
+                  />
+                  <span
+                    class="glyphicon glyphicon-envelope form-control-feedback"
+                  ></span>
+                  <div
+                    *ngIf="
+                      formData.controls['website'].invalid &&
+                      (formData.controls['website'].dirty ||
+                        formData.controls['website'].touched ||
+                        formSubmitAttempt)
+                    "
+                  >
+                    <span
+                      class="error text-danger"
+                      *ngIf="formData.controls.website.errors?.pattern"
+                      >Please enter a valid URL.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-orange">UPDATE</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

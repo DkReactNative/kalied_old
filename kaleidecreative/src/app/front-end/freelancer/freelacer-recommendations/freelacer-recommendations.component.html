@@ -1,0 +1,392 @@
+<div class="inner-wraper inner-hmain-bg">
+  <div class="container">
+    <div class="profile-setting d-flex">
+      <app-freelancer-side-menu style="width: 30%"></app-freelancer-side-menu>
+      <div class="pro-set-right ml-auto">
+        <div class="review-box">
+          <h4>Recommendations</h4>
+          <div class="review-btt">
+            <button
+              class="btn btn-yellow"
+              data-toggle="modal"
+              data-target="#add-recommend"
+            >
+              Add recommendations
+            </button>
+          </div>
+        </div>
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+        <div
+          *ngIf="
+            formData.controls['recommendations'].invalid &&
+            (formData.controls['recommendations'].dirty ||
+              formData.controls['recommendations'].touched ||
+              formSubmitAttempt ||
+              clientSubmitAttempt)
+          "
+        >
+          <span
+            class="error text-danger"
+            *ngIf="formData.controls['recommendations'].errors"
+            >This field is required</span
+          >
+        </div>
+        <div class="pro-right-container bacim_pdd30 display-flex">
+          <div
+            class="add_recomend"
+            *ngFor="
+              let client of formData.get('recommendations')['value'];
+              let i = index;
+              let first = first;
+              let last = last
+            "
+            [hidden]="
+              !client.company &&
+              !client.referenceName &&
+              !client.recommendationText
+            "
+          >
+            <ng-container
+              *ngIf="
+                client.company &&
+                client.referenceName &&
+                client.recommendationText
+              "
+            >
+              <div class="in_recomend">
+                <h4>{{ client.company }}</h4>
+                <p>
+                  {{ client.referenceName }}<span> | </span>{{ client.email }}
+                </p>
+                <p>{{ client.recommendationText }}</p>
+                <!-- <a href="#">https://www.lipsum.com/</a> -->
+              </div>
+              <div class="d-flex">
+                <button
+                  class="btn btn-fil-color edit-btn"
+                  data-toggle="modal"
+                  data-target="#add-recommend"
+                  (click)="editClient(i)"
+                >
+                  <label for="file"
+                    ><i class="fas fa-edit" style="cursor: pointer"></i
+                  ></label>
+                </button>
+                <button
+                  class="btn btn-fil-color closeing-btn"
+                  *ngIf="!(last && first)"
+                  (click)="removeClient(i)"
+                >
+                  <i class="fas fa-times"></i>
+                </button>
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="setup_btt align-self-end">
+            <!--  <button type="button" href="javascript:;" class="btn btn-gry" [routerLink]="['/user/freelancer/set-up/3']">Back</button> -->
+            <button
+              type="submit"
+              href="javascript:;"
+              class="btn btn-orange"
+              (click)="onClickSubmit(formData.value)"
+            >
+              Update
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL CODE -->
+<div
+  class="modal fade modal-comman"
+  id="add-recommend"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Recommendations</h5>
+        <button
+          type="button"
+          class="close"
+          id="myBtn2"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form
+        class="form-horizontal"
+        role="form"
+        [formGroup]="formData"
+        (ngSubmit)="onClickSubmit(formData.value)"
+      >
+        <div
+          class="modal-body"
+          formArrayName="recommendations"
+          *ngFor="let client of clientControls; let i = index"
+        >
+          <div class="add-card-pdd recommend_pdd1" [formGroupName]="editIndex">
+            <div class="recommend_box">
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  type="radio"
+                  class="custom-control-input"
+                  id="newreco"
+                  name="type"
+                  formControlName="type"
+                  [checked]="client.controls['type'].value == 2"
+                />
+                <label
+                  class="custom-control-label"
+                  for="newreco"
+                  (click)="selectType(2, i)"
+                  >New Recommendation</label
+                >
+              </div>
+              <div class="custom-control custom-radio custom-control-inline">
+                <input
+                  type="radio"
+                  class="custom-control-input"
+                  id="newlin"
+                  name="type"
+                  formControlName="type"
+                  [checked]="client.controls['type'].value == 1"
+                />
+                <label
+                  class="custom-control-label"
+                  for="newlin"
+                  (click)="selectType(1, i)"
+                  >LinkedIn Recommendations</label
+                >
+              </div>
+            </div>
+            <div class="tab-content" id="pills-tabContent">
+              <div
+                class="tab-pane fade show active"
+                id="pills-home"
+                role="tabpanel"
+                aria-labelledby="pills-home-tab"
+              >
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Name of Reference</label>
+                      <input
+                        type="text"
+                        name=""
+                        class="form-control"
+                        formControlName="referenceName"
+                      />
+                      <span
+                        class="glyphicon glyphicon-envelope form-control-feedback"
+                      ></span>
+                      <div
+                        *ngIf="
+                          client.controls.referenceName.invalid &&
+                          (client.controls.referenceName.dirty ||
+                            client.controls.referenceName.touched ||
+                            formSubmitAttempt ||
+                            clientSubmitAttempt)
+                        "
+                      >
+                        <span
+                          class="error text-danger"
+                          *ngIf="client.controls.referenceName.errors.required"
+                          >This field is required</span
+                        >
+                        <span
+                          class="error text-danger"
+                          *ngIf="
+                            client.controls.referenceName.errors.rangeLength
+                          "
+                          >Then name should be 1 to 55 characters long</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Position</label>
+                      <input
+                        type="text"
+                        name=""
+                        class="form-control"
+                        value=""
+                        formControlName="position"
+                      />
+                      <span
+                        class="glyphicon glyphicon-envelope form-control-feedback"
+                      ></span>
+                      <div
+                        *ngIf="
+                          client.controls.position.invalid &&
+                          (client.controls.position.dirty ||
+                            client.controls.position.touched ||
+                            formSubmitAttempt ||
+                            clientSubmitAttempt)
+                        "
+                      >
+                        <span
+                          class="error text-danger"
+                          *ngIf="client.controls.position.errors.required"
+                          >This field is required</span
+                        >
+                        <span
+                          class="error text-danger"
+                          *ngIf="client.controls.position.errors.rangeLength"
+                          >Then name should be 1 to 55 characters long</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Company</label>
+                      <input
+                        type="text"
+                        name=""
+                        class="form-control"
+                        formControlName="company"
+                      />
+                      <span
+                        class="glyphicon glyphicon-envelope form-control-feedback"
+                      ></span>
+                      <div
+                        *ngIf="
+                          client.controls.company.invalid &&
+                          (client.controls.company.dirty ||
+                            client.controls.company.touched ||
+                            formSubmitAttempt ||
+                            clientSubmitAttempt)
+                        "
+                      >
+                        <span
+                          class="error text-danger"
+                          *ngIf="client.controls.company.errors.required"
+                          >This field is required</span
+                        >
+                        <span
+                          class="error text-danger"
+                          *ngIf="client.controls.company.errors.rangeLength"
+                          >Then name should be 1 to 55 characters long</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Recommendation Text</label>
+                      <textarea
+                        name=""
+                        class="form-control"
+                        formControlName="recommendationText"
+                      ></textarea>
+                      <span
+                        class="glyphicon glyphicon-envelope form-control-feedback"
+                      ></span>
+                      <div
+                        *ngIf="
+                          client.controls.recommendationText.invalid &&
+                          (client.controls.recommendationText.dirty ||
+                            client.controls.recommendationText.touched ||
+                            formSubmitAttempt ||
+                            clientSubmitAttempt)
+                        "
+                      >
+                        <span
+                          class="error text-danger"
+                          *ngIf="
+                            client.controls.recommendationText.errors.required
+                          "
+                          >This field is required</span
+                        >
+                        <span
+                          class="error text-danger"
+                          *ngIf="
+                            client.controls.recommendationText.errors
+                              .rangeLength
+                          "
+                          >Then text should be 1 to 1000 characters long</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <div class="col-md-12">
+                    <div class="form-group">
+                      <label>Profile Url</label>
+                      <input
+                        type="text"
+                        name=""
+                        class="form-control"
+                        formControlName="url"
+                      />
+                    </div>
+                  </div> -->
+                  <div
+                    class="col-md-12"
+                    *ngIf="client.controls['type'].value == 2"
+                  >
+                    <div class="form-group">
+                      <label>Referrer's email address</label>
+                      <input
+                        type="text"
+                        name=""
+                        class="form-control"
+                        formControlName="email"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Email address is for reference verification. Internal use only."
+                      />
+                      <span
+                        class="glyphicon glyphicon-envelope form-control-feedback"
+                      ></span>
+                      <div
+                        *ngIf="
+                          client.controls.email.invalid &&
+                          (client.controls.email.dirty ||
+                            client.controls.email.touched ||
+                            formSubmitAttempt ||
+                            clientSubmitAttempt)
+                        "
+                      >
+                        <span
+                          class="error text-danger"
+                          *ngIf="client.controls.email.errors.required"
+                          >This field is required</span
+                        >
+                        <span
+                          class="error text-danger"
+                          *ngIf="client.controls.email.errors.pattern"
+                          >Please enter valid email</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="recoo_org">
+                  <button
+                    type="button"
+                    id="myBtn"
+                    class="btn btn-orange"
+                    (click)="addClient(client)"
+                  >
+                    {{ isEdit == true ? "Update" : "ADD" }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

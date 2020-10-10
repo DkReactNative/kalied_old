@@ -1,0 +1,472 @@
+<app-admin-header
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-header>
+<app-admin-sidebar
+  [user]="user"
+  [globalSettings]="globalSettings"
+></app-admin-sidebar>
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      {{ pageTitle }}
+      <small>View</small>
+    </h1>
+  </section>
+
+  <!-- Main content -->
+  <section class="container">
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="box box-primary">
+          <!-- /.box-header -->
+          <div class="box-body">
+            <table class="table">
+              <body *ngIf="record && record.result">
+                <tr *ngIf="record && record.result && record.result.image">
+                  <td id="td-des">Photo:</td>
+                  <td>
+                    <img
+                      class="profile-user-img img-responsive img-circle"
+                      src="{{ global.uploadUrl }}user/{{ record.result.image }}"
+                      alt="profile"
+                    />
+                    <img
+                      *ngIf="!record.result.image"
+                      class="profile-user-img img-responsive img-circle"
+                      src="assets/images/dummy_user.png"
+                      alt="User profile picture"
+                    />
+                  </td>
+                </tr>
+
+                <tr *ngIf="record.result.first_name">
+                  <td id="td-des">First Name :</td>
+                  <td id="td-data">
+                    {{ record.result.first_name }}
+                  </td>
+                </tr>
+                <tr *ngIf="record.result.last_name">
+                  <td id="td-des">Last Name :</td>
+                  <td id="td-data">{{ record.result.last_name }}</td>
+                </tr>
+                <tr *ngIf="record.result.email">
+                  <td id="td-des">Email :</td>
+                  <td id="td-data">{{ record.result.email }}</td>
+                </tr>
+                <tr *ngIf="record.result.freelancer_type">
+                  <td id="td-des">Freelancer Type :</td>
+                  <td id="td-data">
+                    {{
+                      record.result.freelancer_type == 1
+                        ? "Graphic Designer"
+                        : "Editor"
+                    }}
+                  </td>
+                </tr>
+                <tr *ngIf="record.result.aboutme">
+                  <td id="td-des">About Me:</td>
+                  <td id="td-data">{{ record.result.aboutme }}</td>
+                </tr>
+                <tr *ngIf="record.result.birthdate">
+                  <td id="td-des">BirthYear:</td>
+                  <td id="td-data">{{ record.result.birthdate }}</td>
+                </tr>
+                <tr *ngIf="record.result.address">
+                  <td id="td-des">Address :</td>
+                  <td id="td-data">{{ record.result.address }}</td>
+                </tr>
+                <tr *ngIf="record.result.travel_distance">
+                  <td id="td-des">Travel Distance:</td>
+                  <td id="td-data">
+                    {{ record.result.travel_distance }} Miles
+                  </td>
+                </tr>
+
+                <tr *ngIf="record.result.english_proficiency">
+                  <td id="td-des">English Proficiency:</td>
+                  <td id="td-data">
+                    {{
+                      constant.english_proficiency[
+                        record.result.english_proficiency
+                      ]
+                    }}
+                  </td>
+                </tr>
+                <tr *ngIf="record.result.gender">
+                  <td id="td-des">Gender :</td>
+                  <td id="td-data">
+                    {{ record.result.gender == 1 ? "Male" : "Female" }}
+                  </td>
+                </tr>
+                <tr *ngIf="record.result.orientation">
+                  <td id="td-des">Orientation:</td>
+                  <td id="td-data">
+                    {{ record.result.orientation == 1 ? "Yes" : "No" }}
+                  </td>
+                </tr>
+                <tr *ngIf="record.result.ethnicity > 0">
+                  <td id="td-des">Ethinicity:</td>
+                  <td id="td-data">
+                    <span
+                      *ngFor="
+                        let ethnicity1 of record.result.ethnicity;
+                        let i = index
+                      "
+                    >
+                      {{ constant.ethnicity[ethnicity1]
+                      }}{{
+                        i != record.result.ethnicity.length - 1 ? ", " : ""
+                      }}</span
+                    >
+                  </td>
+                </tr>
+                <tr *ngIf="record.result.disabilities">
+                  <td id="td-des">Disabilities:</td>
+                  <td id="td-data">
+                    {{ record.result.disabilities == 1 ? "Yes" : "No" }}
+                  </td>
+                </tr>
+                <tr *ngIf="record.result.availability">
+                  <td id="td-des">Availability:</td>
+                  <td id="td-data">
+                    {{ constant.availability[record.result.availability] }}
+                  </td>
+                </tr>
+                <tr *ngIf="record.result.phoneno">
+                  <td id="td-des">Phone No:</td>
+                  <td id="td-data">{{ record.result.phoneno }}</td>
+                </tr>
+                <tr *ngIf="record.result.linkedin_url">
+                  <td id="td-des">LinkedIn Url:</td>
+                  <td id="td-data">{{ record.result.linkedin_url }}</td>
+                </tr>
+                <tr *ngIf="record.result.website">
+                  <td id="td-des">Website Url:</td>
+                  <td id="td-data">{{ record.result.website }}</td>
+                </tr>
+
+                <tr *ngIf="record.result.status">
+                  <td id="td-des">Status :</td>
+                  <td id="td-data">
+                    {{ record.result.status == 1 ? "Active" : "Inactive" }}
+                  </td>
+                </tr>
+                <tr *ngIf="record.result.primary_skill_data > 0">
+                  <td id="td-des">Primary Skills:</td>
+                  <td id="td-data">
+                    <span
+                      *ngFor="
+                        let skill of record.result.primary_skill_data;
+                        let i = index
+                      "
+                      >{{ skill.name }}
+                      {{
+                        i != record.result.primary_skill_data.length - 1
+                          ? ", "
+                          : ""
+                      }}
+                    </span>
+                  </td>
+                </tr>
+                <tr *ngIf="record.result.secondary_skill_data > 0">
+                  <td id="td-des">Secondary Skills:</td>
+                  <td id="td-data">
+                    <span
+                      *ngFor="
+                        let skill of record.result.secondary_skill_data;
+                        let i = index
+                      "
+                      >{{ skill.name
+                      }}{{
+                        i != record.result.secondary_skill_data.length - 1
+                          ? ", "
+                          : ""
+                      }}</span
+                    >
+                  </td>
+                </tr>
+                <tr *ngIf="record.result.graphic_specialities_data > 0">
+                  <td id="td-des">Graphic Specialities:</td>
+                  <td id="td-data">
+                    <span
+                      *ngFor="
+                        let skill of record.result.graphic_specialities_data;
+                        let i = index
+                      "
+                      >{{ skill.name
+                      }}{{
+                        i != record.result.graphic_specialities_data.length - 1
+                          ? ", "
+                          : ""
+                      }}</span
+                    >
+                  </td>
+                </tr>
+                <tr *ngIf="record.result.editing_style_data > 0">
+                  <td id="td-des">Editing Style:</td>
+                  <td id="td-data">
+                    <span
+                      *ngFor="
+                        let skill of record.result.editing_style_data;
+                        let i = index
+                      "
+                      >{{ skill.name
+                      }}{{
+                        i != record.result.editing_style_data.length - 1
+                          ? ", "
+                          : ""
+                      }}</span
+                    >
+                  </td>
+                </tr>
+                <tr *ngIf="record.result.awards_data > 0">
+                  <td id="td-des">Awards:</td>
+                  <td id="td-data">
+                    <span
+                      *ngFor="
+                        let skill of record.result.awards_data;
+                        let i = index
+                      "
+                      >{{ skill.name
+                      }}{{
+                        i != record.result.awards_data.length - 1 ? ", " : ""
+                      }}</span
+                    >
+                  </td>
+                </tr>
+                <tr *ngIf="record.result.expertise_level_data.length > 0">
+                  <td id="td-des">Experience Level:</td>
+                  <td id="td-data">
+                    <span>
+                      {{
+                        constant.experience_level[
+                          record.result.expertise_level_data[0].experience_level
+                        ]
+                      }}</span
+                    >
+                  </td>
+                </tr>
+                <tr *ngIf="record.result.expertise_level_data.length > 0">
+                  <td id="td-des">Experience Year:</td>
+                  <td id="td-data">
+                    <span
+                      *ngFor="let skill of record.result.expertise_level_data"
+                    >
+                      {{ skill.experience_year }} Year</span
+                    >
+                  </td>
+                </tr>
+                <tr *ngIf="record.result.expertise_level_data.length > 0">
+                  <td id="td-des">Hourly Rate:</td>
+                  <td id="td-data">
+                    <span
+                      *ngFor="let skill of record.result.expertise_level_data"
+                    >
+                      {{ skill.hourly_rate }} $</span
+                    >
+                  </td>
+                </tr>
+                <tr *ngIf="record.result.expertise_level_data.length > 0">
+                  <td id="td-des">Minimum Fixed Price:</td>
+                  <td id="td-data">
+                    <span
+                      *ngFor="let skill of record.result.expertise_level_data"
+                    >
+                      {{ skill.minimum_fixed_price }} $</span
+                    >
+                  </td>
+                </tr>
+              </body>
+            </table>
+            <ng-container>
+              <div
+                class="clients"
+                *ngIf="record?.result.previous_client_data.length > 0"
+              >
+                <h2>Previous Clients</h2>
+                <table class="table table-hover table-responsive">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Client Name</th>
+                      <th>Role</th>
+                      <th>Worked As</th>
+                      <th>Start Date</th>
+                      <th>End Date</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let skill of record.result.previous_client_data"
+                    >
+                      <td>
+                        <span> {{ skill.client_name }}</span>
+                      </td>
+                      <td>
+                        <span> {{ skill.role }}</span>
+                      </td>
+                      <td>
+                        <span> {{ skill.workedAs }}</span>
+                      </td>
+                      <td>
+                        <span> {{ skill.start_date }}</span>
+                      </td>
+                      <td>
+                        <span> {{ skill.end_date }}</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </ng-container>
+
+            <div
+              class="recommendation"
+              *ngIf="record?.result.recommendation_data.length > 0"
+            >
+              <h2>Recommendation</h2>
+              <table class="table table-hover table-responsive">
+                <thead class="table-light">
+                  <tr>
+                    <th scope="col">Reference Name</th>
+                    <th>Type</th>
+                    <th>Position</th>
+                    <th>Profile Url</th>
+                    <th>Refer's Email</th>
+                    <th>Company</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container>
+                    <tr
+                      *ngFor="let skill of record?.result.recommendation_data"
+                    >
+                      <td>
+                        <span> {{ skill.reference_name }}</span>
+                      </td>
+                      <td>
+                        <span>
+                          {{
+                            skill.type == 1
+                              ? "LinkedIn Recommendation"
+                              : "New Recommendation"
+                          }}</span
+                        >
+                      </td>
+                      <td>
+                        <span> {{ skill.positions }}</span>
+                      </td>
+                      <td>
+                        <span> {{ skill.url }}</span>
+                      </td>
+                      <td>
+                        <span> {{ skill.email }}</span>
+                      </td>
+                      <td>
+                        <span> {{ skill.company }}</span>
+                      </td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+            <div
+              class="project"
+              *ngIf="record?.result.portfolio_data.length > 0"
+            >
+              <h2>PortFolio</h2>
+              <table class="table table-hover table-responsive">
+                <thead class="table-light">
+                  <tr>
+                    <th class="text-center">Video</th>
+                    <th>Client Name</th>
+                    <th class="text-center">Project Name</th>
+                    <th class="text-center">Tags</th>
+                    <th class="text-center">Project Type</th>
+                    <th class="text-center">Industry Type</th>
+                    <th class="text-center">General Type</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <ng-container>
+                    <tr *ngFor="let skill of record?.result.portfolio_data">
+                      <td>
+                        <figure data-toggle="modal" data-target="#myModal">
+                          <img
+                            width="70px"
+                            class="img-responsive"
+                            src="{{ skill.thumb_image }}"
+                            (click)="url(skill.video_url)"
+                          />
+                        </figure>
+                      </td>
+
+                      <td>
+                        <span>{{ skill.client_name }}</span>
+                      </td>
+                      <td>
+                        <span>{{ skill.project_name }}</span>
+                      </td>
+                      <td>
+                        <span>{{ skill.tags }}</span>
+                      </td>
+                      <td>
+                        {{ projecttype[skill.project_type] }}
+                      </td>
+                      <td>
+                        {{ industrytype[skill.industry] }}
+                      </td>
+
+                      <td>
+                        {{ generaltype[skill.genre] }}
+                      </td>
+                    </tr>
+                  </ng-container>
+                </tbody>
+              </table>
+            </div>
+            <div class="row">
+              <div class="box-body text-center">
+                <a class="btn btn-primary" routerLink="/admin/freelancer"
+                  >Back</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- /.content -->
+</div>
+
+<app-admin-footer [globalSettings]="globalSettings"></app-admin-footer>
+
+<!-- video pop up model -->
+
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">{{ title }}</h4>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+      <div class="modal-body text-white">
+        <iframe
+          [src]="getVimeoId(dynamicUrl)"
+          height="500px"
+          width="700px"
+          title="portfolio"
+        ></iframe>
+      </div>
+
+      <!-- Modal footer -->
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="hide()">Close</button>
+      </div> -->
+    </div>
+  </div>
+</div>

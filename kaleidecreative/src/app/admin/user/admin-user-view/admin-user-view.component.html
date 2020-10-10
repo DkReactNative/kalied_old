@@ -1,0 +1,62 @@
+<app-admin-header [user]="user" [globalSettings]="globalSettings"></app-admin-header>
+<app-admin-sidebar [user]="user" [globalSettings]="globalSettings"></app-admin-sidebar>
+
+<div class="content-wrapper">
+  <section class="content-header">
+    <h1>
+      {{pageTitle}}
+      <small>View</small>
+    </h1>
+  </section>
+
+	<!-- Main content -->
+	<section class="content">
+		<div class="row">
+			<div class="col-xs-12">
+				<div class="box box-primary">
+					<!-- /.box-header -->
+					<div class="box-body">
+						<div class="row">
+							<div class="box-body">
+								<label class="col-md-3">Name :</label>
+								<div class="col-md-9">{{ record.name }}</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="box-body">
+								<label class="col-md-3">Email :</label>
+								<div class="col-md-9">{{ record.email }}</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="box-body">
+								<label class="col-md-3">Image :</label>
+								<div class="col-md-9">
+                  <img *ngIf="record.image" class="img-responsive img-circle"
+                    src="{{data.base_image_url}}{{record.image}}" alt="User profile picture" style="height:100px;">
+                  <img *ngIf="!record.image" class="img-responsive img-circle" src="{{data.dummy_image_url}}"
+                    alt="User profile picture" style="height:100px;">
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="box-body">
+								<label class="col-md-3">Status :</label>
+								<div class="col-md-9">{{ (record.status == 1) ? 'Active' : 'Inactive' }}</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="box-body text-center">
+								<a class="btn btn-primary" routerLink="/admin/{{pageSlug}}">Back</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<!-- /.content -->
+</div>
+
+
+<app-admin-footer [globalSettings]="globalSettings"></app-admin-footer>

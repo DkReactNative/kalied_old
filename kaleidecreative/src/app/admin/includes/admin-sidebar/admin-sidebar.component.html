@@ -1,0 +1,191 @@
+<!-- Left side column. contains the logo and sidebar -->
+<aside class="main-sidebar">
+  <!-- sidebar: style can be found in sidebar.less -->
+  <section class="sidebar">
+    <!-- Sidebar user panel -->
+    <div class="user-panel">
+      <div class="pull-left image">
+        <img
+          *ngIf="user.image"
+          src="{{ globals.uploadUrl }}user/{{ user.image }}"
+          class="img-circle"
+          alt="{{ user.name }}"
+        />
+        <img
+          *ngIf="!user.image"
+          src="assets/admin/images/dummy_user.png"
+          class="img-circle"
+          alt="{{ user.name }}"
+        />
+      </div>
+
+      <div class="pull-left info">
+        <p>{{ user.name }}</p>
+        <!-- <a href="javascript:void(0);"><i class="fa fa-circle text-success"></i> Online</a> -->
+      </div>
+    </div>
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="sidebar-menu" data-widget="tree">
+      <li
+        class=""
+        [ngClass]="{
+          active:
+            !urlSlug[2] ||
+            urlSlug[2] == '' ||
+            dashboardUrls.includes(urlSlug[2])
+        }"
+      >
+        <a routerLink="/admin"
+          ><i class="fa fa-dashboard" (click)="updateIndex()"></i>
+          <span>Dashboard</span></a
+        >
+      </li>
+      <li
+        class="treeview link-pointer"
+        [ngClass]="{
+          active:
+            urlSlug[2] && (urlSlug[2] == 'client' || urlSlug[2] == 'freelancer')
+        }"
+      >
+        <a href="javascript:;">
+          <i class="fa fa-users"></i>
+          <span>Users</span>
+          <span class="pull-right-container pull-right"> </span>
+        </a>
+        <ul class="treeview-menu">
+          <li
+            [ngClass]="{
+              active: urlSlug[2] && urlSlug[2] == 'client' && !urlSlug[3]
+            }"
+          >
+            <a routerLink="/admin/client" (click)="updateIndex()"
+              ><i class="fa fa-circle-o"></i> Clients</a
+            >
+          </li>
+          <li
+            [ngClass]="{
+              active: urlSlug[2] && urlSlug[2] == 'freelancer' && !urlSlug[3]
+            }"
+          >
+            <a routerLink="/admin/freelancer" (click)="updateIndex()"
+              ><i class="fa fa-circle-o"></i> Freelancers</a
+            >
+          </li>
+        </ul>
+      </li>
+      <li
+        class=""
+        [ngClass]="{ active: urlSlug[2] && urlSlug[2] == 'project' }"
+      >
+        <a routerLink="/admin/project" (click)="updateIndex()"
+          ><i class="fa fa-envelope"></i><span>Project</span></a
+        >
+      </li>
+      <!-- <li class="" [ngClass]="{'active': ( urlSlug[2] && (urlSlug[2] == 'user') ) }"><a routerLink="/admin/user"><i class="fa fa-users"></i> <span>Users Management</span></a></li> -->
+      <!-- <li class="" [ngClass]="{'active': ( urlSlug[2] &&  (urlSlug[2] == 'portfolio'))}"><a routerLink="/admin/portfolio" (click)="updateIndex()"><i class="fa fa-envelope"></i><span>Portfolio</span></a></li> -->
+      <li
+        class=""
+        [ngClass]="{ active: urlSlug[2] && urlSlug[2] == 'cmspage' }"
+      >
+        <a routerLink="/admin/cmspage" (click)="updateIndex()"
+          ><i class="fa fa-file"></i> <span>CMS Pages</span></a
+        >
+      </li>
+      <li
+        class=""
+        [ngClass]="{ active: urlSlug[2] && urlSlug[2] == 'emailtemplate' }"
+      >
+        <a routerLink="/admin/emailtemplate" (click)="updateIndex()"
+          ><i class="fa fa-envelope"></i><span>Email Templates</span></a
+        >
+      </li>
+      <li
+        class=""
+        [ngClass]="{ active: urlSlug[2] && urlSlug[2] == 'about-us' }"
+      >
+        <a routerLink="/admin/about-us" (click)="updateIndex()"
+          ><i class="fa fa-info-circle"></i><span>About Us</span></a
+        >
+      </li>
+      <li
+        class=""
+        [ngClass]="{ active: urlSlug[2] && urlSlug[2] == 'contact-us' }"
+      >
+        <a routerLink="/admin/contact-us" (click)="updateIndex()"
+          ><i class="fa fa-id-card-alt"></i><span>Contact Us</span></a
+        >
+      </li>
+      <li class="" [ngClass]="{ active: urlSlug[2] && urlSlug[2] == 'faq' }">
+        <a routerLink="/admin/faq" (click)="updateIndex()"
+          ><i class="fa fa-question-circle"></i> <span>Faqs</span></a
+        >
+      </li>
+      <li
+        class=""
+        [ngClass]="{
+          active: urlSlug[2] && urlSlug[2] == 'creative-professionls'
+        }"
+      >
+        <a routerLink="/admin/creative-professionls" (click)="updateIndex()"
+          ><i class="fa fa-user"></i> <span>Creative Professional</span></a
+        >
+      </li>
+      <li
+        class=""
+        [ngClass]="{ active: urlSlug[2] && urlSlug[2] == 'tierclients' }"
+      >
+        <a routerLink="/admin/tierclients" (click)="updateIndex()"
+          ><i class="fa fa-user"></i> <span>Top Tier Clients</span></a
+        >
+      </li>
+      <!-- <li class="" [ngClass]="{'active': ( urlSlug[2] && (urlSlug[2] == 'offer') ) }"><a routerLink="/admin/offer"><i class="fa fa-list-alt"></i> <span>Offers Management</span></a></li> -->
+      <li
+        class=""
+        [ngClass]="{ active: urlSlug[2] && urlSlug[2] == 'how-it-works' }"
+      >
+        <a routerLink="/admin/how-it-works"
+          ><i class="fa fa-tasks"></i><span>How It Works</span></a
+        >
+      </li>
+      <!--
+  <li class="treeview" [ngClass]="{'active': ( urlSlug[2] && (urlSlug[2] == 'cmspage') ) }">
+    <a href="javascript:void(0);">
+      <i class="fa fa-list-alt"></i>
+      <span>CMS Pages Management</span>
+      <span class="pull-right-container">
+      </span>
+    </a>
+    <ul class="treeview-menu">
+      <li [ngClass]="{'active': ( urlSlug[2] && (urlSlug[2] == 'cmspage') && (!urlSlug[3]) ) }"><a routerLink="/admin/cmspage"><i class="fa fa-circle-o"></i> CMS Pages</a></li>
+      <li [ngClass]="{'active': ( urlSlug[2] && (urlSlug[2] == 'cmspage') && (urlSlug[3] == 'create') ) }"><a routerLink="/admin/cmspage/create"><i class="fa fa-circle-o"></i> Create</a></li>
+    </ul>
+  </li> -->
+      <li
+        class=""
+        [ngClass]="{ active: urlSlug[2] && urlSlug[2] == 'global_settings' }"
+      >
+        <a routerLink="/admin/global_settings" (click)="updateIndex()"
+          ><i class="fa fa-gear"></i> <span>Global Settings</span></a
+        >
+      </li>
+      <!--
+  <li class="treeview">
+    <a href="javascript:void(0);">
+      <i class="fa fa-files-o"></i>
+      <span>Layout Options</span>
+      <span class="pull-right-container">
+      <span class="label label-primary pull-right">4</span>
+      </span>
+    </a>
+    <ul class="treeview-menu">
+      <li><a href="pages/layout/top-nav.html"><i class="fa fa-circle-o"></i> Top Navigation</a></li>
+      <li><a href="pages/layout/boxed.html"><i class="fa fa-circle-o"></i> Boxed</a></li>
+      <li><a href="pages/layout/fixed.html"><i class="fa fa-circle-o"></i> Fixed</a></li>
+      <li><a href="pages/layout/collapsed-sidebar.html"><i class="fa fa-circle-o"></i> Collapsed Sidebar</a></li>
+    </ul>
+  </li>
+  -->
+    </ul>
+  </section>
+  <!-- /.sidebar -->
+</aside>

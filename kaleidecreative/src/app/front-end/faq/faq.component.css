@@ -1,0 +1,26 @@
+.faq-answer p{
+	font-size: 14px important;
+    color: #fff important;
+    margin-bottom: 0px important;
+    padding-bottom: 30px important;
+    font-weight: 400 important;
+    text-align: justify important;
+}
+
+.faq-answer p > span {
+   font-size: 14px important;
+    color: #fff important;
+    margin-bottom: 0px important;
+    padding-bottom: 30px important;
+    font-weight: 400 important;
+    text-align: justify important;
+}
+
+.faq-answer > font {
+	font-size: 14px important;
+    color: #fff important;
+    margin-bottom: 0px important;
+    padding-bottom: 30px important;
+    font-weight: 400 important;
+    text-align: justify important;
+}
